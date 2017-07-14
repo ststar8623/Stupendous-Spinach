@@ -1,9 +1,13 @@
 {
   "name": "course.thesis",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.11.1"
+  },
   "scripts": {
     "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
-    "start": "nodemon server",
+    "server-dev": "nodemon server",
+    "start": "node server/index.js",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch"
   },
