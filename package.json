@@ -5,8 +5,7 @@
     "node": "6.11.1"
   },
   "scripts": {
-    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
-    "heroku-postbuild": "webpack -d --watch",
+    "heroku-postbuild": "./node_modules/.bin/webpack -p --config ./webpack.config.babel.js --progress",
     "dev-start": "nodemon server",
     "start": "node server/index.js",
     "test": "NODE_ENV=test grunt test",
@@ -39,9 +38,7 @@
     "pg": "^6.1.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "redis": "^2.7.1"
-  },
-  "devDependencies": {
+    "redis": "^2.7.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "babel-preset-latest": "^6.24.0",
@@ -55,6 +52,9 @@
     "supertest": "^3.0.0",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
+  },
+  "devDependencies": {
+ 
   },
   "babel": {
     "plugins": [
