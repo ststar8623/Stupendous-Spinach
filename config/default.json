@@ -31,7 +31,7 @@
     "Facebook": {
       "clientID": "1643339879010831",
       "clientSecret": "b16dae527537cf28efd1b02edec57909",
-      "callbackURL": "localhost:3000/auth/facebook/callback"
+      "callbackURL": "http://localhost:3000"
     },
     "Twitter": {}
   }
