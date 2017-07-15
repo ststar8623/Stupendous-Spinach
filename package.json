@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
-    "start": "nodemon server",
+    "heroku-postbuild": "webpack -d --watch",
+    "dev-start": "nodemon server",
+    "start": "node server/index.js",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch"
   },
@@ -19,6 +21,7 @@
     "connect-flash": "^0.1.1",
     "connect-redis": "^3.2.0",
     "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
     "express-session": "^1.15.1",

@@ -23,7 +23,11 @@
 
   "passport": {
     "Google": {},
-    "Facebook": {},
+    "Facebook": {
+      "clientID": "1643339879010831",
+      "clientSecret": "b16dae527537cf28efd1b02edec57909",
+      "callbackURL": "localhost:3000/auth/facebook/callback"
+    },
     "Twitter": {}
   }
 }
