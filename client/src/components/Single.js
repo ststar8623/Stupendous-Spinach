@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 
+import Photo from './Photo';
+import Comments from './Comments';
+
 class Single extends Component {
   render() {
-    const i = this.props.posts.findIndex((post) => post.code === this.props.params.postId);
-    console.log(i);
+    const { postId } = this.props.params;
+    const i = this.props.posts.findIndex((post) => post.code === postId);
+    const post = this.props.posts[i];
+    const postComments = this.props.comments[postId] || [];
     return (
       <div className="single-photo">
-        im single photo
+        <Photo i={i} post={post} {...this.props} />
+        <Comments postComments={postComments} {...this.props} />
       </div>
     );
   }
