@@ -11,7 +11,7 @@ class Main extends Component {
         <h1>
           <Link to='/'>FlashBack</Link>
         </h1>
-        {React.cloneElement(this.props.children, this.props)}
+        {/* {React.cloneElement(this.props.children, this.props)} */}
       </div>
     );
   }

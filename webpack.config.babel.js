@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
+import DashboardPlugin from 'webpack-dashboard/plugin';
 
 const config = {
   entry: './client/src/flashBack',
@@ -9,22 +10,24 @@ const config = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new DashboardPlugin()
   ],
   module: {
     loaders: [
     // js
-    {
-      test: /\.js$/,
-      loaders: ['babel-loader'],
-      include: path.join(__dirname, 'client/src')
-    },
-    // CSS
-    { 
-      test: /\.styl$/, 
-      include: path.join(__dirname, 'client/src'),
-      loader: 'style-loader!css-loader!stylus-loader'
-    }
+      {
+        test: /\.js$/,
+        loaders: ['babel-loader'],
+        include: path.join(__dirname, 'client/src'),
+        exclude: /node_modules/
+      },
+      // CSS
+      { 
+        test: /\.styl$/, 
+        include: path.join(__dirname, 'client/src'),
+        loader: 'style-loader!css-loader!stylus-loader'
+      }
     ]
   }
 };
