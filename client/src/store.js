@@ -14,7 +14,13 @@ const defaultState = {
   comments
 };
 
-const store = createStore(rootReducer, defaultState);
+// Redux dev tools installation
+// Install redux dev tools from chrome
+const enhancers = compose(
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+);
+
+const store = createStore(rootReducer, defaultState, enhancers);
 
 export const history = syncHistoryWithStore(browserHistory, store);
 
