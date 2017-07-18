@@ -1,8 +1,20 @@
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker.register(__dirname + '../service-worker.js')
+//       .then(() => {
+//         console.log('Service Worker Registered');
+//       });
+//   });
+// }
+
 const shellCacheName = 'flashbackPWA-shell-v01';
 var shellFilesToCache = [
   // '/',
-  '/login',
-  '/profile#_=_',
+  // '/login',
+  // '/nearby',
+  // '/camera',
+  // '/likes',
+  // '/profile#_=_',
   '/dist/bundle.js',
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
