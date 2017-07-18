@@ -6,7 +6,6 @@ import App from './App.js';
 class NavigationBar extends Component {
   render() {
     return (
-
       <nav className="navbar navbar-default navbar-fixed-bottom">
         <ul>
           <li><Link to='/'>Home</Link></li>
@@ -15,9 +14,6 @@ class NavigationBar extends Component {
           <li><Link to='/likes'>Likes</Link></li>
         </ul>
       </nav>
-
-
-     
     );
   }
 }
