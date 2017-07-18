@@ -9,7 +9,6 @@ const config = {
     filename: 'bundle.js'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new DashboardPlugin()
   ],
