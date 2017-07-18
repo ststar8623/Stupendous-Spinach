@@ -15,9 +15,9 @@ const config = {
   ],
   module: {
     loaders: [
-    // js
+    // jsx
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         loaders: ['babel-loader'],
         include: path.join(__dirname, 'client/src'),
         exclude: /node_modules/
