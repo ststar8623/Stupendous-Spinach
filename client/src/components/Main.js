@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 import NavigationBar from './NavigationBar';
 import Camera from './Camera';
+import { getLocation } from '../actions/geoAction';
 
 class Main extends Component {
+  componentWillMount() {
+    this.props.getLocation();
+  }
   render() {
     return (
       <div className="container">
@@ -18,4 +23,8 @@ class Main extends Component {
   }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {location: state.location};
+};
+
+export default connect(mapStateToProps, {getLocation})(Main);
