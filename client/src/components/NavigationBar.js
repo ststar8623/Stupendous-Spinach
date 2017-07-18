@@ -7,14 +7,14 @@ class NavigationBar extends Component {
   render() {
     return (
 
-      <div>
+      <nav className="navbar navbar-default navbar-fixed-bottom">
         <ul>
-          <li><Link to='/'>Home </Link></li>
-          <li><Link to='/nearby'>App </Link></li>
-          <li><Link to='/camera'>Camera </Link></li>
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/nearby'>Nearby</Link></li>
+          <li><Link to='/camera'>Camera</Link></li>
+          <li><Link to='/likes'>Likes</Link></li>
         </ul>
-
-      </div>
+      </nav>
 
 
      
