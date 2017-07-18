@@ -12,7 +12,6 @@ class NavigationBar extends Component {
           <li><Link to='/'>Home </Link></li>
           <li><Link to='/nearby'>App </Link></li>
           <li><Link to='/camera'>Camera </Link></li>
-
         </ul>
 
       </div>
