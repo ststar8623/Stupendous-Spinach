@@ -8,6 +8,7 @@ import { render } from 'react-dom';
 import App from './components/App';
 // import Single from './components/Single';
 // import PhotoGrid from './components/PhotoGrid';
+import Camera from './components/Camera';
 
 // import react router
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -20,7 +21,10 @@ const router = (
       <Route path='/' component={App}>
         {/* <IndexRoute component={PhotoGrid}></IndexRoute>
         <Route path='/view/:postId' component={Single}></Route> */}
+              <Route path='/camera' component={Camera} />
+
       </Route>
+
     </Router>
   </Provider>
 )

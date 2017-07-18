@@ -11,6 +11,15 @@ class Camera extends Component {
 
       <div>
         <h1> Camera page</h1>
+
+        <form>
+        <label>
+          Photo:
+          <input type="file" accept="image/*" capture="camera" id="camera" />
+          </label>
+          <img id="frame" />
+        </form>
+
       </div>
 
       );
