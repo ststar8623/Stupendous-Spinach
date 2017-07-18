@@ -6,6 +6,15 @@ import NavigationBar from './NavigationBar';
 import Camera from './Camera';
 import { getLocation } from '../actions/geoAction';
 
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker.register(__dirname + '../service-worker.js')
+//       .then(() => {
+//         console.log('Service Worker Registered');
+//       });
+//   });
+// }
+
 class Main extends Component {
   componentWillMount() {
     this.props.getLocation();
