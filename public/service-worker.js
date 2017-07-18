@@ -20,6 +20,7 @@ var shellFilesToCache = [
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
+  '/manifest.json',
   // '/assets/flashback-128.png',
   // '/assets/flashback-144.png',
   // '/assets/flashback-152.png',
@@ -33,6 +34,7 @@ var shellFilesToCache = [
 // Install SW and cache shell files
 self.addEventListener('install', (e) => {
   console.log('[ServiceWorker] Install');
+  // console.log('this: ----------------- : ', this);
   e.waitUntil( //SW is still "installing" until resolved
     caches.open(shellCacheName).then((cache) => {
       console.log('[ServiceWorker] Caching app shell');
