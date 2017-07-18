@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import NavigationBar from './NavigationBar';
+import Camera from './Camera';
 
 class Main extends Component {
   render() {
@@ -9,9 +10,9 @@ class Main extends Component {
       <div className="container">
         <NavigationBar />
         <h1>
-          <Link to='/'>FlashBack</Link>
+          flashback
         </h1>
-        {/* {React.cloneElement(this.props.children, this.props)} */}
+        {this.props.children}
       </div>
     );
   }
