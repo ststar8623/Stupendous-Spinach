@@ -9,7 +9,8 @@
     "dev-start": "nodemon server",
     "start": "node server/index.js",
     "test": "NODE_ENV=test grunt test",
-    "build": "webpack-dashboard -- webpack --watch"
+    "build": "webpack-dashboard -- webpack --watch",
+    "heroku": "./node_modules/.bin/webpack -p --config ./webpack.config.babel.js --progress"
   },
   "author": "Hack Reactor",
   "license": "MIT",
