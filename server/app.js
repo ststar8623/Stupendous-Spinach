@@ -24,9 +24,4 @@ app.use('/', routes.auth);
 app.use('/api', routes.api);
 app.use('/api/profiles', routes.profiles);
 
-app.post('/imageUpload', (req, res) => {
-  // save image to db //
-  console.log('req body: ', req.body);
-});
-
 module.exports = app;

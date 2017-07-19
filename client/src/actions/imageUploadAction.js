@@ -19,7 +19,7 @@ const imageUpload = (file, location) => {
       timeStamp: location.timeStamp
     };
     if (response.body.secure_url !== '') {
-      axios.post('/imageUpload', { url: response.body.secure_url, location: imageLocation });
+      axios.post('/api/imageUpload', { url: response.body.secure_url, location: imageLocation });
     }
   });
 };
