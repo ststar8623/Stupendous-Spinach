@@ -15,6 +15,10 @@ module.exports.savePhoto = (options, req, res) => {
 module.exports.getNearbyPohotos = (distance, req, res) => {
 
 
+  return models.Photo.getAll()
+    .then((data) => {
+      console.log(data);
+    });
   //get all photos
   //
 
