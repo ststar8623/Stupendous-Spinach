@@ -21,7 +21,6 @@ const router = (
       <Route path='/' component={App}>
         {/* <IndexRoute component={PhotoGrid}></IndexRoute>
         <Route path='/view/:postId' component={Single}></Route> */}
-        <Route path='/camera' component={Camera} />
       </Route>
     </Router>
   </Provider>
