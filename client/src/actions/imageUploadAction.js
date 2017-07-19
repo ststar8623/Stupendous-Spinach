@@ -10,16 +10,22 @@ const imageUpload = (file, location) => {
     .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
     .field('file', file);
   upload.end((err, response) => {
+
     if (err) {
       console.log('error from image upload action: ', err);
     }
+
     let imageLocation = {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
       timeStamp: location.timeStamp
     };
+    
     if (response.body.secure_url !== '') {
-      axios.post('/api/imageUpload', { url: response.body.secure_url, location: imageLocation });
+      axios.post('/api/imageUpload', { url: response.body.secure_url, location: imageLocation })
+        .then((data) => {
+          console.log('response from image upload: ', data);
+        });
     }
   });
 };
