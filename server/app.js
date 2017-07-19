@@ -26,7 +26,7 @@ app.use('/api/profiles', routes.profiles);
 
 app.post('/imageUpload', (req, res) => {
   // save image to db //
-  console.log(req.body.url);
+  console.log('req body: ', req.body);
 });
 
 module.exports = app;

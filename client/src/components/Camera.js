@@ -10,14 +10,14 @@ class Camera extends Component {
   }
 
   onImageDrop(file) {
-    imageUpload(file);
+    console.log('this.props: ' , this.props);
+    imageUpload(file, this.props.location);
   }
 
   render() {
     return (
-      <div>
-        <Dropzone multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)}></Dropzone>
-      </div>
+      <Dropzone multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} style={{height: 75, weight: 75}} className="fa fa-camera-retro fa-2x col-sm-4 text-center" aria-hidden="true" >
+      </Dropzone>
     );
   }
 }

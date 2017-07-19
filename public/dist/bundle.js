@@ -8947,16 +8947,13 @@ var Camera = function (_Component) {
   }, {
     key: 'onImageDrop',
     value: function onImageDrop(file) {
-      (0, _imageUploadAction2.default)(file);
+      console.log('this.props: ', this.props);
+      (0, _imageUploadAction2.default)(file, this.props.location);
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_reactDropzone2.default, { multiple: false, accept: 'image/*', onDrop: this.onImageDrop.bind(this) })
-      );
+      return _react2.default.createElement(_reactDropzone2.default, { multiple: false, accept: 'image/*', onDrop: this.onImageDrop.bind(this), style: { height: 75, weight: 75 }, className: 'fa fa-camera-retro fa-2x col-sm-4 text-center', 'aria-hidden': 'true' });
     }
   }]);
 
@@ -25552,19 +25549,19 @@ var _config = __webpack_require__(619);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var imageUpload = function imageUpload(file) {
+var imageUpload = function imageUpload(file, location) {
   var upload = _superagent2.default.post(_config.CLOUDINARY_UPLOAD_URL).field('upload_preset', _config.CLOUDINARY_UPLOAD_PRESET).field('file', file);
   upload.end(function (err, response) {
     if (err) {
       console.log('error from image upload action: ', err);
     }
-
+    var imageLocation = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      timeStamp: location.timeStamp
+    };
     if (response.body.secure_url !== '') {
-      _axios2.default.post('/imageUpload', { url: response.body.secure_url }).then(function () {
-        return console.log('success');
-      }).error(function (err) {
-        return console.log('err: ', err);
-      });
+      _axios2.default.post('/imageUpload', { url: response.body.secure_url, location: imageLocation });
     }
   });
 };
@@ -25704,28 +25701,18 @@ var NavigationBar = function (_Component) {
         { fixedBottom: true, className: 'row' },
         _react2.default.createElement(
           _reactBootstrap.NavItem,
-          { className: 'fa fa-camera-retro fa-2x col-sm-4 text-center', 'aria-hidden': 'true' },
-          ' ',
-          _react2.default.createElement(_reactRouter.Link, { to: '/camera' }),
-          ' '
+          { style: { listStyleType: 'none' } },
+          _react2.default.createElement(_Camera2.default, null)
         ),
         _react2.default.createElement(
           _reactBootstrap.NavItem,
           { className: 'fa fa-compass fa-2x col-sm-4 text-center', 'aria-hidden': 'true' },
-          ' ',
-          _react2.default.createElement(_reactRouter.Link, { to: '/nearby' }),
-          ' '
+          _react2.default.createElement(_reactRouter.Link, { to: '/nearby' })
         ),
         _react2.default.createElement(
           _reactBootstrap.NavItem,
           { className: 'fa fa-heart fa-2x col-sm-4 text-center', 'aria-hidden': 'true' },
-          ' ',
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/likes' },
-            ' '
-          ),
-          ' '
+          _react2.default.createElement(_reactRouter.Link, { to: '/likes' })
         )
       );
     }
@@ -25775,11 +25762,7 @@ var router = _react2.default.createElement(
   _react2.default.createElement(
     _reactRouter.Router,
     { history: _store.history },
-    _react2.default.createElement(
-      _reactRouter.Route,
-      { path: '/', component: _App2.default },
-      _react2.default.createElement(_reactRouter.Route, { path: '/camera', component: _Camera2.default })
-    )
+    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default })
   )
 );
 
