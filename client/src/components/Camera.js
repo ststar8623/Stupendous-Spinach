@@ -16,7 +16,7 @@ class Camera extends Component {
 
   render() {
     return (
-      <Dropzone multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} style={{height: 75, weight: 75}} className="fa fa-camera-retro fa-2x col-sm-4 text-center" aria-hidden="true" >
+      <Dropzone multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} className="fa fa-camera-retro col-sm-4 text-center" aria-hidden="true" >
       </Dropzone>
     );
   }
