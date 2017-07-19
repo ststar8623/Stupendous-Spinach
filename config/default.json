@@ -2,11 +2,12 @@
   "knex": {
     "client": "postgresql",
     "connection": {
-      "database": "thesis",
-      "user": "postgres",
-      "password": "",
-      "host": "localhost",
-      "port": 5432
+      "database": "dcg7bp9psmblou",
+      "user": "pvpzpspvpzgnii",
+      "password": "816a7725ffa4ca9bc78c57592c8d5a010149cc2ef5a2a82bb76dc854021b8371",
+      "host": "ec2-23-23-248-162.compute-1.amazonaws.com",
+      "port": 5432,
+      "ssl": true
     },
     "pool": {
       "min": 1,
@@ -29,8 +30,8 @@
 
     },
     "Facebook": {
-      "clientID": "1643339879010831",
-      "clientSecret": "b16dae527537cf28efd1b02edec57909",
+      "clientID": "334546736987681",
+      "clientSecret": "012025c420ed16f8748acf9576389c44",
       "callbackURL": "/auth/facebook/callback"
     },
     "Twitter": {}
