@@ -20,7 +20,7 @@ class NavigationBar extends Component {
       <nav className="navbar navbar-default navbar-fixed-bottom">
         <div className="container">
           <Camera />
-          <Link to="/nearby"><div className="fa fa-compass fa-2x col-sm-4 text-center" aria-hidden="true"></div></Link>
+          <Link to="/nearby"><div className="fa fa-compass fa-2x col-sm-4 text-center" aria-hidden="true" ></div></Link>
           <Link to="/commentsAndLikes"><div className="fa fa-heart fa-2x col-sm-4 text-center" aria-hidden="true"></div></Link>
         </div>
       </nav>
