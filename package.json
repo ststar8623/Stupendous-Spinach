@@ -9,7 +9,7 @@
     "dev-start": "NODE_ENV=development nodemon server",
     "start": "NODE_ENV=staging node server/index.js",
     "test": "NODE_ENV=test grunt test",
-    "build": "webpack-dashboard -- webpack --watch"
+    "build": "webpack --watch"
   },
   "author": "Hack Reactor",
   "license": "MIT",
@@ -92,8 +92,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "eslint-plugin-babel": "^4.1.1",
     "expect": "^1.20.2",
-    "expect-jsx": "^3.0.0",
-    "webpack-dashboard": "^0.4.0"
+    "expect-jsx": "^3.0.0"
   },
   "babel": {
     "plugins": [
