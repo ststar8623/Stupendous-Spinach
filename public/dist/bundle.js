@@ -25547,6 +25547,7 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< 07fe17708a0b879bf60a3a02754ff7923ac6ad15
 // import { CLOUDINARY_UPLOAD_URL, CLOUDINARY_UPLOAD_PRESET } from '../../../server/config/config';
 
 var CLOUDINARY_UPLOAD_PRESET = 'spinach-flashback';
@@ -25554,6 +25555,10 @@ var CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/spinach-flashback/i
 
 var imageUpload = function imageUpload(file, location) {
   var upload = _superagent2.default.post(CLOUDINARY_UPLOAD_URL).field('upload_preset', CLOUDINARY_UPLOAD_PRESET).field('file', file);
+=======
+var imageUpload = function imageUpload(file, location) {
+  var upload = _superagent2.default.post(_config.CLOUDINARY_UPLOAD_URL).field('upload_preset', _config.CLOUDINARY_UPLOAD_PRESET).field('file', file);
+>>>>>>> merge conflict
   upload.end(function (err, response) {
     if (err) {
       console.log('error from image upload action: ', err);
