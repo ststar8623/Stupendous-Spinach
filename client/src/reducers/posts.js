@@ -4,7 +4,7 @@
 // 2. copy of current state
 
 export default function posts(state = [], action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'INCREMENT_LIKES':
       const i = action.index;
       return [

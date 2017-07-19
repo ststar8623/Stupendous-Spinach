@@ -26,8 +26,7 @@ const enhancers = compose(
 function promiseMiddleware({dispatch}) {
   function isPromise(val) {
     return val && typeof val.then === 'function';
-  }
-
+  };
   return next => action => {
     return isPromise(action.payload)
       ? action.payload.then(

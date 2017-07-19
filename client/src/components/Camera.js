@@ -1,22 +1,29 @@
 import React, {Component} from 'react';
+import Dropzone from 'react-dropzone';
+import { connect } from 'react-redux';
+import { getLocation } from '../actions/geoAction';
+import imageUpload from '../actions/imageUploadAction';
 
 class Camera extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
+    this.props.getLocation();
   }
+
+  onImageDrop(file) {
+    console.log('this.props: ' , this.props);
+    imageUpload(file, this.props.location);
+  }
+
   render() {
     return (
-      <div>
-        <h1> Camera page</h1>
-        <form>
-          <label>
-            Photo:
-            <input type="file" accept="image/*" capture="camera" id="camera" />
-          </label>
-          <img id="frame" />
-        </form>
-      </div>
+      <Dropzone multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} style={{height: 75, weight: 75}} className="fa fa-camera-retro fa-2x col-sm-4 text-center" aria-hidden="true" >
+      </Dropzone>
     );
   }
 }
-export default Camera;
+
+const mapStateToProps = (state) => {
+  return {location: state.location};
+};
+
+export default connect(mapStateToProps, {getLocation})(Camera);
