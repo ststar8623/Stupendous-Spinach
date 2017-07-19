@@ -12,6 +12,15 @@ module.exports.savePhoto = (options, req, res) => {
     });
 };
 
+module.exports.getNearbyPohotos = (distance, req, res) => {
+
+
+  //get all photos
+  //
+
+
+
+};
 
 
 //how to insert data:
