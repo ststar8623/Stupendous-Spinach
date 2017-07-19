@@ -13,6 +13,7 @@
   "author": "Hack Reactor",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
@@ -63,7 +64,7 @@
     "react-addons-css-transition-group": "^15.6.0",
     "react-bootstrap": "^0.31.1",
     "react-dom": "^15.4.2",
-    "react-geolocated": "^2.0.0",
+    "react-dropzone": "^3.13.3",
     "react-redux": "^5.0.5",
     "react-router": "2.5.2",
     "react-router-redux": "^4.0.8",
@@ -78,6 +79,7 @@
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "superagent": "^3.5.2",
     "supertest": "^3.0.0",
     "webpack": "^2.3.2",
     "webpack-dashboard": "^0.4.0",
@@ -85,7 +87,13 @@
     "webpack-dev-server": "^2.4.2",
     "webpack-hot-middleware": "^2.18.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-preset-react-hmre": "^1.1.1",
+    "eslint-plugin-babel": "^4.1.1",
+    "expect": "^1.20.2",
+    "expect-jsx": "^3.0.0",
+    "webpack-dashboard": "^0.4.0"
+  },
   "babel": {
     "plugins": [
       "transform-es2015-modules-commonjs"
