@@ -1,6 +1,5 @@
 import webpack from 'webpack';
 import path from 'path';
-import DashboardPlugin from 'webpack-dashboard/plugin';
 
 const config = {
   entry: './client/src/flashBack',
