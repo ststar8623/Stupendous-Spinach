@@ -16,7 +16,6 @@ const config = {
       }
     }),
     new webpack.optimize.UglifyJsPlugin(),
-    new DashboardPlugin()
   ],
   module: {
     loaders: [
