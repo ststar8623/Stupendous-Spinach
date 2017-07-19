@@ -1,6 +1,9 @@
 import request from 'superagent';
 import axios from 'axios';
-import { CLOUDINARY_UPLOAD_URL, CLOUDINARY_UPLOAD_PRESET } from '../../../server/config/config';
+// import { CLOUDINARY_UPLOAD_URL, CLOUDINARY_UPLOAD_PRESET } from '../../../server/config/config';
+
+const CLOUDINARY_UPLOAD_PRESET = 'spinach-flashback';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/spinach-flashback/image/upload';
 
 const imageUpload = (file, location) => {
   let upload = request.post(CLOUDINARY_UPLOAD_URL)

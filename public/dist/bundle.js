@@ -25545,12 +25545,15 @@ var _axios = __webpack_require__(276);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _config = __webpack_require__(619);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import { CLOUDINARY_UPLOAD_URL, CLOUDINARY_UPLOAD_PRESET } from '../../../server/config/config';
+
+var CLOUDINARY_UPLOAD_PRESET = 'spinach-flashback';
+var CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/spinach-flashback/image/upload';
+
 var imageUpload = function imageUpload(file, location) {
-  var upload = _superagent2.default.post(_config.CLOUDINARY_UPLOAD_URL).field('upload_preset', _config.CLOUDINARY_UPLOAD_PRESET).field('file', file);
+  var upload = _superagent2.default.post(CLOUDINARY_UPLOAD_URL).field('upload_preset', CLOUDINARY_UPLOAD_PRESET).field('file', file);
   upload.end(function (err, response) {
     if (err) {
       console.log('error from image upload action: ', err);
@@ -57779,19 +57782,6 @@ module.exports = function(module) {
 	}
 	return module;
 };
-
-
-/***/ }),
-/* 619 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/spinach-flashback/image/upload';
-/* harmony export (immutable) */ __webpack_exports__["CLOUDINARY_UPLOAD_URL"] = CLOUDINARY_UPLOAD_URL;
-
-const CLOUDINARY_UPLOAD_PRESET = 'spinach-flashback';
-/* harmony export (immutable) */ __webpack_exports__["CLOUDINARY_UPLOAD_PRESET"] = CLOUDINARY_UPLOAD_PRESET;
 
 
 /***/ })
