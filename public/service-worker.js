@@ -1,33 +1,24 @@
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', () => {
-//     navigator.serviceWorker.register(__dirname + '../service-worker.js')
-//       .then(() => {
-//         console.log('Service Worker Registered');
-//       });
-//   });
-// }
+
 
 const shellCacheName = 'flashbackPWA-shell-v01';
 var shellFilesToCache = [
-  // '/',
-  '/profile',
-  '/profile#_=_',
-  '/dist/bundle.js',
+  // '/dist/bundle.js',
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
-  '/manifest.json',
+  '/manifest.json'
+
+/* potential
   'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css',
   'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'
-  // '/login',
-  // '/nearby',
-  // '/camera',
-  // '/likes',
-  // '/assets/flashback-128.png',
-  // '/assets/flashback-144.png',
-  // '/assets/flashback-152.png',
-  // '/assets/flashback-192.png',
-  // '/assets/flashback-256.png',
+  '/profile',
+  '/profile#_=_',
+  '/',
+  '/login',
+  '/nearby',
+  '/camera',
+  '/likes',
+*/
 ];
 
 
