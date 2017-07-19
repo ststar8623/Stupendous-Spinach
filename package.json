@@ -9,7 +9,7 @@
     "dev-start": "NODE_ENV=development nodemon server",
     "start": "NODE_ENV=staging node server/index.js",
     "test": "NODE_ENV=test grunt test",
-    "build": "webpack-dashboard -- webpack --watch"
+    "build": "webpack --watch"
   },
   "author": "Hack Reactor",
   "license": "MIT",
@@ -83,7 +83,6 @@
     "superagent": "^3.5.2",
     "supertest": "^3.0.0",
     "webpack": "^2.3.2",
-    "webpack-dashboard": "^0.4.0",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-dev-server": "^2.4.2",
     "webpack-hot-middleware": "^2.18.2"
