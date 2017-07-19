@@ -1,0 +1,33 @@
+{
+  "name": "Stupendous-Spinach",
+  "scripts": {
+  },
+  "env": {
+    "REDIS_HOST": {
+      "required": true
+    },
+    "REDIS_PASSWORD": {
+      "required": true
+    },
+    "REDIS_PORT": {
+      "required": true
+    },
+    "REDIS_URL": {
+      "required": true
+    },
+    "REDIS_USER": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "heroku-postgresql",
+    "heroku-redis"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
