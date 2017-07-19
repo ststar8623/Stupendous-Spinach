@@ -10,10 +10,6 @@
 const shellCacheName = 'flashbackPWA-shell-v01';
 var shellFilesToCache = [
   // '/',
-  // '/login',
-  // '/nearby',
-  // '/camera',
-  // '/likes',
   '/profile',
   '/profile#_=_',
   '/dist/bundle.js',
@@ -21,13 +17,17 @@ var shellFilesToCache = [
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
   '/manifest.json',
+  'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css',
+  'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'
+  // '/login',
+  // '/nearby',
+  // '/camera',
+  // '/likes',
   // '/assets/flashback-128.png',
   // '/assets/flashback-144.png',
   // '/assets/flashback-152.png',
   // '/assets/flashback-192.png',
   // '/assets/flashback-256.png',
-  'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css',
-  'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'
 ];
 
 
