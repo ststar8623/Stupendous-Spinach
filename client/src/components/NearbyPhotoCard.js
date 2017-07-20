@@ -11,7 +11,8 @@ class NearbyPhotoCard extends Component {
         <img src={this.props.photo.url} height={200} width ={300} className='.img-thumbnail'/>
         <div style={styles.like}>
           <span className="fa fa-heart" aria-hidden="true"> {this.props.photo.like_count} Likes </span>
-          <span className="fa fa-comment" id="comments" style={styles.comment} aria-hidden="true"> Comments </span>
+          <span className="fa fa-comment" id="comments" style={styles.comment} aria-hidden="true"> {this.props.photo.comment_count } Comments </span>
+
         </div>
         <h6 className='text'>{this.props.photo.caption} </h6>
       </div> 
