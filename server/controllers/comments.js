@@ -7,7 +7,7 @@ module.exports.saveComment = (text="this is a great photo", photo_id=1, profile_
   return models.Comment.forge({text, photo_id, profile_id})
     .save()
     .then(() => {
-      models.Photo.query().where({'id': profile_id})
+      models.Photo.query().where({'id': photo_id})
         .select()
         .then((data) => {
           return data[0].comment_count;
@@ -20,6 +20,15 @@ module.exports.saveComment = (text="this is a great photo", photo_id=1, profile_
             return models.Photo.forge({id: photo_id}).save({'comment_count': commentCount + 1});
           }
         });
+    });
+};
+
+module.exports.getAllComments = (photoID = 1) => {
+
+  return new models.Comment({photo_id: photoID})
+    .fetchAll()
+    .then((data) => {
+      return data.serialize().filter(item => item.photo_id === Number(photoID));
     });
 };
 
