@@ -41,9 +41,8 @@ class Nearby extends Component {
   }
  
   renderPhotos() {
-    return this.props.photoArray.map((photo, i) => {
-    // console.log('photodata in Nearby: ', photoData);
-    // to render the actual data use this.state.photoData
+    // to render the acutal data use this.state.photoData
+    return this.state.photoData.map((photo, i) => {
       return (
         <Link to="/PreviewAndShare"><NearbyPhotoCard key={i} photo={photo} /></Link>
       );

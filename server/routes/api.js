@@ -36,6 +36,7 @@ router.post('/nearbyPhotos', (req, res) => {
 });
 
 
+
 router.post('/saveComment/:photoID', (req, res) =>{
 
   console.log('user id', req.user);
