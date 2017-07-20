@@ -1,16 +1,9 @@
 const models = require('../../db/models');
 const utils = require('./lib/utils.js');
 
-module.exports.savePhoto = (options, req, res) => {
+module.exports.savePhoto = (options) => {
 
-  return models.Photo.forge(options).save()
-    .then(() => {
-      //upon success, send URL back to client
-      res.status(201).send(options.url);
-    })
-    .catch(() => {
-      res.status(500).send("Sorry, your photo failed to uploaded");
-    });
+  return models.Photo.forge(options).save();
 };
 
 module.exports.getNearbyPohotos = (currentlocation) => {
@@ -20,7 +13,6 @@ module.exports.getNearbyPohotos = (currentlocation) => {
     .then((data) => {
       return utils.filterByDistance(data.models, currentlocation);
     });
-    
 
 };
 
