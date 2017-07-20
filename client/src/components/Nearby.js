@@ -24,7 +24,9 @@ class Nearby extends Component {
           that.setState({
             dataIsFetched: true,
             photoData: response.data
-          });
+          })
+        }).catch((error)=>{
+          console.log('error', error);
         });
     }
   }
@@ -34,7 +36,6 @@ class Nearby extends Component {
       return (
         <NearbyPhotoCard key={i} photo={photo} />
       );
-    });
   }
 
   render() {

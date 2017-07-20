@@ -5,7 +5,6 @@ class NearbyPhotoCard extends Component {
     super(props);
   }
 
-
   render() {
     return (
       <div className="img-rounded">
