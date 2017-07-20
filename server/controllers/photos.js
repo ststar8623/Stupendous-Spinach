@@ -13,7 +13,6 @@ module.exports.getNearbyPohotos = (currentlocation) => {
     .then((data) => {
       return utils.filterByDistance(data.models, currentlocation);
     });
-    
 
 };
 

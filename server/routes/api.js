@@ -1,7 +1,8 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const PhotosCrontoller = require('../controllers').Photos;
+const PhotosController = require('../controllers').Photos;
+const CommentsController = require('../controllers').Comments;
 
 
 router.post('/imageUpload', (req, res) => {
@@ -11,7 +12,7 @@ router.post('/imageUpload', (req, res) => {
   
   //save url, lat, long to database
 
-  PhotosCrontoller.savePhoto({ latitude, longitude, url, profile_id: req.user.id })
+  PhotosController.savePhoto({ latitude, longitude, url, profile_id: req.user.id })
     .then(() => {
       //upon success, send URL back to client
       res.status(201).send(url);
@@ -24,7 +25,7 @@ router.post('/imageUpload', (req, res) => {
 
 
 router.post('/nearbyPhotos', (req, res) => {
-  PhotosCrontoller.getNearbyPohotos(req.body.location.coords)
+  PhotosController.getNearbyPohotos(req.body.location.coords)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -37,7 +38,16 @@ router.post('/nearbyPhotos', (req, res) => {
 
 router.post('/saveComment/:photoID', (req, res) =>{
 
+  console.log(req.user.id);
+
+  let commentObj = {comment: "this is a great photo"};
+
+  CommentsController.saveComment(commentObj, 1);
+
+  res.status(200).send("ok");
 
 });
+
+
 
 module.exports = router;
