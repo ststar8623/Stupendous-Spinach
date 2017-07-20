@@ -24,7 +24,6 @@ module.exports.getNearbyPohotos = (currentlocation) => {
 
 };
 
-
 //how to insert data:
 
 // // Save with no arguments

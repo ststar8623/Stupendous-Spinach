@@ -11,7 +11,7 @@ router.post('/imageUpload', (req, res) => {
   
   //save url, lat, long to database
   //todo: include profile id
-  PhotosCrontoller.savePhoto({ 'latitude': latitude, 'longitude': longitude, 'url': url}, req, res);
+  PhotosCrontoller.savePhoto({ latitude, longitude, url, profile_id: req.user.id }, req, res);
 
 });
 
