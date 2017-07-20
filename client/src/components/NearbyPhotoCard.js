@@ -9,8 +9,10 @@ class NearbyPhotoCard extends Component {
     return (
       <div className="img-rounded">
         <img src={this.props.photo.url} height={200} width ={300} className='.img-thumbnail'/>
-        <i className="fa fa-heartbeat" aria-hidden="true"> </i>
-
+        <div id='like'>
+          <span className="fa fa-heart" aria-hidden="true"> Likes </span>
+          <span className="fa fa-comment" id="comments" aria-hidden="true"> Comments </span>
+        </div>
         <h6 className='text'>{this.props.photo.caption} </h6>
       </div>
     );
