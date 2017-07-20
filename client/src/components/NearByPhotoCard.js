@@ -6,7 +6,7 @@ class NearByPhtoCard extends Component {
   render() {
     return (
       <div>
-       {this is each photo card}
+       this ssd
       </div>
     );
   }
