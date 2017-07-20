@@ -8,42 +8,39 @@ import { connect } from 'react-redux';
 
 class NearBy extends Component {
 
-	data() {
-	
-		let	location = {
-			latitude: this.props.location
-		}
+  // componentWillMount() {
 
-	
-		axios.post('/api/nearbyPhotos', {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  console.log('location------>');
-	}
+
+
+  //   axios.post('/api/nearbyPhotos', this.props.location)
+  //     .then(function (response) {
+  //       console.log('response: ', response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
+
+  renderPhotos() {
+    return photoData.map(photo => 
+      <NearbyPhotoCard key={photo.caption} photo={photo} /> 
+    );
+  }
   render() {
-  	console.log('--->',JSON.stringify(this.props.location));  
     return (
       <div>
-
-     		Is this working?
-      
+        <h1> Nearby Photos </h1>
+        {this.renderPhotos()}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-	return {
-		location: state.location
-	}
-}
+  return {
+    location: state.location
+  };
+};
 
 
 export default connect(mapStateToProps, {getLocation})(NearBy);
