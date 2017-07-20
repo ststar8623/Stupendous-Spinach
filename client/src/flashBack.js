@@ -9,7 +9,7 @@ import App from './components/App';
 // import Single from './components/Single';
 // import PhotoGrid from './components/PhotoGrid'; 
 import Camera from './components/Camera';
-import NearBy from './components/NearBy';
+import Nearby from './components/Nearby';
 import CommentsAndLikes from './components/CommentsAndLikes';
 
 // import react router
@@ -21,8 +21,8 @@ const router = (
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
-        <IndexRoute component={NearBy} />
-        <Route path='/nearby' component={NearBy} />
+        <IndexRoute component={Nearby} />
+        <Route path='/nearby' component={Nearby} />
         <Route path='/commentsAndLikes' component={CommentsAndLikes} />
       </Route>
     </Router>
