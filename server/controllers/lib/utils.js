@@ -31,7 +31,7 @@ exports.filterByDistance = (photosArr, currentLocationObj = {latitude: 37.883733
     
     photo.distance = Number(distance.toFixed(2));
 
-    return distance < 30;
+    return distance < 10;
 
   });
 

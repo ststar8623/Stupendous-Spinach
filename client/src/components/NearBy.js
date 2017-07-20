@@ -2,37 +2,59 @@ import React, { Component } from 'react';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import photoData from '../data/photoData';
 import axios from 'axios';
-import { getLocation } from '../actions/geoAction';
 import { connect } from 'react-redux';
-
+require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 
 class NearBy extends Component {
 
-  // componentWillMount() {
-
-
-
-  //   axios.post('/api/nearbyPhotos', this.props.location)
-  //     .then(function (response) {
-  //       console.log('response: ', response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+  componentWillUpdate(nextProps) {
+    console.log('next ', nextProps);
+    if (nextProps.location.isFetched) {
+      axios.post('/api/nearbyPhotos', { location: nextProps.location.location.coords })
+        .then((response) => {
+          console.log('response', response);
+        });
+    }
+  }
 
   renderPhotos() {
-    return photoData.map(photo => 
-      <NearbyPhotoCard key={photo.caption} photo={photo} /> 
-    );
+    return photoData.map(photo => {
+      <NearbyPhotoCard key={photo.caption} photo={photo} />
+    });
   }
+
   render() {
-    return (
-      <div>
-        <h1> Nearby Photos </h1>
-        {this.renderPhotos()}
-      </div>
-    );
+    const isFetched = this.props.location.isFetched;
+    if (!isFetched) {
+      return (
+        <div>
+          <div className="contain">
+            <svg style={{height:80, width:210}}>
+              <ellipse style={{cx:25 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
+            </svg>
+            <svg style={{height:80, width:210}}>
+              <ellipse style={{cx:62.5 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
+            </svg>
+            <svg style={{height:80, width:210}}>
+              <ellipse style={{cx:100 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
+            </svg>
+            <svg style={{height:80, width:210}}>
+              <ellipse style={{cx:137.5 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
+            </svg>
+            <svg style={{height:80, width:210}}>
+              <ellipse style={{cx:175 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
+            </svg>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1> Nearby Photos </h1>
+          {this.renderPhotos.bind(this)}
+        </div>
+      );
+    }
   }
 }
 
@@ -42,5 +64,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-
-export default connect(mapStateToProps, {getLocation})(NearBy);
+export default connect(mapStateToProps)(NearBy);

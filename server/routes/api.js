@@ -17,8 +17,7 @@ router.post('/imageUpload', (req, res) => {
 
 
 router.post('/nearbyPhotos', (req, res) => {
-
-  PhotosCrontoller.getNearbyPohotos(req.body.coords)
+  PhotosCrontoller.getNearbyPohotos(req.body.location.coords)
     .then((data) => {
       res.status(200).send(data);
     })
