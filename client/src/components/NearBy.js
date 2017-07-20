@@ -6,21 +6,33 @@ import { connect } from 'react-redux';
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 
 class NearBy extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataIsFetched: false,
+      photoData: []
+    };
+  }
 
   componentWillUpdate(nextProps) {
+    console.log('nextProps ', nextProps);
     let that = this;
-    if (nextProps.location.isFetched) {
-      axios.post('/api/nearbyPhotos', { location: nextProps.location.location.coords })
+    if (nextProps.location.isFetched && !this.state.dataIsFetched) {
+      axios.post('/api/nearbyPhotos', { location: nextProps.location })
         .then((response) => {
           console.log('response', response);
+          that.setState({
+            dataIsFetched: true,
+            photoData: response.data
+          });
         });
     }
   }
 
   renderPhotos() {
-    photoData.map(photo => {
+    return this.state.photoData.map((photo, i) => {
       return (
-        <NearbyPhotoCard key={photo.caption} photo={photo} />
+        <NearbyPhotoCard key={i} photo={photo} />
       );
     });
   }
@@ -66,4 +78,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Nearby);
+export default connect(mapStateToProps)(NearBy);
