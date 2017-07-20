@@ -1,5 +1,6 @@
 const models = require('../../db/models');
 const utils = require('./lib/utils.js');
+const knex = require('../../db/knex.js');
 
 module.exports.saveComment = (text="this is a great photo", photo_id=1, profile_id=1) => {
 
@@ -25,11 +26,11 @@ module.exports.saveComment = (text="this is a great photo", photo_id=1, profile_
 
 module.exports.getAllComments = (photoID = 1) => {
 
-  return new models.Comment({photo_id: photoID})
-    .fetchAll()
+  return knex.raw(`select p.display as "username", c.profile_id, c.photo_id, c.text, c.created_at, c.updated_at from profiles p join comments c on c.profile_id = p.id where c.photo_id = ${photoID}`)
     .then((data) => {
-      return data.serialize().filter(item => item.photo_id === Number(photoID));
+      return data.rows;
     });
+
 };
 
 //how to insert data:
