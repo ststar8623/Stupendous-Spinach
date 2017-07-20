@@ -14,7 +14,6 @@ class Nearby extends Component {
     };
   }
   componentWillUpdate(nextProps) {
-   // console.log('nextProps ', nextProps);
     let that = this;
     if (nextProps.location.isFetched && !this.state.dataIsFetched) {
       axios.post('/api/nearbyPhotos', { location: nextProps.location })

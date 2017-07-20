@@ -14,10 +14,10 @@ const imageUpload = (file, location, callback) => {
     if (err) {
       console.log('error from image upload action: ', err);
     }
-
+    console.log('location ', location);
     let imageLocation = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
+      latitude: location.latitude,
+      longitude: location.longitude,
       timeStamp: location.timeStamp
     };
     
