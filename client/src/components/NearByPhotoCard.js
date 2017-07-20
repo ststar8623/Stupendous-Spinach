@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class NearByPhtoCard extends Component {
+class NearbyPhotoCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -17,4 +17,4 @@ class NearByPhtoCard extends Component {
   }
 }
 
-export default NearByPhtoCard;
+export default NearbyPhotoCard;

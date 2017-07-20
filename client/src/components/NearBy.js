@@ -5,7 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 
-class NearBy extends Component {
+class Nearby extends Component {
 
   componentWillUpdate(nextProps) {
     console.log('next ', nextProps);
@@ -64,4 +64,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(NearBy);
+export default connect(mapStateToProps)(Nearby);
