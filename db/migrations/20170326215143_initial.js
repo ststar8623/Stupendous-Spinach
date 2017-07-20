@@ -8,11 +8,12 @@ exports.up = function (knex, Promise) {
       table.string('display', 100).nullable();
       table.string('email', 100).nullable().unique();
       table.string('phone', 100).nullable();
+      table.timestamps(true, true);
     }),
 
     knex.schema.createTableIfNotExists('photos', function (table) {
       table.increments('id').unsigned().primary();
-      table.integer('profile_id').references('id').inTable('profiles');
+      table.integer('profile_id').references('id').inTable('profiles').onDelete('CASCADE');
       table.string('latitude').notNullable();
       table.string('longitude').notNullable();
       table.string('url').notNullable();
@@ -24,22 +25,24 @@ exports.up = function (knex, Promise) {
 
     knex.schema.createTableIfNotExists('comments', function (table) {
       table.increments('id').unsigned().primary();
-      table.integer('profile_id').references('id').inTable('profiles');
-      table.integer('photo_id').references('id').inTable('photos');
+      table.integer('profile_id').references('id').inTable('profiles').onDelete('CASCADE');
+      table.integer('photo_id').references('id').inTable('photos').onDelete('CASCADE');
       table.string('text').notNullable();
       table.timestamps(true, true);
     }),
 
     knex.schema.createTableIfNotExists('likes', function (table) {
       table.increments('id').unsigned().primary();
-      table.integer('photo_id').references('id').inTable('photos');
-      table.integer('profile_id').references('id').inTable('profiles');
+      table.integer('photo_id').references('id').inTable('photos').onDelete('CASCADE');
+      table.integer('profile_id').references('id').inTable('profiles').onDelete('CASCADE');
+      table.timestamps(true, true);
     }),
 
     knex.schema.createTableIfNotExists('friends', function (table) {
       table.increments('id').unsigned().primary();
-      table.integer('profile1_id').references('id').inTable('profiles');
-      table.integer('profile2_id').references('id').inTable('profiles');
+      table.integer('profile1_id').references('id').inTable('profiles').onDelete('CASCADE');
+      table.integer('profile2_id').references('id').inTable('profiles').onDelete('CASCADE');
+      table.timestamps(true, true);
     }),
 
     knex.schema.createTableIfNotExists('auths', function(table) {
