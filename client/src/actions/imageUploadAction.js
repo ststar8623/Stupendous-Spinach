@@ -16,9 +16,9 @@ const imageUpload = (file, location, callback) => {
     }
 
     let imageLocation = {
-      latitude: location.location.coords.latitude,
-      longitude: location.location.coords.longitude,
-      timeStamp: location.location.timeStamp
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      timeStamp: location.timeStamp
     };
     
     if (response.body.secure_url !== '') {
