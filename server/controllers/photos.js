@@ -1,4 +1,5 @@
 const models = require('../../db/models');
+const utils = require('./lib/utils.js');
 
 module.exports.savePhoto = (options, req, res) => {
 
@@ -12,13 +13,14 @@ module.exports.savePhoto = (options, req, res) => {
     });
 };
 
-module.exports.getNearbyPohotos = (distance, req, res) => {
+module.exports.getNearbyPohotos = (currentlocation) => {
 
 
-  //get all photos
-  //
-
-
+  return models.Photo.fetchAll()
+    .then((data) => {
+      return utils.filterByDistance(data.models, currentlocation);
+    });
+    
 
 };
 
