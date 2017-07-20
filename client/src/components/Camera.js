@@ -10,7 +10,7 @@ class Camera extends Component {
   }
 
   onImageDrop(file) {
-    console.log('this.props: ' , this.props);
+    console.log('this.props: ', this.props);
     imageUpload(file, this.props.location);
   }
 
