@@ -10,8 +10,15 @@ router.post('/imageUpload', (req, res) => {
   const { latitude, longitude } = req.body.location;
   
   //save url, lat, long to database
-  //todo: include profile id
-  PhotosCrontoller.savePhoto({ latitude, longitude, url, profile_id: req.user.id }, req, res);
+
+  PhotosCrontoller.savePhoto({ latitude, longitude, url, profile_id: req.user.id })
+    .then(() => {
+      //upon success, send URL back to client
+      res.status(201).send(url);
+    })
+    .catch(() => {
+      res.status(500).send("Sorry, your photo failed to uploaded");
+    });
 
 });
 
@@ -28,6 +35,9 @@ router.post('/nearbyPhotos', (req, res) => {
 });
 
 
+router.post('/saveComment/:photoID', (req, res) =>{
 
+
+});
 
 module.exports = router;
