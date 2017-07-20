@@ -15,21 +15,23 @@ module.exports.getNearbyPohotos = (currentlocation) => {
 };
 
 module.exports.addLike = (photoId, profileId) => {
-  return models.Like.forge({photo_id: photoId, profile_id: profileId}).save()
-    .then((data) => {
-      return data.attributes;
-    })
-    .then(()=> {
-
-      return models.Photo.knex.raw('insert photos (like_count) values (2)')
-      .then((data)=> {
-        console.log('got the likes');
-      })
-    .catch(() => {
-      return 'did not add the like to the like table';
+  return models.Like.forge({photo_id: photoId, profile_id: profileId})
+    .save()
+    .then(() => {
+      return models.Photo.query().where({'id': photoId})
+        .select()
+        .then((data2) => {
+          return data2[0].like_count;
+        })
+        .then((likeCount) => {
+          if (likeCount === null ) {
+            return models.Photo.forge({id: photoId}).save({'like_count': 0});
+          } else {
+            return models.Photo.forge({id: photoId}).save({'like_count': likeCount + 1});
+          }
+        });
     });
-});
-}
+};
 //how to insert data:
 // dont add the id it self increments 
 // // Save with no arguments

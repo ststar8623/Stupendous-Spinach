@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Comments from './Comments';
 import { Link } from 'react-router';
+import axios from 'axios';
 
 class NearbyPhotoCard extends Component {
   constructor(props) {
@@ -8,7 +9,12 @@ class NearbyPhotoCard extends Component {
     this.addLike = this.addLike.bind(this);
   }
   addLike() {
-    console.log('clicked like');
+    axios.post('/addlike', { photoId: 4, profileId: 2})
+      .then((response) => {
+        console.log('response -->', response);
+      }).catch((error)=>{
+        console.log('error', error);
+      });
   }
 
   render() {
@@ -18,15 +24,11 @@ class NearbyPhotoCard extends Component {
       <div className="img-rounded">
         <img src={url} height={200} width ={300} className='.img-thumbnail'/>
         <div style={styles.like}>
-<<<<<<< HEAD
-          <span className="fa fa-heart" aria-hidden="true"> {like_count} Likes </span>
+         
+          <span className="fa fa-heart" aria-hidden="true" onClick={this.addLike}> {this.props.photo.like_count} Likes </span>
           <span className="fa fa-comment" id="comments" style={styles.comment} aria-hidden="true">
             <Link to={commentId}> {comment_count } Comments </Link>
           </span>
-=======
-          <span className="fa fa-heart" aria-hidden="true" onClick={this.addLike}> {this.props.photo.like_count} Likes </span>
-          <span className="fa fa-comment" style={styles.comment} aria-hidden="true"> {this.props.photo.comment_count } Comments </span>
->>>>>>> working on like increment
         </div>
         <h6 className='text'>{caption} </h6>
       </div> 

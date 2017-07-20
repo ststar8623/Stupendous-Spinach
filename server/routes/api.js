@@ -53,6 +53,8 @@ router.post('/saveComment/:photoID', (req, res) =>{
 
 router.get('/getAllComments/:photoID', (req, res) =>{
 
+
+
   CommentsController.getAllComments(req.params.photoID)
     .then((comments) => {
       res.status(200).send(comments);
