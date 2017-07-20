@@ -19,12 +19,6 @@ const filterOnlyAttributes = (arr) => {
   }) : [];
 };
 
-exports.filterComments = (arr) => {
-    return arr.length > 0 ? arr.map((item) => {
-    return item.attributes;
-  }) : [];
-};
-
 exports.filterByDistance = (photosArr, currentLocationObj = {latitude: 37.8837339, longitude: -122.5090785} ) => {
 
   //get current location properties
