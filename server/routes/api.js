@@ -48,6 +48,15 @@ router.post('/saveComment/:photoID', (req, res) =>{
 
 });
 
+router.get('/getAllComments/:photoID', (req, res) =>{
 
+  CommentsController.getAllComments(req.params.photoID)
+    .then((comments) => {
+      res.status(200).send(comments);
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+});
 
 module.exports = router;
