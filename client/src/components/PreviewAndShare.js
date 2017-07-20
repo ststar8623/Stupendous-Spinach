@@ -43,7 +43,7 @@ class PreviewAndShare extends Component {
 
 
 const mapStateToProps = (state) => {
-  return {location: state.location};
+  return {location: state.};
 };
 
 
