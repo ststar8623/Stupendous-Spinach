@@ -13,7 +13,6 @@ class Nearby extends Component {
       photoData: []
     };
   }
-
   componentWillUpdate(nextProps) {
     console.log('nextProps ', nextProps);
     let that = this;
@@ -25,18 +24,20 @@ class Nearby extends Component {
             dataIsFetched: true,
             photoData: response.data
           });
+        }).catch((error)=>{
+          console.log('error', error);
         });
     }
   }
-
+ 
   renderPhotos() {
-    return this.state.photoData.map((photo, i) => {
+    // to render the acutal data use this.state.photoData
+    return photoData.map((photo, i) => {
       return (
         <NearbyPhotoCard key={i} photo={photo} />
       );
     });
   }
-
   render() {
     const isFetched = this.props.location.isFetched;
     if (!isFetched) {
