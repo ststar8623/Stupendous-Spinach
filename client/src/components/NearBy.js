@@ -5,10 +5,10 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 
-class Nearby extends Component {
+class NearBy extends Component {
 
   componentWillUpdate(nextProps) {
-    console.log('next ', nextProps);
+    let that = this;
     if (nextProps.location.isFetched) {
       axios.post('/api/nearbyPhotos', { location: nextProps.location.location.coords })
         .then((response) => {
@@ -18,8 +18,10 @@ class Nearby extends Component {
   }
 
   renderPhotos() {
-    return photoData.map(photo => {
-      <NearbyPhotoCard key={photo.caption} photo={photo} />
+    photoData.map(photo => {
+      return (
+        <NearbyPhotoCard key={photo.caption} photo={photo} />
+      );
     });
   }
 
@@ -51,7 +53,7 @@ class Nearby extends Component {
       return (
         <div>
           <h1> Nearby Photos </h1>
-          {this.renderPhotos.bind(this)}
+          {this.renderPhotos.bind(this)()}
         </div>
       );
     }
