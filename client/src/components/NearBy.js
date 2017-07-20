@@ -5,21 +5,35 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 
-class Nearby extends Component {
+class NearBy extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataIsFetched: false,
+      photoData: []
+    };
+  }
 
   componentWillUpdate(nextProps) {
-    console.log('next ', nextProps);
-    if (nextProps.location.isFetched) {
-      axios.post('/api/nearbyPhotos', { location: nextProps.location.location.coords })
+    console.log('nextProps ', nextProps);
+    let that = this;
+    if (nextProps.location.isFetched && !this.state.dataIsFetched) {
+      axios.post('/api/nearbyPhotos', { location: nextProps.location })
         .then((response) => {
           console.log('response', response);
+          that.setState({
+            dataIsFetched: true,
+            photoData: response.data
+          });
         });
     }
   }
 
   renderPhotos() {
-    return photoData.map(photo => {
-      <NearbyPhotoCard key={photo.caption} photo={photo} />
+    return this.state.photoData.map((photo, i) => {
+      return (
+        <NearbyPhotoCard key={i} photo={photo} />
+      );
     });
   }
 
@@ -51,7 +65,7 @@ class Nearby extends Component {
       return (
         <div>
           <h1> Nearby Photos </h1>
-          {this.renderPhotos.bind(this)}
+          {this.renderPhotos.bind(this)()}
         </div>
       );
     }
@@ -64,4 +78,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Nearby);
+export default connect(mapStateToProps)(NearBy);
