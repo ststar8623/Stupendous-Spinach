@@ -5,13 +5,26 @@ import { getLocation } from '../actions/geoAction';
 import imageUpload from '../actions/imageUploadAction';
 
 class Camera extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     uploadedPhoto: null
+  //   };
+  // }
+
   componentWillMount() {
     this.props.getLocation();
   }
 
   onImageDrop(file) {
-    console.log('this.props: ', this.props);
-    imageUpload(file, this.props.location);
+    console.log('this.props: ' , this.props);
+    imageUpload(file, this.props.location, data => {
+      this.setState({
+        uploadedPhoto: data
+      }, () => {
+        console.log('state: ', this.state);
+      });
+    });
   }
 
   render() {
