@@ -23,8 +23,8 @@ const imageUpload = (file, location, callback) => {
     
     if (response.body.secure_url !== '') {
       axios.post('/api/imageUpload', { url: response.body.secure_url, location: imageLocation })
-        .then((data) => {
-          console.log('response from image upload: ', data);
+        .then((response) => {
+          console.log('response data from image upload: ', response.data);
         });
       callback(response.body.secure_url);
     }
