@@ -11,6 +11,7 @@ import App from './components/App';
 import Camera from './components/Camera';
 import Nearby from './components/Nearby';
 import Comments from './components/Comments';
+import PreviewAndShare from './components/PreviewAndShare';
 
 // import react router
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -24,6 +25,7 @@ const router = (
         <IndexRoute component={Nearby} />
         <Route path='/nearby' component={Nearby} />
         <Route path='/comments/:postId' component={Comments} />
+        <Route path='/PreviewAndShare' component={PreviewAndShare} />
       </Route>
     </Router>
   </Provider>
