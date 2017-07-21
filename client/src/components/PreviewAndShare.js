@@ -4,18 +4,20 @@ import { Link } from 'react-router';
 
 
 class PreviewAndShare extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     // this.state = {
     //   uploadedPhoto: null
     // };
     this.state = {
+      shareSelection: 'everyone',
       commentText: '',
       photo: 'http://en.protothema.gr/wp-content/uploads/2016/01/anamur.jpg.pagespeed.ce_.y8U5lThvvI.jpg',
       id: 1
     };
 
     this.handleCaptionChange = this.handleCaptionChange.bind(this);
+    this.handleShareChange = this.handleShareChange.bind(this);
     // this.photo.url = 'http://en.protothema.gr/wp-content/uploads/2016/01/anamur.jpg.pagespeed.ce_.y8U5lThvvI.jpg';
   }
 
@@ -27,10 +29,10 @@ class PreviewAndShare extends Component {
 
   handleShareChange(e) {
     this.setState({
-      shareRadio: e.target.value
+      shareSelection: e.target.value
     });
+    console.log('PreviewAndShare this.state.shareSelection: ', this.state.shareSelection);
   }
-
 
   render() {
     return (
@@ -40,8 +42,8 @@ class PreviewAndShare extends Component {
         </div>
           <form className="photo-form">
             <ul>
-              <li style={ styles.li }><input type="radio" name="share-selection" value="everyone" checked="checked" onChange={this.handleShareChange} />Share with everyone</li>
-              <li style={ styles.li }><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} />Share with friends only</li>
+              <li style={ styles.li }><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} />Share with everyone</li>
+              <li style={ styles.li }><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} />Share with friends only</li>
             </ul>
             <input type="text" name="caption-text" onChange={this.handleCaptionChange} />
             <input type="submit" value="save" />
