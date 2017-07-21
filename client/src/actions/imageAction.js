@@ -7,3 +7,10 @@ export const imageAction = (photoArray) => {
     payload: photoArray
   };
 };
+
+export const imageStoreAction = (url) => {
+  return {
+    type: 'IMAGE_UPLOAD',
+    payload: url
+  };
+};

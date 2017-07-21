@@ -34,6 +34,7 @@ class PreviewAndShare extends Component {
   }
 
   render() {
+    console.log('propsssssssss ', this.props);
     return (
       <div className="preview-share-comp">
         <div>
@@ -59,8 +60,10 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  return {location: 'TODO'};
+  return {
+    url: state.image
+  };
 };
 
-export default PreviewAndShare;
+export default connect(mapStateToProps)(PreviewAndShare);
 // export default connect(mapStateToProps, {getLocation})(Camera);
