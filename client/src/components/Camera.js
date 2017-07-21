@@ -8,12 +8,6 @@ import { imageStoreAction } from '../actions/imageAction';
 import { bindActionCreators } from 'redux';
 
 class Camera extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     uploadedPhoto: null
-  //   };
-  // }
 
   componentWillMount() {
     this.props.getLocation();
@@ -22,12 +16,6 @@ class Camera extends Component {
   onImageDrop(file) {
     let that = this;
     imageUpload(file, this.props.location, data => {
-      // this.setState({
-      //   uploadedPhoto: data
-      // }, () => {
-      //   console.log('state: ', this.state);
-      // });
-      console.log('Camera this.props: =============> ' , that.props);
       that.props.imageStoreAction(data);
       browserHistory.push('/PreviewAndShare'); 
     });
@@ -44,15 +32,12 @@ class Camera extends Component {
 const mapStateToProps = (state) => {
   return {
     location: state.location,
-    url: state.image
+    url: state.upload
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   let action = bindActionCreators({ getLocation, imageStoreAction });
-//   return {
-//     ...action, dispatch
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getLocation, imageStoreAction }, dispatch);
+};
 
-export default connect(mapStateToProps, { imageStoreAction, getLocation })(Camera);
+export default connect(mapStateToProps, mapDispatchToProps)(Camera);

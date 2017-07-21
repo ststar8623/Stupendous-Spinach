@@ -10,11 +10,8 @@ export const getLocation = () => {
     }
     
     geolocation.getCurrentPosition((position, error) => {
-      // if (error) {
-      //   console.log('error ', error);
-      // }
+
       console.log('postion: ', position);
-      // fetchData(position);
       resolve(position);
     }, () => {
       reject (new Error('Permission denied'));
@@ -26,10 +23,3 @@ export const getLocation = () => {
     payload: location
   };
 };
-
-// const fetchData = (position) => {
-//   axios.post('/api/nearbyPhotos', { location: position })
-//     .then((response) => {
-//       console.log('response', response);
-//     });
-// };
