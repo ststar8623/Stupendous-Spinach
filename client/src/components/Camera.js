@@ -15,7 +15,7 @@ class Camera extends Component {
 
   onImageDrop(file) {
     let that = this;
-    imageUpload(file, this.props.location, data => {
+    imageUpload(file, data => {
       that.props.imageStoreAction(data);
       browserHistory.push('/PreviewAndShare'); 
     });
