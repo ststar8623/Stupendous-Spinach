@@ -45,7 +45,7 @@ class Nearby extends Component {
     // console.log('photodata in Nearby: ', photoData);
     // to render the actual data use this.state.photoData
       return (
-        <Link to="/PreviewAndShare"><NearbyPhotoCard key={i} photo={photo} /></Link>
+        <NearbyPhotoCard key={i} photo={photo} />
       );
     });
   }

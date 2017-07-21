@@ -36,6 +36,7 @@ router.post('/nearbyPhotos', (req, res) => {
 });
 
 
+
 router.post('/saveComment/:photoID', (req, res) =>{
 
   console.log('user id', req.user);
@@ -50,8 +51,25 @@ router.post('/saveComment/:photoID', (req, res) =>{
     });
 });
 
-router.get('/getAllComments/:photoID', (req, res) =>{
 
+router.post('/addlike', (req, res) => {
+  console.log(req.body.photoId);
+  console.log(req.user.id);
+
+  PhotosController.addLike (req.body.photoId, req.user.id)
+    .then((data) => {
+      console.log(data.attributes);
+      res.status(201).send(data.attributes);
+    })
+    .catch((error) => {
+      console.log(error);
+      //send empty object if error
+      res.status(400).send([]);
+    });
+});
+
+
+router.get('/getAllComments/:photoID', (req, res) =>{
   CommentsController.getAllComments(req.params.photoID)
     .then((comments) => {
       res.status(200).send(comments);
