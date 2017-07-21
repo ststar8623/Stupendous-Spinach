@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
-import { getLocation } from '../actions/geoAction';
+import * as AllActions from '../actions/geoAction';
 import imageUpload from '../actions/imageUploadAction';
 import { browserHistory } from 'react-router';
 import { imageStoreAction } from '../actions/imageAction';
@@ -44,15 +44,12 @@ class Camera extends Component {
 const mapStateToProps = (state) => {
   return {
     location: state.location,
-    url: state.image
+    url: state.upload
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   let action = bindActionCreators({ getLocation, imageStoreAction });
-//   return {
-//     ...action, dispatch
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(AllActions, dispatch);
+};
 
-export default connect(mapStateToProps, { imageStoreAction, getLocation })(Camera);
+export default connect(mapStateToProps, mapDispatchToProps)(Camera);

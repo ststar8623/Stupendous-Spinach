@@ -38,16 +38,16 @@ class PreviewAndShare extends Component {
     return (
       <div className="preview-share-comp">
         <div>
-          <img src="http://en.protothema.gr/wp-content/uploads/2016/01/anamur.jpg.pagespeed.ce_.y8U5lThvvI.jpg" height={200} width ={300} className='.img-thumbnail'/>
+          <img src={this.props.url} height={200} width ={300} className='.img-thumbnail'/>
         </div>
-          <form className="photo-form">
-            <ul>
-              <li style={ styles.li }><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} />Share with everyone</li>
-              <li style={ styles.li }><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} />Share with friends only</li>
-            </ul>
-            <input type="text" name="caption-text" onChange={this.handleCaptionChange} />
-            <input type="submit" value="save" />
-          </form>
+        <form className="photo-form">
+          <ul>
+            <li style={ styles.li }><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} />Share with everyone</li>
+            <li style={ styles.li }><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} />Share with friends only</li>
+          </ul>
+          <input type="text" name="caption-text" onChange={this.handleCaptionChange} />
+          <input type="submit" value="save" />
+        </form>
       </div>
     );
   }
@@ -61,7 +61,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.image
+    url: state.upload.url
   };
 };
 

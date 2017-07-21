@@ -27,6 +27,13 @@ export const getLocation = () => {
   };
 };
 
+export const imageStoreAction = (url) => {
+  return {
+    type: 'IMAGE_UPLOAD',
+    payload: url
+  };
+};
+
 // const fetchData = (position) => {
 //   axios.post('/api/nearbyPhotos', { location: position })
 //     .then((response) => {
