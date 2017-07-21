@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import { connect } from 'react-redux';require('!style-loader!css-loader!sass-loader!../styles/main.scss');
+import { connect } from 'react-redux';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import photoData from '../data/photoData';
 import Loading from './Loading';
 import { imageAction } from '../actions/imageAction';
+import { Link } from 'react-router';
+
+require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 
 class Nearby extends Component {
   constructor(props) {
@@ -27,6 +30,7 @@ class Nearby extends Component {
           that.props.dispatch(imageAction(response.data));
         })
         .then(() => {
+          // console.log('response', response);
           that.setState({
             dataIsFetched: true
           });  
@@ -43,10 +47,11 @@ class Nearby extends Component {
   }
  
   renderPhotos() {
-    // to render the acutal data use this.state.photoData
     return this.props.photoArray.map((photo, i) => {
+    // console.log('photodata in Nearby: ', photoData);
+    // to render the actual data use this.state.photoData
       return (
-        <NearbyPhotoCard key={i} photo={photo} />
+        <Link to="/PreviewAndShare"><NearbyPhotoCard key={i} photo={photo} /></Link>
       );
     });
   }

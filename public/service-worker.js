@@ -50,7 +50,7 @@ self.addEventListener('activate', (e) => {
 
 // Need to know API call for data caching
 self.addEventListener('fetch', (e) => {
-  console.log('[ServiceWorker] Fetch: ', e.request.url);
+  // console.log('[ServiceWorker] Fetch: ', e.request.url);
   // var dataUrl = 'TBD';
   // if (e.request.url.indexOf(dataUrl) > -1) {
   //   e.respondWith(
