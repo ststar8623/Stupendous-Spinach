@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import axios from 'axios';
+import { connect } from 'react-redux';require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 import NearbyPhotoCard from './NearbyPhotoCard';
 import photoData from '../data/photoData';
-import axios from 'axios';
-import { connect } from 'react-redux';
-require('!style-loader!css-loader!sass-loader!../styles/main.scss');
+import Loading from './Loading';
+import { imageAction } from '../actions/imageAction';
 
 class Nearby extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataIsFetched: false,
-      photoData: []
+      dataIsFetched: false
     };
   }
   componentWillUpdate(nextProps) {
@@ -18,20 +19,32 @@ class Nearby extends Component {
     if (nextProps.location.isFetched && !this.state.dataIsFetched) {
       axios.post('/api/nearbyPhotos', { location: nextProps.location })
         .then((response) => {
-          console.log('response', response);
+          // that.setState({
+          //   dataIsFetched: true,
+          //   photoData: response.data
+          // });
+          console.log('that props ', that.props);
+          that.props.dispatch(imageAction(response.data));
+        })
+        .then(() => {
           that.setState({
-            dataIsFetched: true,
-            photoData: response.data
-          });
+            dataIsFetched: true
+          });  
         }).catch((error)=>{
           console.log('error', error);
         });
     }
   }
+
+  componentWillUnmount() {
+    this.setState({
+      dataIsFetched: false
+    });
+  }
  
   renderPhotos() {
     // to render the acutal data use this.state.photoData
-    return photoData.map((photo, i) => {
+    return this.props.photoArray.map((photo, i) => {
       return (
         <NearbyPhotoCard key={i} photo={photo} />
       );
@@ -39,33 +52,18 @@ class Nearby extends Component {
   }
   render() {
     const isFetched = this.props.location.isFetched;
+    console.log('isFetched ', isFetched);
     if (!isFetched) {
       return (
         <div>
-          <div className="contain">
-            <svg style={{height:80, width:210}}>
-              <ellipse style={{cx:25 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
-            </svg>
-            <svg style={{height:80, width:210}}>
-              <ellipse style={{cx:62.5 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
-            </svg>
-            <svg style={{height:80, width:210}}>
-              <ellipse style={{cx:100 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
-            </svg>
-            <svg style={{height:80, width:210}}>
-              <ellipse style={{cx:137.5 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
-            </svg>
-            <svg style={{height:80, width:210}}>
-              <ellipse style={{cx:175 ,cy:20, fill:"none", rx:10, ry: 10}}></ellipse>
-            </svg>
-          </div>
+          <Loading />
         </div>
       );
     } else {
       return (
         <div>
           <h1> Nearby Photos </h1>
-          {this.renderPhotos.bind(this)()}
+          {this.renderPhotos.bind(this)()} 
         </div>
       );
     }
@@ -73,9 +71,18 @@ class Nearby extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('state ', state);
   return {
-    location: state.location
+    location: state.location,
+    photoArray: state.photo.photoArray
   };
 };
 
-export default connect(mapStateToProps)(Nearby);
+const mapDispatchToProps = (dispatch) => {
+  let action = bindActionCreators({ imageAction });
+  return {
+    ...action, dispatch
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nearby);
