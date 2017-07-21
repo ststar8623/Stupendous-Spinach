@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import photoData from '../data/photoData';
 import Loading from './Loading';
-import { imageAction } from '../actions/imageAction';
+import { imageAction, imageIsFetched } from '../actions/imageAction';
 import { Link } from 'react-router';
-import { axiosAction } from '../actions/axiosAction';
+import { axiosAction } from '../helpers/axiosAction';
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 require('!style-loader!css-loader!sass-loader!../styles/main.css');
@@ -15,32 +15,18 @@ require('!style-loader!css-loader!sass-loader!../styles/main.css');
 class Nearby extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dataIsFetched: false
-    };
   }
   componentWillUpdate(nextProps) {
-    let that = this;
-    if (nextProps.location.isFetched && !this.state.dataIsFetched) {
+    if (!nextProps.location.isFetched) {
       axiosAction('post', '/api/nearbyPhotos', { location: nextProps.location }, (response) => {
-        that.props.imageAction(response.data);
-        that.setState({
-          dataIsFetched: true
-        });
+        this.props.imageAction(response.data);
+        this.props.imageIsFetched(true);
       });
     }
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      dataIsFetched: false
-    });
   }
  
   renderPhotos() {
     return this.props.photoArray.map((photo, i) => {
-    // console.log('photodata in Nearby: ', photoData);
-    // to render the actual data use this.state.photoData
       return (
         <NearbyPhotoCard key={i} photo={photo} />
       );
@@ -56,7 +42,7 @@ class Nearby extends Component {
       );
     } else {
       return (
-        <div className="container">
+        <div className="photoCard-container container">
           <h4> Nearby Photos </h4>
           {this.renderPhotos.bind(this)()} 
         </div>
@@ -73,7 +59,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ imageAction }, dispatch);
+  return bindActionCreators({ imageAction, imageIsFetched }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nearby);

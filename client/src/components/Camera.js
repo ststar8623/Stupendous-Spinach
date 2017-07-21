@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { getLocation } from '../actions/geoAction';
-import imageUpload from '../actions/imageUploadAction';
+import imageUpload from '../helpers/imageUploadAction';
 import { browserHistory } from 'react-router';
 import { imageStoreAction } from '../actions/imageAction';
 import { bindActionCreators } from 'redux';
