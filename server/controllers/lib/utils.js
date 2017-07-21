@@ -1,3 +1,5 @@
+const _ = require('underscore');
+
 const calculateDistance = (lat1, lon1, lat2, lon2, unit)  => {
   var radlat1 = Math.PI * lat1/180;
   var radlat2 = Math.PI * lat2/180;
@@ -33,6 +35,19 @@ exports.filterByDistance = (photosArr, currentLocationObj = {latitude: 37.883733
 
     return distance < 10;
 
+  });
+
+};
+
+exports.addLikedProperty = (photosObj, likesObj) => {
+
+  //pluck the unique photo ids from likes table for user
+  let uniqueLikes = _.uniq(_.pluck(likesObj, 'photo_id'));
+
+  //set liked property to true or false for each photo
+  return photosObj.map((photo) => {
+    _.contains(uniqueLikes, photo.id) ? photo.liked = true : photo.liked = false;
+    return photo;
   });
 
 };

@@ -25,7 +25,17 @@ router.post('/imageUpload', (req, res) => {
 
 
 router.post('/nearbyPhotos', (req, res) => {
-  PhotosController.getNearbyPohotos(req.body.location.coords)
+  let coordinates;
+
+  if (req.body.location) {
+    coordinates = req.body.location.coords;
+  } else {
+    coordinates = {latitude: 37.8837339, longitude: -122.5090785};
+  }
+
+  console.log('coordinates', coordinates);
+
+  PhotosController.getNearbyPohotos(coordinates)
     .then((data) => {
       res.status(200).send(data);
     })

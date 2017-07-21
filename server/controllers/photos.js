@@ -7,11 +7,24 @@ module.exports.savePhoto = (options) => {
 };
 
 module.exports.getNearbyPohotos = (currentlocation) => {
+
+
   return models.Photo.fetchAll()
     .then((data) => {
       return utils.filterByDistance(data.models, currentlocation);
-    });
+    })
+    .then((photosObj) => {
+      //check if user liked any of photos
 
+      if (photosObj.length > 0) {
+        return models.Photo.PhotoQueries.getPhotoLikesForUser(photosObj[0].profile_id)
+          .then((likesObj) => {
+            return utils.addLikedProperty(photosObj, likesObj.rows);
+          });
+      } else {
+        return [];
+      }
+    });
 };
 
 module.exports.addLike = (photoId, profileId) => {
