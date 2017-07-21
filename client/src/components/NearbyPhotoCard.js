@@ -12,6 +12,7 @@ class NearbyPhotoCard extends Component {
       photoId: this.props.photo.id
     };
     this.addLike = this.addLike.bind(this);
+    this.addLike();
   }
 
 
@@ -19,7 +20,6 @@ class NearbyPhotoCard extends Component {
   addLike() {
     axios.post('/api/addlike', { photoId: this.state.photoId})
       .then((response) => {
-        console.log('response -->', response.data.like_count);
         this.setState({
           likeCount: response.data.like_count
         });
