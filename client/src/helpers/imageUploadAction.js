@@ -5,6 +5,30 @@ import { axiosAction } from './axiosAction';
 const CLOUDINARY_UPLOAD_PRESET = 'spinach-flashback';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/spinach-flashback/image/upload';
 
+const initialImageUpload = (file, callback) => {
+  let upload = request.post(CLOUDINARY_UPLOAD_URL)
+    .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+    .field('file', file);
+
+  upload.end((err, response) => {
+
+    if (err) {
+      console.log('error from image upload action: ', err);
+    }
+    
+    if (response.body.secure_url !== '') {
+      callback(response.body.secure_url);
+    }
+  });
+};
+
+
+const captionedImageUpload = (imageObj, callback) => {
+  
+}
+
+
+/* old version
 const imageUpload = (file, location, callback) => {
   let upload = request.post(CLOUDINARY_UPLOAD_URL)
     .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
@@ -28,5 +52,7 @@ const imageUpload = (file, location, callback) => {
     }
   });
 };
+*/
+
 
 export default imageUpload;
