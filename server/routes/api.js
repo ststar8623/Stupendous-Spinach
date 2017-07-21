@@ -9,16 +9,18 @@ router.post('/imageUpload', (req, res) => {
   
   const { url } = req.body;
   const { latitude, longitude } = req.body.location;
+  const { caption } = req.body.caption;
+  const { shareGroup } = req.body.shareGroup; //currently unused
   
   //save url, lat, long to database
 
-  PhotosController.savePhoto({ latitude, longitude, url, profile_id: req.user.id })
+  PhotosController.savePhoto({ latitude, longitude, url, profile_id: req.user.id, caption })
     .then(() => {
       //upon success, send URL back to client
       res.status(201).send(url);
     })
     .catch(() => {
-      res.status(500).send("Sorry, your photo failed to uploaded");
+      res.status(500).send("Sorry, your photo failed to upload");
     });
 
 });
