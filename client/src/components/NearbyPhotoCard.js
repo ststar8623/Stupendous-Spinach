@@ -12,7 +12,7 @@ class NearbyPhotoCard extends Component {
       photoId: this.props.photo.id
     };
     this.addLike = this.addLike.bind(this);
-    this.addLike();
+    //this.addLike();
   }
 
 
