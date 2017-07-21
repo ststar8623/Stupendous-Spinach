@@ -8,11 +8,10 @@ class NearbyPhotoCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      likeCount: null,
+      likeCount: this.props.photo.like_count,
       photoId: this.props.photo.id
     };
     this.addLike = this.addLike.bind(this);
-    this.addLike();
   }
 
   addLike() {
@@ -33,7 +32,7 @@ class NearbyPhotoCard extends Component {
       <div className="img-rounded">
         <img src={url} height={200} width ={300} className='.img-thumbnail'/>
         <div style={styles.like}>
-          <span className="fa fa-heart" aria-hidden="true" onClick={this.addLike}> {this.props.photo.like_count} Likes </span>
+          <span className="fa fa-heart" aria-hidden="true" onClick={this.addLike}> {this.state.likeCount} Likes </span>
           <span className="fa fa-comment" id="comments" style={styles.comment} aria-hidden="true">
             <Link to={commentId}> {comment_count } Comments </Link>
           </span>
