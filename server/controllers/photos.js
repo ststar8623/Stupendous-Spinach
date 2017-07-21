@@ -25,7 +25,7 @@ module.exports.addLike = (photoId, profileId) => {
         })
         .then((likeCount) => {
           if (likeCount === null ) {
-            return models.Photo.forge({id: photoId}).save({'like_count': 0});
+            return models.Photo.forge({id: photoId}).save({'like_count': 1});
           } else {
             return models.Photo.forge({id: photoId}).save({'like_count': likeCount + 1});
           }
