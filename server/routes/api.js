@@ -38,14 +38,16 @@ router.post('/nearbyPhotos', (req, res) => {
 
 router.post('/saveComment/:photoID', (req, res) =>{
 
-  console.log(req.user.id);
+  console.log('user id', req.user);
+  const userID = req.user ? req.user.id : 1;
 
-  let commentObj = {comment: "this is a great photo"};
-
-  CommentsController.saveComment(commentObj, 1);
-
-  res.status(200).send("ok");
-
+  CommentsController.saveComment(req.body.text, req.params.photoID, userID)
+    .then(()=> {
+      res.status(200).send('Successfully saved your comment');
+    })
+    .catch(() => {
+      res.status(400).send('Something went wrong with saving your comment');
+    });
 });
 
 router.get('/getAllComments/:photoID', (req, res) =>{
