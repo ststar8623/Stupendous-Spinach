@@ -23,7 +23,7 @@ class Camera extends Component {
 
   render() {
     return (
-      <Dropzone multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} className="fa fa-camera-retro col-sm-4 text-center" aria-hidden="true" >
+      <Dropzone multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} className="glyphicon glyphicon-camera" aria-hidden="true">
       </Dropzone>
     );
   }

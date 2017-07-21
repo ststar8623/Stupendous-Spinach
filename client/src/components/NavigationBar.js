@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Camera from './Camera';
 
+require('../styles/main.css');
+
 class NavigationBar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-default navbar-fixed-bottom" >
+      <nav className="navbar navbar-default navbar-fixed-bottom">
         <div className="container" style={ styles.container }>
-          <li style={ styles.li } ><Camera /></li>
-          <li style={ styles.li } ><Link to="/nearby"><div className="fa fa-compass col-sm-4 text-center" aria-hidden="true"></div></Link></li>
-          <li style={ styles.li } ><Link to="/commentsAndLikes"><div className="fa fa-heart col-sm-4 text-center" aria-hidden="true"></div></Link></li>
+          <Camera />
+          <Link to="/nearby"><span className="glyphicon glyphicon-map-marker" aria-hidden="true"></span></Link>
+          <Link to="/commentsAndLikes"><span className="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></Link>
         </div>
       </nav>
     );
@@ -21,10 +23,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     textAlign: 'justify'
-  },
-  li: {
-    listStyleType: 'none',
-    display: 'inline-block',
   }
 };
 

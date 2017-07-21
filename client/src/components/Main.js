@@ -6,6 +6,8 @@ import NavigationBar from './NavigationBar';
 import Camera from './Camera';
 import { getLocation } from '../actions/geoAction';
 
+require('../styles/main.css');
+
 if ('serviceWorker' in navigator) {
   // window.addEventListener('load', () => {
   navigator.serviceWorker.register(__dirname + '../service-worker.js')
@@ -22,10 +24,10 @@ class Main extends Component {
   render() {
     return (
       <div className="container">
+        <nav className="navbar navbar-default navbar-fixed-top">
+          <h1 className="title"> flashBack </h1>
+        </nav>
         <NavigationBar />
-        <h1>
-          flashback
-        </h1>
         {this.props.children}
       </div>
     );
