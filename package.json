@@ -8,6 +8,7 @@
     "heroku-postbuild": "webpack -p --config ./webpack.config.babel.js --progress",
     "dev-start": "NODE_ENV=development nodemon server",
     "start": "NODE_ENV=staging node server/index.js",
+    "jest": "jest",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch"
   },
@@ -52,6 +53,7 @@
     "grunt-eslint": "^19.0.0",
     "grunt-mocha-test": "^0.13.2",
     "grunt-pg": "https://github.com/watsoncj/grunt-pg.git",
+    "jest": "^20.0.4",
     "knex": "^0.12.9",
     "mocha": "^3.2.0",
     "morgan": "^1.8.1",
