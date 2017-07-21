@@ -32,19 +32,11 @@ class NearbyPhotoCard extends Component {
     const commentId = `/comments/${id}`;
     return (
       <div className="img-rounded">
-<<<<<<< f8702bd7c39ae36b186ed60f3206cabecdf9cc8f
-        <img src={url} height={200} width ={300} className='.img-thumbnail'/>
-        <div style={styles.like}>
-          <span className="fa fa-heart" aria-hidden="true" onClick={this.addLike}> {this.state.likeCount} Likes </span>
-          <span className="fa fa-comment" id="comments" style={styles.comment} aria-hidden="true">
-            <Link to={commentId}> {comment_count } Comments </Link>
-=======
         <img src={ url } className='img-thumbnail'/>
         <div>
-          <span className="fa fa-heart heart" aria-hidden="true"> { like_count }<span className="like">Likes</span> </span>
+          <span className="fa fa-heart heart" aria-hidden="true" onClick={ this.addLike }>{ this.state.likeCount }<span className="like">Likes</span></span>
           <span className="fa fa-comment comment" aria-hidden="true">
             <Link to={ commentId }>{ comment_count }<span className="like">Comments</span></Link>
->>>>>>> Restyle Css
           </span>
         </div>
         <h6 className='text'>{ caption }</h6>
