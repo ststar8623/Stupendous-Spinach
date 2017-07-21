@@ -7,9 +7,11 @@ import photoData from '../data/photoData';
 import Loading from './Loading';
 import { imageAction } from '../actions/imageAction';
 import { Link } from 'react-router';
+import { axiosAction } from '../actions/axiosAction';
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 require('!style-loader!css-loader!sass-loader!../styles/main.css');
+
 class Nearby extends Component {
   constructor(props) {
     super(props);
@@ -20,17 +22,12 @@ class Nearby extends Component {
   componentWillUpdate(nextProps) {
     let that = this;
     if (nextProps.location.isFetched && !this.state.dataIsFetched) {
-      axios.post('/api/nearbyPhotos', { location: nextProps.location })
-        .then((response) => {
-          that.props.imageAction(response.data);
-        })
-        .then(() => {
-          that.setState({
-            dataIsFetched: true
-          });  
-        }).catch((error)=>{
-          console.log('error', error);
+      axiosAction('post', '/api/nearbyPhotos', { location: nextProps.location }, (response) => {
+        that.props.imageAction(response.data);
+        that.setState({
+          dataIsFetched: true
         });
+      });
     }
   }
 
