@@ -31,7 +31,6 @@ class PreviewAndShare extends Component {
     this.setState({
       shareSelection: e.target.value
     });
-    console.log('PreviewAndShare this.state.shareSelection: ', this.state.shareSelection);
   }
 
   render() {
@@ -59,9 +58,9 @@ const styles = {
   }
 };
 
-// const mapStateToProps = (state) => {
-//   return {location: state.};
-// };
+const mapStateToProps = (state) => {
+  return {location: 'TODO'};
+};
 
 export default PreviewAndShare;
 // export default connect(mapStateToProps, {getLocation})(Camera);
