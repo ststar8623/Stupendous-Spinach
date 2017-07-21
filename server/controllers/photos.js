@@ -15,6 +15,8 @@ module.exports.getNearbyPohotos = (currentlocation) => {
 };
 
 module.exports.addLike = (photoId, profileId) => {
+  
+  // check if the photo id an the user id already exist 
   return models.Like.forge({photo_id: photoId, profile_id: profileId})
     .save()
     .then(() => {

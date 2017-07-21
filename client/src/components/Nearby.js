@@ -25,6 +25,10 @@ class Nearby extends Component {
           that.props.dispatch(imageAction(response.data));
         })
         .then(() => {
+
+          that.props.dispatch(imageAction(response.data));
+        })
+        .then(() => {
           that.setState({
             dataIsFetched: true
           });  
@@ -41,8 +45,9 @@ class Nearby extends Component {
   }
  
   renderPhotos() {
-    // to render the acutal data use this.state.photoData
-    return this.state.photoData.map((photo, i) => {
+    return this.props.photoArray.map((photo, i) => {
+    // console.log('photodata in Nearby: ', photoData);
+    // to render the actual data use this.state.photoData
       return (
         <Link to="/PreviewAndShare"><NearbyPhotoCard key={i} photo={photo} /></Link>
       );
