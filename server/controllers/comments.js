@@ -4,6 +4,8 @@ const knex = require('../../db/knex.js');
 
 module.exports.saveComment = (text="this is a great photo", photo_id=1, profile_id=1) => {
 
+  console.log('textttttttt', text);
+
 
   return models.Comment.forge({text, photo_id, profile_id})
     .save()
