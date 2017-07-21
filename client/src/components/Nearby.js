@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import NearbyPhotoCard from './NearbyPhotoCard';
-import photoData from '../data/photoData';
 import Loading from './Loading';
 import { imageAction, imageIsFetched } from '../actions/imageAction';
 import { Link } from 'react-router';

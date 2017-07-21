@@ -87,6 +87,7 @@
     "stylus-loader": "^3.0.1",
     "superagent": "^3.5.2",
     "supertest": "^3.0.0",
+    "underscore": "^1.8.3",
     "webpack": "^2.3.2",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-dev-server": "^2.4.2",

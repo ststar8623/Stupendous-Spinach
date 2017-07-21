@@ -1,4 +1,5 @@
 const db = require('../');
+const knex = require('../knex.js');
 
 const Photo = db.Model.extend({
   tableName: 'photos',
@@ -7,4 +8,20 @@ const Photo = db.Model.extend({
   }
 });
 
+class PhotoQueries {
+
+
+  getPhotoLikesForUser(userID) {
+    let query = `select * from likes where profile_id = ${userID}`;
+
+    return knex.raw(query);
+  }
+
+}
+
+// PhotoQueries.getPhotoLikesForUser(2)
+// .then((data) => console.log(data));
+
+
 module.exports = db.model('Photo', Photo);
+module.exports.PhotoQueries = new PhotoQueries();
