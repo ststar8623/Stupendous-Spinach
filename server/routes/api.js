@@ -82,6 +82,7 @@ router.post('/addlike', (req, res) => {
 
 
 router.get('/getAllComments/:photoID', (req, res) =>{
+  console.log('req params ', req.params);
   CommentsController.getAllComments(req.params.photoID)
     .then((comments) => {
       res.status(200).send(comments);

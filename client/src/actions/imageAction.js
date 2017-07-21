@@ -1,8 +1,6 @@
-const ALL_PHOTOS = 'ALL_PHOTOS';
-
 export const imageAction = (photoArray) => {
   return {
-    type: ALL_PHOTOS,
+    type: 'ALL_PHOTOS',
     payload: photoArray
   };
 };
@@ -18,5 +16,12 @@ export const imageIsFetched = (boolean) => {
   return {
     type: 'IMAGE_ISFETCHED',
     payload: boolean
-  }
-}
+  };
+};
+
+export const currentPhotoAction = (comments) => {
+  return {
+    type: 'CURRENT_PHOTO_COMMENTS',
+    payload: comments
+  };
+};

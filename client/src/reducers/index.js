@@ -6,7 +6,8 @@ import comments from './comments';
 import geo from './geo';
 import photoArray from './photos';
 import upload from './upload';
+import currentPhoto from './currentPhoto';
 
-const rootReducer = combineReducers({ posts, comments, upload, location: geo, photoArray, routing: routerReducer });
+const rootReducer = combineReducers({ posts, comments, upload, currentPhoto, location: geo, photoArray, routing: routerReducer });
 
 export default rootReducer;
