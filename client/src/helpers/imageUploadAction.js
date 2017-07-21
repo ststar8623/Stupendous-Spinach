@@ -1,5 +1,5 @@
 import request from 'superagent';
-import axios from 'axios';
+import { axiosAction } from './axiosAction';
 // import { CLOUDINARY_UPLOAD_URL, CLOUDINARY_UPLOAD_PRESET } from '../../../server/config/config';
 
 const CLOUDINARY_UPLOAD_PRESET = 'spinach-flashback';
@@ -22,11 +22,9 @@ const imageUpload = (file, location, callback) => {
     };
     
     if (response.body.secure_url !== '') {
-      axios.post('/api/imageUpload', { url: response.body.secure_url, location: imageLocation })
-        .then((response) => {
-          console.log('response data from image upload: ', response.data);
-        });
-      callback(response.body.secure_url);
+      axiosAction('post', '/api/imageUpload', { url: response.body.secure_url, location: imageLocation }, () => {
+        callback(response.body.secure_url);
+      });
     }
   });
 };

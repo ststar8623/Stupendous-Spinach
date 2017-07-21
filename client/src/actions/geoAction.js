@@ -8,16 +8,12 @@ export const getLocation = () => {
     if (!geolocation) {
       reject(new Error('Not Supported'));
     }
-    
     geolocation.getCurrentPosition((position, error) => {
-
-      console.log('postion: ', position);
       resolve(position);
     }, () => {
       reject (new Error('Permission denied'));
     });
   });
-  console.log('position: ', location);
   return {
     type: GET_LOCATION,
     payload: location

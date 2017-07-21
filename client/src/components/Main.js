@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
-
-import NavigationBar from './NavigationBar';
-import Camera from './Camera';
+import { bindActionCreators } from 'redux';
 import { getLocation } from '../actions/geoAction';
 
-require('../styles/main.css');
+import NavigationBarBottom from './navigation/navBottom';
+import NavigationBarTop from './navigation/navTop';
 
 if ('serviceWorker' in navigator) {
   // window.addEventListener('load', () => {
@@ -21,13 +19,12 @@ class Main extends Component {
   componentWillMount() {
     this.props.getLocation();
   }
+
   render() {
     return (
-      <div className="container">
-        <nav className="navbar navbar-default navbar-fixed-top">
-          <h1 className="title"> flashBack </h1>
-        </nav>
-        <NavigationBar />
+      <div>
+        <NavigationBarTop />
+        <NavigationBarBottom />
         {this.props.children}
       </div>
     );
@@ -35,7 +32,13 @@ class Main extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {location: state.location};
+  return {
+    location: state.location
+  };
 };
 
-export default connect(mapStateToProps, {getLocation})(Main);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getLocation }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

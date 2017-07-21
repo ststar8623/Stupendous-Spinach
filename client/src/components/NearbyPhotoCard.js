@@ -34,9 +34,9 @@ class NearbyPhotoCard extends Component {
       <div className="img-rounded">
         <img src={ url } className='img-thumbnail'/>
         <div>
-          <span className="fa fa-heart heart" aria-hidden="true" onClick={ this.addLike }>{ this.state.likeCount }<span className="like">Likes</span></span>
+          <span className="fa fa-heart heart" aria-hidden="true" onClick={ this.addLike }>{ this.state.likeCount }</span>
           <span className="fa fa-comment comment" aria-hidden="true">
-            <Link to={ commentId }>{ comment_count }<span className="like">Comments</span></Link>
+            <Link to={ commentId }>{ comment_count }<span className="comments">Comments</span></Link>
           </span>
         </div>
         <h6 className='text'>{ caption }</h6>

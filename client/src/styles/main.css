@@ -4,13 +4,30 @@
 
 .title {
   font-family: 'Kaushan Script', cursive;
-  text-align: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 40px;
+  margin: 12px 80px;
 }
 
 .container {
+  padding: 0;
+}
+
+.navbar-container {
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  text-align: justify;
+}
+
+.navbar-fixed-top {
+  margin-top: -10px;
+  border-bottom: 1px solid black;
+}
+
+.navbar-fixed-bottom {
+  margin-bottom: -10px;
+}
+
+.photoCard-container {
   padding: 0;
 }
 
@@ -22,13 +39,14 @@
 .img-thumbnail {
   width: 100%;
   padding: 0px;
+  margin-bottom: 10px;
 }
 
 .heart {
   margin: 0 10px;
 }
 
-.like {
+.comments {
   font-family: 'Kaushan Script', cursive;
 }
 
@@ -39,4 +57,11 @@
 
 h4 {
   margin: 10px;
+  font-size: 14px;
+}
+
+ .refresh-button, .user-button {
+  font-size: 22px;
+  margin-top: 28px;
+  
 }
