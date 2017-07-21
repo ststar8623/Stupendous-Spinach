@@ -1,0 +1,42 @@
+* {
+  padding: 0;
+}
+
+.title {
+  font-family: 'Kaushan Script', cursive;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 40px;
+}
+
+.container {
+  padding: 0;
+}
+
+.img-rounded {
+  font-size: 18px;
+  padding: 0px;
+}
+
+.img-thumbnail {
+  width: 100%;
+  padding: 0px;
+}
+
+.heart {
+  margin: 0 10px;
+}
+
+.like {
+  font-family: 'Kaushan Script', cursive;
+}
+
+.comment {
+  float: right;
+  margin: 0 10px;
+}
+
+h4 {
+  margin: 10px;
+}

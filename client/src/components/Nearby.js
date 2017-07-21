@@ -9,7 +9,7 @@ import { imageAction } from '../actions/imageAction';
 import { Link } from 'react-router';
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
-
+require('!style-loader!css-loader!sass-loader!../styles/main.css');
 class Nearby extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ class Nearby extends Component {
     if (nextProps.location.isFetched && !this.state.dataIsFetched) {
       axios.post('/api/nearbyPhotos', { location: nextProps.location })
         .then((response) => {
-          that.props.dispatch(imageAction(response.data));
+          that.props.imageAction(response.data);
         })
         .then(() => {
           that.setState({
@@ -59,8 +59,8 @@ class Nearby extends Component {
       );
     } else {
       return (
-        <div>
-          <h1> Nearby Photos </h1>
+        <div className="container">
+          <h4> Nearby Photos </h4>
           {this.renderPhotos.bind(this)()} 
         </div>
       );
@@ -71,15 +71,12 @@ class Nearby extends Component {
 const mapStateToProps = (state) => {
   return {
     location: state.location,
-    photoArray: state.photo.photoArray
+    photoArray: state.photoArray.photoArray
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  let action = bindActionCreators({ imageAction });
-  return {
-    ...action, dispatch
-  };
+  return bindActionCreators({ imageAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nearby);
