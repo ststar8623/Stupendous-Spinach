@@ -22,15 +22,9 @@ class Nearby extends Component {
     if (nextProps.location.isFetched && !this.state.dataIsFetched) {
       axios.post('/api/nearbyPhotos', { location: nextProps.location })
         .then((response) => {
-          // that.setState({
-          //   dataIsFetched: true,
-          //   photoData: response.data
-          // });
-          console.log('that props ', that.props);
           that.props.dispatch(imageAction(response.data));
         })
         .then(() => {
-          // console.log('response', response);
           that.setState({
             dataIsFetched: true
           });  
@@ -57,7 +51,6 @@ class Nearby extends Component {
   }
   render() {
     const isFetched = this.props.location.isFetched;
-    console.log('isFetched ', isFetched);
     if (!isFetched) {
       return (
         <div>
