@@ -3,6 +3,8 @@ import Comments from './Comments';
 import { Link } from 'react-router';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { increment } from '../actions/likeAction';
+import { bindActionCreators } from 'redux';
 
 require('../styles/main.css');
 
@@ -10,22 +12,13 @@ class NearbyPhotoCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      likeCount: this.props.photo.like_count,
-      photoId: this.props.photo.id
+      id: this.props.photo.id
     };
-    this.addLike = this.addLike.bind(this);
   }
 
   addLike() {
-    axios.post('/api/addlike', { photoId: this.state.photoId})
-      .then((response) => {
-        // this.setState({
-        //   likeCount: response.data.like_count
-        // });
-        console.log('response from add like api', response);
-      }).catch((error)=>{
-        console.log('error', error);
-      });
+    console.log('state id', this.state.id);
+    this.props.increment(this.state.id);
   }
 
   render() {
@@ -35,7 +28,7 @@ class NearbyPhotoCard extends Component {
       <div className="img-rounded">
         <img src={ url } className='img-thumbnail'/>
         <div>
-          <span className="fa fa-heart heart" aria-hidden="true" onClick={ this.addLike }>{ this.state.likeCount }</span>
+          <span className="fa fa-heart heart" aria-hidden="true" onClick={ this.addLike.bind(this) }>{ like_count }</span>
           <span className="fa fa-comment comment" aria-hidden="true">
             <Link to={ commentId }>{ comment_count }<span className="comments">Comments</span></Link>
           </span>
@@ -46,5 +39,9 @@ class NearbyPhotoCard extends Component {
   }
 }
 
-export default NearbyPhotoCard;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ increment }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(NearbyPhotoCard);
 
