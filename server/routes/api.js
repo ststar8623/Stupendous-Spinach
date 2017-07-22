@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const PhotosController = require('../controllers').Photos;
 const CommentsController = require('../controllers').Comments;
+const LikesController = require('../controllers').Likes;
 
 
 router.post('/imageUpload', (req, res) => {
@@ -66,15 +67,14 @@ router.post('/addlike', (req, res) => {
   console.log(req.body.photoId);
   console.log(req.user.id);
 
-  PhotosController.addLike (req.body.photoId, req.user.id)
+  LikesController.addLike(req.body.photoId, req.user.id)
     .then((data) => {
-      console.log(data.attributes);
-      res.status(201).send(data.attributes);
+      res.status(201).send(data);
     })
     .catch((error) => {
       console.log(error);
       //send empty object if error
-      res.status(400).send([]);
+      res.status(400).send("Sorry something went wrong with saving your like");
     });
 });
 
