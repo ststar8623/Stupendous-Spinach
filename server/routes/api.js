@@ -39,7 +39,7 @@ router.post('/nearbyPhotos', (req, res) => {
 
   console.log('coordinates', coordinates);
 
-  PhotosController.getNearbyPohotos(coordinates)
+  PhotosController.getNearbyPhotos(coordinates)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -64,9 +64,9 @@ router.post('/saveComment/:photoID', (req, res) =>{
 });
 
 
-router.post('/addlike', (req, res) => {
+router.post('/addlike/:photoID', (req, res) => {
 
-  LikesController.addLike(req.body.photoId, req.user.id)
+  LikesController.addLike(req.params.photoID, req.user.id)
     .then((data) => {
       res.status(201).send(data);
     })

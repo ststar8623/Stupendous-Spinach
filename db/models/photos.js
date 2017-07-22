@@ -17,6 +17,13 @@ class PhotoQueries {
     return knex.raw(query);
   }
 
+  getTwentyPhotos() {
+    let query = `select * from photos order by created_at desc limit 20;`;
+
+    return knex.raw(query);
+
+  }
+
 }
 
 // PhotoQueries.getPhotoLikesForUser(2)
