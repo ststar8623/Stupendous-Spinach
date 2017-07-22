@@ -9,9 +9,10 @@ router.post('/imageUpload', (req, res) => {
   
   const { url } = req.body;
   const { latitude, longitude } = req.body.location;
-  const { caption } = req.body.caption;
-  const { shareGroup } = req.body.shareGroup; //currently unused
+  const { caption } = req.body;
+  const { shareSelection } = req.body; //currently unused
   
+  console.log('request body to /imageUpload: ', req.body);
   //save url, lat, long to database
 
   PhotosController.savePhoto({ latitude, longitude, url, profile_id: req.user.id, caption })
@@ -46,7 +47,6 @@ router.post('/nearbyPhotos', (req, res) => {
       res.status(400).send([]);
     });
 });
-
 
 
 router.post('/saveComment/:photoID', (req, res) =>{
