@@ -6,12 +6,12 @@ module.exports.savePhoto = (options) => {
   return models.Photo.forge(options).save();
 };
 
-module.exports.getNearbyPohotos = (currentlocation) => {
+module.exports.getNearbyPhotos = (currentlocation) => {
 
 
-  return models.Photo.fetchAll()
+  return models.Photo.PhotoQueries.getTwentyPhotos()
     .then((data) => {
-      return utils.filterByDistance(data.models, currentlocation);
+      return utils.filterByDistance(data.rows, currentlocation);
     })
     .then((photosObj) => {
       //check if user liked any of photos
@@ -25,6 +25,7 @@ module.exports.getNearbyPohotos = (currentlocation) => {
         return [];
       }
     });
+
 };
 
 module.exports.addLike = (photoId, profileId) => {

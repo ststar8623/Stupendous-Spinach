@@ -39,7 +39,7 @@ router.post('/nearbyPhotos', (req, res) => {
 
   console.log('coordinates', coordinates);
 
-  PhotosController.getNearbyPohotos(coordinates)
+  PhotosController.getNearbyPhotos(coordinates)
     .then((data) => {
       res.status(200).send(data);
     })
