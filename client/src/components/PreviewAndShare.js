@@ -1,34 +1,20 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { imageStoreAction } from '../actions/imageAction'; //Needed?
+import { captionedImageUpload } from '../helpers/imageUploadAction';
+import Nearby from './Nearby';
+import { browserHistory } from 'react-router';
 
 
 class PreviewAndShare extends Component {
   constructor() {
     super();
-    // this.state = {
-    //   uploadedPhoto: null
-    // };
     this.state = {
       shareSelection: 'everyone',
-      captionText: '',
-      photo: '',
+      captionText: ''
     };
-
-    // {
-    //   id: 1,
-    //   profile_id: 1,
-    //   latitude: '37.7876° N',
-    //   longitude: '122.4001° W',
-    //   url: 'http://img07.deviantart.net/a85d/i/2013/022/0/3/san_francisco_city_by_tt83x-d5seu41.jpg',
-    //   like_count: 1,
-    //   comment_count: 1,
-    //   caption: 'SF at night!' 
-    // }
-// Does the image object live in state/store prior to imageupload in camera?
-// if yes, need to delay submission of image until this page, after adding caption and share field
   
-
     this.handleCaptionSubmit = this.handleCaptionSubmit.bind(this);
     this.handleCaptionChange = this.handleCaptionChange.bind(this);
     this.handleShareChange = this.handleShareChange.bind(this);
@@ -36,7 +22,7 @@ class PreviewAndShare extends Component {
 
   handleCaptionChange(e) {
     this.setState({
-      commentText: e.target.value
+      captionText: e.target.value
     });
   }
 
@@ -48,17 +34,21 @@ class PreviewAndShare extends Component {
 
   handleCaptionSubmit(e) {
     e.preventDefault();
-    console.log('handleCaptionChange invoked');
     let that = this;
-    imageUpload(file, data => {
-      that.props.imageStoreAction(data);
-      browserHistory.push('/PreviewAndShare'); 
+    let imageObj = {
+      location: this.props.location,
+      url: this.props.url,
+      caption: this.state.captionText,
+      shareSelection: this.state.shareSelection
+    };
+
+    captionedImageUpload(imageObj, (Url) => {
+      browserHistory.push('/Nearby');
     });
  
   }
 
   render() {
-    console.log('propsssssssss ', this.props);
     return (
       <div className="preview-share-comp">
         <div>
