@@ -28,7 +28,7 @@ class Nearby extends Component {
   renderPhotos() {
     return this.props.photoArray.map((photo, i) => {
       return (
-        <NearbyPhotoCard key={i} photo={photo} />
+        <NearbyPhotoCard key={i} photo={photo} i={i}/>
       );
     });
   }

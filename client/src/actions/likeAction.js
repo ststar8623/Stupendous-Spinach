@@ -5,6 +5,14 @@ export const increment = (index) => {
     index
   };
 };
+
+export const decrement = (index) => {
+  return {
+    type: 'DECREMENT_LIKES',
+    index
+  };
+};
+
 // add comments
 export const addComment = (postId, author, comment) => {
   return {
