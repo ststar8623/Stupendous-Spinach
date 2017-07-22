@@ -11,10 +11,7 @@ import rootReducer from './reducers/index';
 // import posts from './data/posts';
 
 // create an object for the default data
-const defaultState = {
-  posts: null,
-  comments: null
-};
+const defaultState = {};
 
 // Redux dev tools installation
 // Install redux dev tools from chrome

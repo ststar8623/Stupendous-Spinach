@@ -61,7 +61,7 @@ class Comment extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    photoArray: state.photoArray.photoArray,
+    photoArray: state.photoArray,
     currentPhoto: state.currentPhoto.current
   };
 };

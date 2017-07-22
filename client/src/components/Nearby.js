@@ -54,7 +54,7 @@ class Nearby extends Component {
 const mapStateToProps = (state) => {
   return {
     location: state.location,
-    photoArray: state.photoArray.photoArray
+    photoArray: state.photoArray
   };
 };
 
