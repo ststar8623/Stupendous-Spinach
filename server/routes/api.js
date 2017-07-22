@@ -74,7 +74,7 @@ router.post('/addlike', (req, res) => {
     .catch((error) => {
       console.log(error);
       //send empty object if error
-      res.status(400).send("Sorry something went wron g with saving your like");
+      res.status(400).send("Sorry something went wrong with saving your like");
     });
 });
 
