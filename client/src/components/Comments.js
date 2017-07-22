@@ -5,30 +5,54 @@ import { bindActionCreators } from 'redux';
 import { currentPhotoAction } from '../actions/imageAction';
 
 class Comment extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comment: ''
+    };
+  }
+
   componentWillMount() {
+    this.fetchCurrentComments();
+  }
+
+  fetchCurrentComments() {
     const { postId } = this.props.params;
     axiosAction('get', `/api/getAllComments/${postId}`, null, (comments) => {
       this.props.currentPhotoAction(comments.data);
     });
   }
 
-  saveComment() {
+  handleChange(event) {
+    this.setState({
+      comment: event.target.value
+    });
+  }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const { postId } = this.props.params;
+    axiosAction('post', `/api/saveComment/${postId}`, { text: this.state.comment }, (response) => {
+      console.log('Comment saved to database');
+      this.fetchCurrentComments();
+    });
   }
 
   render() {
+    console.log('this.props ', this.props.currentPhoto);
     const comments = this.props.currentPhoto.map((comment, i) => {
       return (
-        <li key={i}>{ comment }</li>
+        <li key={i}>{ comment.text }</li>
       );
     });
     return (
       <div>
         <ul>
-          <comments />
+          { comments }
         </ul>
-        <form action="submit" >
-          <input type="text" max="100" min="1" placeholder="Add a comment..." />
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <input type="text" max="100" min="1" placeholder="Add a comment..." onChange={this.handleChange.bind(this)}/>
+          <input type="submit" value="Submit" />
         </form>
       </div>
     );
