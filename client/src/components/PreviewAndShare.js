@@ -1,29 +1,28 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { imageStoreAction } from '../actions/imageAction'; //Needed?
+import { captionedImageUpload } from '../helpers/imageUploadAction';
+import Nearby from './Nearby';
+import { browserHistory } from 'react-router';
 
 
 class PreviewAndShare extends Component {
   constructor() {
     super();
-    // this.state = {
-    //   uploadedPhoto: null
-    // };
     this.state = {
       shareSelection: 'everyone',
-      commentText: '',
-      photo: 'http://en.protothema.gr/wp-content/uploads/2016/01/anamur.jpg.pagespeed.ce_.y8U5lThvvI.jpg',
-      id: 1
+      captionText: ''
     };
-
+  
+    this.handleCaptionSubmit = this.handleCaptionSubmit.bind(this);
     this.handleCaptionChange = this.handleCaptionChange.bind(this);
     this.handleShareChange = this.handleShareChange.bind(this);
-    // this.photo.url = 'http://en.protothema.gr/wp-content/uploads/2016/01/anamur.jpg.pagespeed.ce_.y8U5lThvvI.jpg';
   }
 
   handleCaptionChange(e) {
     this.setState({
-      commentText: e.target.value
+      captionText: e.target.value
     });
   }
 
@@ -33,14 +32,29 @@ class PreviewAndShare extends Component {
     });
   }
 
+  handleCaptionSubmit(e) {
+    e.preventDefault();
+    let that = this;
+    let imageObj = {
+      location: this.props.location,
+      url: this.props.url,
+      caption: this.state.captionText,
+      shareSelection: this.state.shareSelection
+    };
+
+    captionedImageUpload(imageObj, (Url) => {
+      browserHistory.push('/Nearby');
+    });
+ 
+  }
+
   render() {
-    console.log('propsssssssss ', this.props);
     return (
       <div className="preview-share-comp">
         <div>
           <img src={this.props.url} height={200} width ={300} className='.img-thumbnail'/>
         </div>
-        <form className="photo-form">
+        <form className="photo-form" onSubmit={this.handleCaptionSubmit}>
           <ul>
             <li style={ styles.li }><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} />Share with everyone</li>
             <li style={ styles.li }><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} />Share with friends only</li>
@@ -61,9 +75,9 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.upload.url
+    url: state.upload.url,
+    location: state.location
   };
 };
 
 export default connect(mapStateToProps)(PreviewAndShare);
-// export default connect(mapStateToProps, {getLocation})(Camera);

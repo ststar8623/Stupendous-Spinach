@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { getLocation } from '../actions/geoAction';
-import imageUpload from '../helpers/imageUploadAction';
+import { initialImageUpload } from '../helpers/imageUploadAction';
 import { browserHistory } from 'react-router';
 import { imageStoreAction } from '../actions/imageAction';
 import { bindActionCreators } from 'redux';
@@ -15,7 +15,7 @@ class Camera extends Component {
 
   onImageDrop(file) {
     let that = this;
-    imageUpload(file, this.props.location, data => {
+    initialImageUpload(file, data => {
       that.props.imageStoreAction(data);
       browserHistory.push('/PreviewAndShare'); 
     });
