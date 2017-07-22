@@ -43,7 +43,7 @@ class Nearby extends Component {
     } else {
       return (
         <div className="photoCard-container container">
-          <h4> Nearby Photos </h4>
+          <h4 className="h4-nearby"> Nearby Photos </h4>
           {this.renderPhotos.bind(this)()} 
         </div>
       );

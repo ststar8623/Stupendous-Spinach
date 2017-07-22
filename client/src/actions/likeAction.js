@@ -14,19 +14,9 @@ export const decrement = (index) => {
 };
 
 // add comments
-export const addComment = (postId, author, comment) => {
+export const incrementComment = (index) => {
   return {
-    type: 'ADD_COMMENT',
-    postId,
-    author,
-    comment
-  };
-};
-// remove comments
-export const removeComment = (postId, i) => {
-  return {
-    type: 'REMOVE_COMMENT',
-    i,
-    postId
+    type: 'INCREMENT_COMMENT',
+    index
   };
 };
