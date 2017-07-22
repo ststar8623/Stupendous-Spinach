@@ -18,7 +18,7 @@ class PhotoQueries {
   }
 
   getPhotos(numOfPhotos = 20) {
-    let query = `select * from photos order by created_at desc limit ${numOfPhotos};`;
+    let query = `select *, age(current_date + current_time, created_at) as "age" from photos order by created_at desc limit ${numOfPhotos};`;
 
     return knex.raw(query);
   }
