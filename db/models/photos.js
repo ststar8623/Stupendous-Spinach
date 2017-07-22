@@ -17,11 +17,10 @@ class PhotoQueries {
     return knex.raw(query);
   }
 
-  getTwentyPhotos() {
-    let query = `select * from photos order by created_at desc limit 20;`;
+  getPhotos(numOfPhotos = 20) {
+    let query = `select * from photos order by created_at desc limit ${numOfPhotos};`;
 
     return knex.raw(query);
-
   }
 
 }

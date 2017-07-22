@@ -9,7 +9,7 @@ module.exports.savePhoto = (options) => {
 module.exports.getNearbyPhotos = (currentlocation) => {
 
 
-  return models.Photo.PhotoQueries.getTwentyPhotos()
+  return models.Photo.PhotoQueries.getPhotos(20)
     .then((data) => {
       return utils.filterByDistance(data.rows, currentlocation);
     })
