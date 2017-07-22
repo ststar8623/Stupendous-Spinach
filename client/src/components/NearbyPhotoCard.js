@@ -19,9 +19,10 @@ class NearbyPhotoCard extends Component {
   addLike() {
     axios.post('/api/addlike', { photoId: this.state.photoId})
       .then((response) => {
-        this.setState({
-          likeCount: response.data.like_count
-        });
+        // this.setState({
+        //   likeCount: response.data.like_count
+        // });
+        console.log('response from add like api', response);
       }).catch((error)=>{
         console.log('error', error);
       });
