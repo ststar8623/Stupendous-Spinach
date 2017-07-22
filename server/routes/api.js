@@ -52,7 +52,6 @@ router.post('/nearbyPhotos', (req, res) => {
 
 router.post('/saveComment/:photoID', (req, res) =>{
 
-  console.log('user id', req.user);
   const userID = req.user ? req.user.id : 1;
 
   CommentsController.saveComment(req.body.text, req.params.photoID, userID)
@@ -66,8 +65,6 @@ router.post('/saveComment/:photoID', (req, res) =>{
 
 
 router.post('/addlike', (req, res) => {
-  console.log(req.body.photoId);
-  console.log(req.user.id);
 
   LikesController.addLike(req.body.photoId, req.user.id)
     .then((data) => {
@@ -80,6 +77,18 @@ router.post('/addlike', (req, res) => {
     });
 });
 
+router.put('/removelike/:photoID', (req, res) => {
+  
+  const userID = req.user ? req.user.id : 2;
+
+  LikesController.removeLike(req.params.photoID, userID)
+    .then(() => {
+      res.status(200).send('Successfully removed like');
+    })
+    .catch(() => {
+      res.status(400).send('Sorry, something went wrong with your delete like request');
+    });
+});
 
 router.get('/getAllComments/:photoID', (req, res) =>{
   console.log('req params ', req.params);
