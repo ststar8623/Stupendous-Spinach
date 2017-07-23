@@ -26,7 +26,7 @@ class NearbyPhotoCard extends Component {
   }
 
   render() {
-    const { url, like_count, comment_count, id, caption, liked, age } = this.props.photo;
+    const { url, like_count, comment_count, id, caption, liked, age, first } = this.props.photo;
     const commentId = `/comments/${id}`;
     const { i } = this.props;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
@@ -39,7 +39,7 @@ class NearbyPhotoCard extends Component {
         </div>
         <div className="likeCaptionComment">
           <div>
-            <span className="profile">Steven</span>
+            <span className="profile">{ first }</span>
           </div>
           <CSSTransitionGroup transitionName="like" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
             <span key={ like_count } className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }></span>
