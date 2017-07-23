@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { increment, decrement } from '../actions/likeAction';
 import { bindActionCreators } from 'redux';
 import { axiosAction } from '../helpers/axiosAction';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 require('../styles/main.css');
 
@@ -14,11 +15,11 @@ class NearbyPhotoCard extends Component {
   }
 
   likeOrDislike(i, liked, id) {
-    const likeOrDislike = liked ? 'decrement' : 'increment';
+    const incrementOrDecrement = liked ? 'decrement' : 'increment';
     const putOrPost = liked ? 'put' : 'post';
     const axiosLikeOrDislike = liked ? `/api/removelike/${id}` : `/api/addlike/${id}`;
 
-    this.props[likeOrDislike](i);
+    this.props[incrementOrDecrement](i);
     axiosAction(putOrPost, axiosLikeOrDislike, null, (response) => {
       console.log('successfully from the database', response);
     });
@@ -34,12 +35,16 @@ class NearbyPhotoCard extends Component {
       <div className="img-rounded">
         <img src={ url } className='img-thumbnail'/>
         <div>
-          <span className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }>{ like_count }</span>
-          <span className="fa fa-comment comment" aria-hidden="true">
-            <Link to={ commentId }>{ comment_count }<span className="comments">Comments</span></Link>
-          </span>
+          <div>
+            <span className="profile">Steven</span>
+          </div>
+          <CSSTransitionGroup transitionName="like" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+            <span key={ like_count } className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }></span>
+          </CSSTransitionGroup>
+          <div className="likeDiv"><span className="likes">{ like_count + ' '}</span><span className="likeCount">Likes</span></div>
+          <h6 className='h6-nearbyPhotoCard'>{ caption }</h6>
+          <Link to={ commentId }><span className="commentCount">{ comment_count }</span><span className="comments">Comments</span></Link>
         </div>
-        <h6 className='text'>{ caption }</h6>
       </div> 
     );
   }
