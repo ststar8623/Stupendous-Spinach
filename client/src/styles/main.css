@@ -157,21 +157,13 @@ a {
   position: absolute;
 }
 
-#distanceText {
-  z-index:100;
-  position:absolute;    
-  color:white;
-  left:2%;
-  top:4%;
-  background-color: rgba(0, 0, 0, .5);
-  font-size: .5em;
-  padding: 1%;
-}
-
 .dateAndTime {
   position: absolute;
   margin: 6px 10px;
   color: white;
+  z-index: 100;
+  background-color: rgba(0,0,0,.5);
+  padding: 1%;
 }
 
 .commentDiv {

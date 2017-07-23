@@ -26,7 +26,7 @@ class NearbyPhotoCard extends Component {
   }
 
   render() {
-    const { url, like_count, comment_count, id, caption, liked, age, first } = this.props.photo;
+    const { url, like_count, comment_count, id, caption, liked, age, first, distance } = this.props.photo;
     const commentId = `/comments/${id}`;
     const { i } = this.props;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
@@ -35,10 +35,26 @@ class NearbyPhotoCard extends Component {
     const commentCounts = !comment_count ? 'No ' : comment_count + ' ';
     const zeroOrMoreComment = !comment_count ? 'comment' : 'comments';
 
+    let timeLapse = null;
+
+    if (age.days) {
+      timeLapse = age.days + ' days';
+    } else if (age.hours) {
+      timeLapse = age.hours + ' hours';
+    } else if (age.minutes) {
+      timeLapse = age.minutes + ' minutes';
+    } else if (age.seconds) {
+      timeLapse = age.minutes + ' seconds';
+    } else {
+      timeLapse = age[Object.keys(age)[0]];
+    }
+
+    let distanceTime = ' ' + `${distance} mi, ${timeLapse}` + ' ';
+
     return (
       <div className="img-rounded">
         <div>
-          <span className="dateAndTime">Date And Time</span>
+          <span className="dateAndTime">{ distanceTime }</span>
           <img src={ url } className='img-thumbnail'/>
         </div>
         <div className="likeCaptionComment">
