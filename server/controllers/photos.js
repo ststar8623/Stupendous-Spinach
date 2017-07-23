@@ -6,7 +6,7 @@ module.exports.savePhoto = (options) => {
   return models.Photo.forge(options).save();
 };
 
-module.exports.getNearbyPhotos = (currentlocation) => {
+module.exports.getNearbyPhotos = (currentlocation, profile_id) => {
 
 
   return models.Photo.PhotoQueries.getPhotos(20)
@@ -17,8 +17,12 @@ module.exports.getNearbyPhotos = (currentlocation) => {
       //check if user liked any of photos
 
       if (photosObj.length > 0) {
-        return models.Photo.PhotoQueries.getPhotoLikesForUser(photosObj[0].profile_id)
+
+        console.log("photosObj", photosObj);
+
+        return models.Photo.PhotoQueries.getPhotoLikesForUser(profile_id)
           .then((likesObj) => {
+            console.log("likes by joe", likesObj);
             return utils.addLikedProperty(photosObj, likesObj.rows);
           });
       } else {
@@ -28,10 +32,10 @@ module.exports.getNearbyPhotos = (currentlocation) => {
 
 };
 
-module.exports.addLike = (photoId, profileId) => {
+module.exports.addLike = (photo_id, profile_id) => {
   
   // check if the photo id an the user id already exist 
-  return models.Like.forge({photo_id: photoId, profile_id: profileId})
+  return models.Like.forge({photo_id, profile_id})
     .save()
     .then(() => {
       return models.Photo.query().where({'id': photoId})

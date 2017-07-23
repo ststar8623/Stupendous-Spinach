@@ -14,6 +14,8 @@ class PhotoQueries {
   getPhotoLikesForUser(userID) {
     let query = `select * from likes where profile_id = ${userID}`;
 
+    console.log(query);
+
     return knex.raw(query);
   }
 

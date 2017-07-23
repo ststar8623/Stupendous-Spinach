@@ -32,14 +32,17 @@ router.post('/nearbyPhotos', (req, res) => {
   let coordinates;
 
   if (req.body.location) {
-    coordinates = req.body.location.coords;
+    coordinates = req.body.location;
   } else {
     coordinates = {latitude: 37.8837339, longitude: -122.5090785};
   }
+  console.log("req user id", req.user.id);
+
+  console.log("req body", req.body);
 
   console.log('coordinates', coordinates);
 
-  PhotosController.getNearbyPhotos(coordinates)
+  PhotosController.getNearbyPhotos(coordinates, req.user.id)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -65,6 +68,9 @@ router.post('/saveComment/:photoID', (req, res) =>{
 
 
 router.post('/addlike/:photoID', (req, res) => {
+
+  console.log("photo id", req.params.photoID);
+  console.log("user id", req.user.id);
 
   LikesController.addLike(req.params.photoID, req.user.id)
     .then((data) => {
