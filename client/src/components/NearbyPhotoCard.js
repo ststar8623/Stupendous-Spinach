@@ -27,8 +27,8 @@ class NearbyPhotoCard extends Component {
 
   render() {
     const { url, like_count, comment_count, id, caption, liked, age, first, distance } = this.props.photo;
-    const commentId = `/comments/${id}`;
     const { i } = this.props;
+    const commentId = `/comments/${id}/${i}`;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
     const likedCounts = !like_count ? '' : like_count + ' ';
     const oneOrMoreLike = like_count === 1 ? 'Like' : 'Likes';

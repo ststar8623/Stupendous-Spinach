@@ -33,8 +33,9 @@ class Comment extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { postId } = this.props.params;
+    const { index } = this.props.params;
     this.props.addComment(this.state.comment);
-    this.props.incrementComment(postId);
+    this.props.incrementComment(index);
     axiosAction('post', `/api/saveComment/${postId}`, { text: this.state.comment }, (response) => {
       console.log('Comment saved to database');
       this.fetchCurrentComments();
