@@ -43,7 +43,7 @@
 }
 
 .heart {
-  margin: 0 5px;
+  margin: 0 8px 0 10px;
 }
 
 .fa-heart {
@@ -61,11 +61,15 @@
   font-weight: 500;
   letter-spacing: -0.2px;
   text-align: left;
-  margin-left: 5px;
+  margin-left: 12px;
+}
+
+.likeCaptionComment {
+  margin-bottom: 10px;
 }
 
 .commentCount {
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .h4-nearby {
@@ -102,10 +106,7 @@
 
 a {
   color: black;
-<<<<<<< 13a679b455c8591a3195efbb2bcee9c3b4ae0925
-=======
   text-decoration: none !important;
->>>>>>> Restyle like, caption, comments position
 }
 
 .profile {
@@ -116,9 +117,9 @@ a {
 
 .likes-heart{
   opacity: 0;
-  padding: 8%;
+  /* padding: 8%; */
   transition: all 0.5s;
-  transform : translateX(-50%) translateY(-50%) scale(2);
+  transform : translateX(-25%) translateY(-25%) scale(1.8);
   display : block;
   margin-left: 8%;
   position: relative;
@@ -128,20 +129,20 @@ a {
 .like-enter{
   transition: all .2s;
   opacity: 1;  
-  margin-left: 8%;
+  /* margin-left: 8%; */
   position: relative;
   z-index: 1;
 }
  
 .like-enter-active{
-  transform : translateX(-50%) translateY(-50%) scale(2);
-  margin-left: 8%; 
+  transform : translateX(-25%) translateY(-25%) scale(1.8);
+  /* margin-left: 8%;  */
   position: relative;
   z-index: 1;
 }
  
 .like-leave-active{
-  margin-left: 8%; 
+  /* margin-left: 8%;  */
   display: none;
   position: relative;
   z-index: 1;

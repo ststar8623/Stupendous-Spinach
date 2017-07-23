@@ -34,14 +34,14 @@ class NearbyPhotoCard extends Component {
     return (
       <div className="img-rounded">
         <img src={ url } className='img-thumbnail'/>
-        <div>
+        <div className="likeCaptionComment">
           <div>
             <span className="profile">Steven</span>
           </div>
           <CSSTransitionGroup transitionName="like" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
             <span key={ like_count } className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }></span>
           </CSSTransitionGroup>
-          <div className="likeDiv"><span className="likes">{ like_count + ' '}</span><span className="likeCount">Likes</span></div>
+          <div className="likeDiv"><span className="likes">{ !like_count ? '' : like_count + ' '}</span><span className="likeCount">Likes</span></div>
           <h6 className='h6-nearbyPhotoCard'>{ caption }</h6>
           <Link to={ commentId }><span className="commentCount">{ comment_count }</span><span className="comments">Comments</span></Link>
         </div>
