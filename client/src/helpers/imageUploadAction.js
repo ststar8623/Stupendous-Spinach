@@ -18,18 +18,10 @@ export const initialImageUpload = (file, callback) => {
   });
 };
 
-
 export const captionedImageUpload = (imageObj, callback) => {
-  
-  axiosAction('post', '/api/imageUpload',
-    { url: imageObj.url,
-      location: imageObj.location,
-      caption: imageObj.caption,
-      shareSelection: imageObj.shareSelection
-    }, (url) => {
-      callback(url);
-    }
-  );
+  axiosAction('post', '/api/imageUpload', imageObj, (url) => {
+    callback(url);
+  });
 };
 
 
