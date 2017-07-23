@@ -18,15 +18,12 @@ class PhotoQueries {
   }
 
   getPhotos(numOfPhotos = 20) {
-    let query = `select *, age(current_date + current_time, created_at) as "age" from photos order by created_at desc limit ${numOfPhotos};`;
+    let query = `select pro.first, p.*, age(current_date + current_time, p.created_at) as "age" from photos p join profiles pro on p.profile_id = pro.id  order by created_at desc limit ${numOfPhotos}`;
 
     return knex.raw(query);
   }
 
 }
-
-// PhotoQueries.getPhotoLikesForUser(2)
-// .then((data) => console.log(data));
 
 
 module.exports = db.model('Photo', Photo);
