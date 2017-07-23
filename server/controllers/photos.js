@@ -18,11 +18,8 @@ module.exports.getNearbyPhotos = (currentlocation, profile_id) => {
 
       if (photosObj.length > 0) {
 
-        console.log("photosObj", photosObj);
-
         return models.Photo.PhotoQueries.getPhotoLikesForUser(profile_id)
           .then((likesObj) => {
-            console.log("likes by joe", likesObj);
             return utils.addLikedProperty(photosObj, likesObj.rows);
           });
       } else {
