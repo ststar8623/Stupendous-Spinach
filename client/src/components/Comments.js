@@ -3,7 +3,7 @@ import { axiosAction } from '../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction } from '../actions/imageAction';
-import { incrementComment } from '../actions/likeAction';
+import { incrementComment, addComment } from '../actions/likeAction';
 
 class Comment extends Component {
   constructor(props) {
@@ -33,10 +33,11 @@ class Comment extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { postId } = this.props.params;
+    this.props.addComment(this.state.comment);
+    this.props.incrementComment(postId);
     axiosAction('post', `/api/saveComment/${postId}`, { text: this.state.comment }, (response) => {
       console.log('Comment saved to database');
       this.fetchCurrentComments();
-      this.props.incrementComment(postId);
     });
   }
 
@@ -63,12 +64,12 @@ class Comment extends Component {
 const mapStateToProps = (state) => {
   return {
     photoArray: state.photoArray,
-    currentPhoto: state.currentPhoto.current
+    currentPhoto: state.currentPhoto
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment }, dispatch);
+  return bindActionCreators({ currentPhotoAction, incrementComment, addComment }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

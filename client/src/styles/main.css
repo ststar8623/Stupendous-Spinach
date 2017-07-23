@@ -63,10 +63,6 @@
   text-align: left;
 }
 
-.commentCount {
-  margin-right: 3px;
-}
-
 .likeCaptionComment {
   margin-bottom: 10px;
   margin-left: 12px;
@@ -176,4 +172,8 @@ a {
   position: absolute;
   margin: 6px 10px;
   color: white;
+}
+
+.commentDiv {
+  diplay: flex !important;
 }

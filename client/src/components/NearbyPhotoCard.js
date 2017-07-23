@@ -30,6 +30,10 @@ class NearbyPhotoCard extends Component {
     const commentId = `/comments/${id}`;
     const { i } = this.props;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
+    const likedCounts = !like_count ? '' : like_count + ' ';
+    const oneOrMoreLike = like_count === 1 ? 'Like' : 'Likes';
+    const commentCounts = !comment_count ? 'No ' : comment_count + ' ';
+    const zeroOrMoreComment = !comment_count ? 'comment' : 'comments';
 
     return (
       <div className="img-rounded">
@@ -45,17 +49,16 @@ class NearbyPhotoCard extends Component {
             <span key={ like_count } className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }></span>
           </CSSTransitionGroup>
           <div className="likeDiv">
-            <span className="likes">{ !like_count ? '' : like_count + ' '}</span>
-            <span className="likeCount">Likes</span>
+            <span className="likes">{ likedCounts }</span>
+            <span className="likeCount">{ oneOrMoreLike }</span>
           </div>
           { caption ? <h6 className='h6-nearbyPhotoCard'>{ caption }</h6> : '' }
-          { 
-            comment_count ? 
-              <Link to={ commentId }>
-                <span className="commentCount">{ !comment_count ? '' : comment_count }</span>
-                <span className="comments">Comments</span>
-              </Link> : ''
-          }
+          <Link to={ commentId }>
+            <div className="commentDiv">
+              <span className="commentCount">{ commentCounts }</span>
+              <span className="comments">{ zeroOrMoreComment }</span>
+            </div>
+          </Link>
         </div>
       </div> 
     );
