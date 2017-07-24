@@ -1,6 +1,7 @@
 
 
 const shellCacheName = 'flashbackPWA-shell-v01';
+const dataCacheName = 'flashbackPWA-data-v01';
 var shellFilesToCache = [
   // '/dist/bundle.js',
   '/assets/fb-logo.png',
@@ -9,8 +10,10 @@ var shellFilesToCache = [
   '/manifest.json'
 
 /* potential
+  Other styling
   'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css',
   'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'
+  
   '/profile',
   '/profile#_=_',
   '/',
@@ -25,7 +28,6 @@ var shellFilesToCache = [
 // Install SW and cache shell files
 self.addEventListener('install', (e) => {
   console.log('[ServiceWorker] Install');
-  // console.log('this: ----------------- : ', this);
   e.waitUntil( //SW is still "installing" until resolved
     caches.open(shellCacheName).then((cache) => {
       console.log('[ServiceWorker] Caching app shell');
