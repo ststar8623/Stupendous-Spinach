@@ -7,6 +7,7 @@ import Loading from './Loading';
 import { imageAction, imageIsFetched } from '../actions/imageAction';
 import { Link } from 'react-router';
 import { axiosAction } from '../helpers/axiosAction';
+import { urlAction } from '../actions/urlAction';
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 require('!style-loader!css-loader!sass-loader!../styles/main.css');
@@ -14,6 +15,10 @@ require('!style-loader!css-loader!sass-loader!../styles/main.css');
 class Nearby extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    this.props.urlAction('nearby');
   }
   
   componentWillUpdate(nextProps) {
@@ -54,12 +59,13 @@ class Nearby extends Component {
 const mapStateToProps = (state) => {
   return {
     location: state.location,
-    photoArray: state.photoArray
+    photoArray: state.photoArray,
+    url: state.url
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ imageAction, imageIsFetched }, dispatch);
+  return bindActionCreators({ imageAction, imageIsFetched, urlAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nearby);
