@@ -21,10 +21,12 @@ class Main extends Component {
   }
 
   render() {
+    const displayBottomNav = this.props.url === 'nearby' ? <NavigationBarBottom /> : '';
+
     return (
       <div>
         <NavigationBarTop />
-        <NavigationBarBottom />
+        { displayBottomNav }
         {this.props.children}
       </div>
     );
@@ -33,7 +35,8 @@ class Main extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    location: state.location
+    location: state.location,
+    url: state.url
   };
 };
 

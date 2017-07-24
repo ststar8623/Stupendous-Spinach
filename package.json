@@ -48,6 +48,7 @@
     "express": "^4.15.2",
     "express-session": "^1.15.1",
     "extract-text-webpack-plugin": "^3.0.0",
+    "google-map-react": "^0.24.0",
     "grunt": "~0.4.5",
     "grunt-cli": "^1.2.0",
     "grunt-eslint": "^19.0.0",

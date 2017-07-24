@@ -195,7 +195,7 @@ a {
 
 .comments-form {
   position: fixed;
-  bottom: 50px;
+  bottom: 0;
   width: 100%;
   border-top: 1px solid grey;
   padding: 0px;
@@ -250,3 +250,8 @@ a {
 } */
 
 /* ----------------------------------- */
+
+.google-thumbnail {
+  width: 100px;
+  height: 100px;
+}

@@ -30,7 +30,7 @@ class Comment extends Component {
 
   componentWillUnmount() {
     this.props.currentIsFetched(false);
-    this.props.urlAction(null);
+    this.props.urlAction('nearby');
   }
 
   handleChange(event) {

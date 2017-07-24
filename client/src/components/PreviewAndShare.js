@@ -24,7 +24,7 @@ class PreviewAndShare extends Component {
   }
 
   componentWillUnmount() {
-    this.props.urlAction(null);
+    this.props.urlAction('nearby');
   }
 
   handleCaptionChange(e) {
