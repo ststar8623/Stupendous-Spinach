@@ -245,7 +245,7 @@ a {
 }
 
 input[type=radio] {
-  transform: scale(2);
+/*   transform: scale(2); */
   margin: 10px;
 }
 
