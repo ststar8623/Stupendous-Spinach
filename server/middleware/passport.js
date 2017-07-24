@@ -121,7 +121,7 @@ passport.use('facebook', new FacebookStrategy({
   clientID: config.Facebook.clientID,
   clientSecret: config.Facebook.clientSecret,
   callbackURL: config.Facebook.callbackURL,
-  profileFields: ['id', 'emails', 'name']
+  profileFields: ['id', 'emails', 'name', 'picture.type(large)']
 },
 (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('facebook', profile, done))
 );
@@ -137,6 +137,8 @@ passport.use('facebook', new FacebookStrategy({
 // );
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
+  console.log("oauthprofile=========", oauthProfile);
+
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
     withRelated: ['profile']
   })
@@ -154,11 +156,14 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     })
     .then(profile => {
 
+      console.log("profile ====", profile)
+
       let profileInfo = {
         first: oauthProfile.name.givenName,
         last: oauthProfile.name.familyName,
         display: oauthProfile.displayName || `${oauthProfile.name.givenName} ${oauthProfile.name.familyName}`,
-        email: oauthProfile.emails[0].value
+        email: oauthProfile.emails[0].value,
+        photo: oauthProfile.photos[0].value || 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg'
       };
 
       if (profile) {

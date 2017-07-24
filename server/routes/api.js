@@ -28,6 +28,8 @@ router.post('/imageUpload', (req, res) => {
 
 
 router.post('/nearbyPhotos', (req, res) => {
+
+  console.log("req.user", req.user)
   let coordinates;
 
   if (req.body.location) {
