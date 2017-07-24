@@ -82,7 +82,7 @@ class Comment extends Component {
           </div>
           <form className="comments-form" onSubmit={this.handleSubmit.bind(this)}>
             <input className="comments-input" type="text" max="100" min="1" placeholder="Add a comment..." onChange={this.handleChange.bind(this)} value={this.state.comment}/>
-            <button className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleSubmit.bind(this)}></button>
+            <span className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleSubmit.bind(this)}></span>
           </form>
         </div>
       );
