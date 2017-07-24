@@ -30,10 +30,19 @@ class NearbyPhotoCard extends Component {
     const { i } = this.props;
     const commentId = `/comments/${id}/${i}`;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
-    const likedCounts = !like_count ? '' : like_count + ' ';
-    const oneOrMoreLike = like_count === 1 ? 'Like' : 'Likes';
+    let likedCounts, oneOrMoreLike;
+    if (!like_count) {
+      likedCounts = '';
+      oneOrMoreLike = '';
+    } else if (like_count === 1) {
+      likedCounts = like_count + ' ';
+      oneOrMoreLike = 'Like';
+    } else {
+      likedCounts = like_count + ' ';
+      oneOrMoreLike = 'Likes';
+    }
     const commentCounts = !comment_count ? 'No ' : comment_count + ' ';
-    const zeroOrMoreComment = !comment_count ? 'comment' : 'comments';
+    const zeroOrMoreComment = comment_count <= 1 ? 'comment' : 'comments';
 
     let timeLapse = null;
 
@@ -68,7 +77,7 @@ class NearbyPhotoCard extends Component {
             <span className="likes">{ likedCounts }</span>
             <span className="likeCount">{ oneOrMoreLike }</span>
           </div>
-          { caption ? <h6 className='h6-nearbyPhotoCard'>{ caption }</h6> : '' }
+          { caption ? <span className='photo-caption'>{ caption }</span> : '' }
           <Link to={ commentId }>
             <div className="commentDiv">
               <span className="commentCount">{ commentCounts }</span>
