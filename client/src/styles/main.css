@@ -1,7 +1,7 @@
 
 .title {
   font-family: 'Kaushan Script', cursive;
-  margin: 12px 80px;
+  margin: 3% 18%;
 }
 
 .container {
@@ -40,7 +40,7 @@ a {
   font-size: 16px;
   padding: 0px;
   margin-bottom: 10px;
-  margin: 0 -1px;
+  margin: 0 -2px;
 }
 
 .img-thumbnail {
@@ -153,7 +153,9 @@ a {
   color: white;
   z-index: 100;
   background-color: rgba(0,0,0,.5);
-  padding: 1%;
+  padding: 1.5%;
+  border-radius: 10px;
+  font-size: 0.9em;
 }
 /* ----------------------------------- */
 
@@ -225,3 +227,26 @@ a {
   font-size: 14px;
   margin-right: 12px;
 }
+
+/* PREVIEW AND SHARE COMPONENT */
+.preview-share-ul {
+  list-style-type: none;
+  margin-top: 10px;
+  padding: 0;
+  font-size: .8em;
+}
+
+.preview-share-ul li {
+  margin-left: 10px;
+}
+
+.preview-share-ul span {
+  margin-left: 10px;
+}
+
+input[type=radio] {
+  transform: scale(2);
+  margin: 10px;
+}
+
+/* ----------------------------------- */

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { imageStoreAction } from '../actions/imageAction'; //Needed?
+import { imageStoreAction, imageIsFetched } from '../actions/imageAction'; //Needed?
 import { captionedImageUpload } from '../helpers/imageUploadAction';
 import Nearby from './Nearby';
 import { browserHistory } from 'react-router';
-
+import { urlAction } from '../actions/urlAction';
+import { bindActionCreators } from 'redux';
 
 class PreviewAndShare extends Component {
   constructor() {
@@ -17,6 +18,14 @@ class PreviewAndShare extends Component {
     this.handleCaptionSubmit = this.handleCaptionSubmit.bind(this);
     this.handleCaptionChange = this.handleCaptionChange.bind(this);
     this.handleShareChange = this.handleShareChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.urlAction('share');
+  }
+
+  componentWillUnmount() {
+    this.props.urlAction(null);
   }
 
   handleCaptionChange(e) {
@@ -42,6 +51,7 @@ class PreviewAndShare extends Component {
 
     captionedImageUpload(imageObj, (Url) => {
       browserHistory.push('/Nearby');
+      this.props.imageIsFetched(false);
     });
  
   }
@@ -49,51 +59,21 @@ class PreviewAndShare extends Component {
   render() {
     return (
       <div className="preview-share-comp">
-        <div>
-          <img style={ styles.img } src={this.props.url} height={200} width={300} className='.img-thumbnail'/>
+        <div className="img-rounded">
+          <img src={this.props.url} height={200} width={300} className='img-thumbnail'/>
         </div>
-        <form className="photo-form" onSubmit={this.handleCaptionSubmit}>
-          <ul>
-            <li style={ styles.li }><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} />Share with everyone</li>
-            <li style={ styles.li }><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} />Share with friends only</li>
-          </ul>
-          <input style={ styles.caption } type="text" name="caption-text" onChange={this.handleCaptionChange} />
-          <div>
-            <button style={ styles.submit } type="submit" value="save">Done</button>
-          </div>
+        <ul className="preview-share-ul">
+          <li><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} /><span>Share with everyone</span></li>
+          <li><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} /><span>Share with friends only</span></li>
+        </ul>
+        <form className="comments-form" onSubmit={this.handleCaptionSubmit}>
+          <input className="comments-input" type="text" placeholder="Add a caption..." onChange={this.handleCaptionChange} />
+          <span className="comments-button glyphicon glyphicon-ok" type="submit"></span>
         </form>
       </div>
     );
   }
 }
-
-const styles = {
-  img:{
-    marginTop: '10px',
-    display: 'block'
-  },
-  li: {
-    listStyleType: 'none',
-    'fontSize': 16,
-    'align': 'center'
-  },
-  submit: {
-    color: 'white',
-    width: '300px',
-    'backgroundColor': 'blue',
-    'textAlign': 'center',
-    align: 'center',
-    right: 0,
-    left: 0,
-    'marginRight': 'auto',
-    'marginLeft': 'auto'
-  },
-  caption: {
-    width: 300,
-    border: '1px solid black',
-    align: 'center'
-  }
-};
 
 const mapStateToProps = (state) => {
   return {
@@ -102,4 +82,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(PreviewAndShare);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ urlAction, imageIsFetched }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PreviewAndShare);

@@ -52,10 +52,8 @@ class NearbyPhotoCard extends Component {
       timeLapse = age.hours + ' hours';
     } else if (age.minutes) {
       timeLapse = age.minutes + ' minutes';
-    } else if (age.seconds) {
-      timeLapse = age.minutes + ' seconds';
     } else {
-      timeLapse = age[Object.keys(age)[0]];
+      timeLapse = 'Just Now';
     }
 
     let distanceTime = ' ' + `${distance} mi, ${timeLapse}` + ' ';

@@ -10,7 +10,7 @@ class NavigationBar extends Component {
       <nav className="navbar navbar-default navbar-fixed-bottom">
         <div className="container navbar-container">
           <Camera />
-          <Link to="/nearby"><span className="glyphicon glyphicon-map-marker" aria-hidden="true"></span></Link>
+          <Link to="/"><span className="glyphicon glyphicon-map-marker" aria-hidden="true"></span></Link>
           <Link to="/commentsAndLikes"><span className="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></Link>
         </div>
       </nav>

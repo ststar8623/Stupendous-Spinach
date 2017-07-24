@@ -12,13 +12,13 @@ class NavigationBarTop extends Component {
   }
 
   goBackButton() {
-    browserHistory.push('/nearby'); 
+    browserHistory.push('/'); 
   }
 
   render() {
-    const refreshOrBackButton = this.props.url === 'comments' ? 'refresh-button glyphicon glyphicon-arrow-left' : 'refresh-button glyphicon glyphicon-refresh';
-    const refreshOrBackFunction = this.props.url === 'comments' ? this.goBackButton.bind(this) : this.refreshButton.bind(this);
-    const flashBackOrComments = this.props.url === 'comments' ? 'Comments' : 'flashBack';
+    const refreshOrBackButton = this.props.url === 'comments' || this.props.url === 'share' ? 'refresh-button glyphicon glyphicon-arrow-left' : 'refresh-button glyphicon glyphicon-refresh';
+    const refreshOrBackFunction = this.props.url === 'comments' || this.props.url === 'share' ? this.goBackButton.bind(this) : this.refreshButton.bind(this);
+    const flashBackOrComments = this.props.url === 'comments' ? 'Comments' : this.props.url === 'share' ? 'Share Photo' : 'flashBack';
     return (
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container navbar-container">
