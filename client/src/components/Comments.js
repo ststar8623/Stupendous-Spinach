@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { axiosAction } from '../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { currentPhotoAction } from '../actions/imageAction';
+import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
 import { incrementComment, addComment } from '../actions/likeAction';
+import Loading from './Loading';
 
 class Comment extends Component {
   constructor(props) {
@@ -21,7 +22,12 @@ class Comment extends Component {
     const { postId } = this.props.params;
     axiosAction('get', `/api/getAllComments/${postId}`, null, (comments) => {
       this.props.currentPhotoAction(comments.data);
+      this.props.currentIsFetched(true);
     });
+  }
+
+  componentWillUnmount() {
+    this.props.currentIsFetched(false);
   }
 
   handleChange(event) {
@@ -48,29 +54,39 @@ class Comment extends Component {
         <li key={i}>{ comment.text }</li>
       );
     });
-    return (
-      <div>
-        <ul>
-          { comments }
-        </ul>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type="text" max="100" min="1" placeholder="Add a comment..." onChange={this.handleChange.bind(this)}/>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    );
+    const isFetched = this.props.isFetched;
+    if (!isFetched) {
+      return (
+        <div>
+          <Loading />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <ul>
+            { comments }
+          </ul>
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <input type="text" max="100" min="1" placeholder="Add a comment..." onChange={this.handleChange.bind(this)}/>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      );
+    }
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     photoArray: state.photoArray,
-    currentPhoto: state.currentPhoto
+    currentPhoto: state.currentPhoto.current,
+    isFetched: state.currentPhoto.isFetched
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, addComment }, dispatch);
+  return bindActionCreators({ currentPhotoAction, incrementComment, addComment, currentIsFetched }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

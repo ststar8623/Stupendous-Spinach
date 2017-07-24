@@ -1,13 +1,27 @@
-export default function currentPhoto(state = [], action) {
+export default function currentPhoto(state = {
+  current: [],
+  isFetched: false
+}, action) {
   switch (action.type) {
   case 'CURRENT_PHOTO_COMMENTS':
-    return action.payload;
+    return {
+      ...state,
+      current: action.payload
+    }
   case 'ADD_COMMENT':
-    let newState = state.slice();
-    newState.push({
+    let newStateCurrent = state.current.slice();
+    newStateCurrent.push({
       text: action.payload
     });
-    return newState;
+    return {
+      ...state,
+      current: newStateCurrent
+    }
+  case 'CURRENT_ISFETCHED':
+    return {
+      ...state,
+      isFetched: action.payload
+    }
   default:
     return state;
   }

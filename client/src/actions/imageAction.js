@@ -25,3 +25,10 @@ export const currentPhotoAction = (comments) => {
     payload: comments
   };
 };
+
+export const currentIsFetched = (boolean) => {
+  return {
+    type: 'CURRENT_ISFETCHED',
+    payload: boolean
+  };
+};
