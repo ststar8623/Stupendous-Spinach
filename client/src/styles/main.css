@@ -28,7 +28,7 @@ a {
 
 .navbar-fixed-top {
   margin-top: -10px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid grey;
 }
 /* ----------------------------------- */
 
@@ -49,7 +49,7 @@ a {
   margin-bottom: 10px;
 }
 
-.h4-nearby {
+.h4-heading {
   width: 100%;
   height: 16px;
   font-size: 16px;
@@ -177,11 +177,50 @@ a {
 
 .comments-Ul {
   padding: 0;
+  margin: 0 10px;
 }
 
 .comments-li {
   list-style-type: none;
+  border-bottom: 1px solid lightgrey;
 }
+
+.comments-profile {
+  font-size: 14px;
+  margin: 0 15px 0 5px;
+  font-weight: bold;
+}
+
+.comments-text {
+  font-size: 14px;
+}
+
+.comments-form {
+  position: fixed;
+  bottom: 50px;
+  width: 100%;
+  border-top: 1px solid grey;
+  padding: 0px;
+  margin: 0px;
+}
+
+.comments-input {
+  width: 90%;
+  float: left;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.comments-input:focus {
+  outline: none;
+}
+
+.comments-button {
+  display: inline-block;
+  font-size: 0.7em;
+}
+
 /* ----------------------------------- */
 
 /* PROFILE INSIDE PHOTOCARD SECTION */
