@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { imageStoreAction, imageIsFetched } from '../actions/imageAction'; //Needed?
 import { captionedImageUpload } from '../helpers/imageUploadAction';
-import Nearby from './Nearby';
 import { browserHistory } from 'react-router';
 import { urlAction } from '../actions/urlAction';
 import { bindActionCreators } from 'redux';
@@ -68,7 +67,7 @@ class PreviewAndShare extends Component {
         </ul>
         <form className="comments-form" onSubmit={this.handleCaptionSubmit}>
           <input className="comments-input" type="text" placeholder="Add a caption..." onChange={this.handleCaptionChange} />
-          <span className="comments-button glyphicon glyphicon-ok" type="submit"></span>
+          <span className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleCaptionSubmit} ></span>
         </form>
       </div>
     );
