@@ -47,7 +47,7 @@ class Comment extends Component {
     }
     const { postId } = this.props.params;
     const { index } = this.props.params;
-    this.props.addComment(this.state.comment);
+    // this.props.addComment(this.state.comment);
     this.props.incrementComment(index);
     axiosAction('post', `/api/saveComment/${postId}`, { text: this.state.comment }, (response) => {
       console.log('Comment saved to database');
@@ -60,7 +60,7 @@ class Comment extends Component {
 
   render() {
     const comments = this.props.currentPhoto.map((comment, i) => {
-      const firstName = comment.username.split(' ')[0];
+      const firstName = comment.username ? comment.username.split(' ')[0] : '';
       return (
         <li className="comments-li" key={i}><span className="comments-profile">{ firstName }</span><span className="comments-text">{ comment.text }</span></li>
       );
