@@ -8,6 +8,26 @@ router.route('/')
     res.render('index.ejs');
   });
 
+router.route('/nearby')
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs');
+  });
+
+router.route('/comments/:postId/:index')
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs');
+  });
+
+router.route('/PreviewAndShare')
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs');
+  });
+
+router.route('/commentsAndLikes')
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs');
+  });
+
 router.route('/login')
   .get((req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });

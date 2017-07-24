@@ -23,7 +23,7 @@ const router = (
     <Router history={history}>
       <Route path='/' component={App}>
         <IndexRoute component={Nearby} />
-        <Route path='/nearby' component={Nearby} />
+        <Route path='/' component={Nearby} />
         <Route path='/comments/:postId/:index' component={Comments} />
         <Route path='/PreviewAndShare' component={PreviewAndShare} />
       </Route>
