@@ -48,7 +48,6 @@ router.post('/nearbyPhotos', (req, res) => {
 
 
 router.post('/saveComment/:photoID', (req, res) =>{
-
   const userID = req.user ? req.user.id : 1;
 
   CommentsController.saveComment(req.body.text, req.params.photoID, userID)

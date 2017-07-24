@@ -1,8 +1,4 @@
-const INIT_STATE = {
-  url: null
-};
-
-export default function upload(state = INIT_STATE, action) {
+export default function upload(state = { url: null }, action) {
   switch (action.type) {
   case 'IMAGE_UPLOAD':
     return {

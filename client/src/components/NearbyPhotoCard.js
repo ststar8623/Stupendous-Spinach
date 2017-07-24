@@ -26,15 +26,35 @@ class NearbyPhotoCard extends Component {
   }
 
   render() {
-    const { url, like_count, comment_count, id, caption, liked, age, first } = this.props.photo;
-    const commentId = `/comments/${id}`;
+    const { url, like_count, comment_count, id, caption, liked, age, first, distance } = this.props.photo;
     const { i } = this.props;
+    const commentId = `/comments/${id}/${i}`;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
+    const likedCounts = !like_count ? '' : like_count + ' ';
+    const oneOrMoreLike = like_count === 1 ? 'Like' : 'Likes';
+    const commentCounts = !comment_count ? 'No ' : comment_count + ' ';
+    const zeroOrMoreComment = !comment_count ? 'comment' : 'comments';
+
+    let timeLapse = null;
+
+    if (age.days) {
+      timeLapse = age.days + ' days';
+    } else if (age.hours) {
+      timeLapse = age.hours + ' hours';
+    } else if (age.minutes) {
+      timeLapse = age.minutes + ' minutes';
+    } else if (age.seconds) {
+      timeLapse = age.minutes + ' seconds';
+    } else {
+      timeLapse = age[Object.keys(age)[0]];
+    }
+
+    let distanceTime = ' ' + `${distance} mi, ${timeLapse}` + ' ';
 
     return (
       <div className="img-rounded">
         <div>
-          <span className="dateAndTime">Date And Time</span>
+          <span className="dateAndTime">{ distanceTime }</span>
           <img src={ url } className='img-thumbnail'/>
         </div>
         <div className="likeCaptionComment">
@@ -45,17 +65,16 @@ class NearbyPhotoCard extends Component {
             <span key={ like_count } className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }></span>
           </CSSTransitionGroup>
           <div className="likeDiv">
-            <span className="likes">{ !like_count ? '' : like_count + ' '}</span>
-            <span className="likeCount">Likes</span>
+            <span className="likes">{ likedCounts }</span>
+            <span className="likeCount">{ oneOrMoreLike }</span>
           </div>
           { caption ? <h6 className='h6-nearbyPhotoCard'>{ caption }</h6> : '' }
-          { 
-            comment_count ? 
-              <Link to={ commentId }>
-                <span className="commentCount">{ !comment_count ? '' : comment_count }</span>
-                <span className="comments">Comments</span>
-              </Link> : ''
-          }
+          <Link to={ commentId }>
+            <div className="commentDiv">
+              <span className="commentCount">{ commentCounts }</span>
+              <span className="comments">{ zeroOrMoreComment }</span>
+            </div>
+          </Link>
         </div>
       </div> 
     );
