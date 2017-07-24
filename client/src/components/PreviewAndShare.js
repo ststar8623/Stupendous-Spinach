@@ -50,7 +50,7 @@ class PreviewAndShare extends Component {
     };
 
     captionedImageUpload(imageObj, (Url) => {
-      browserHistory.push('/Nearby');
+      browserHistory.push('/');
       this.props.imageIsFetched(false);
     });
  
