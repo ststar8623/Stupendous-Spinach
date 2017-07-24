@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
 import { incrementComment, addComment } from '../actions/likeAction';
+import { urlAction } from '../actions/urlAction';
 import Loading from './Loading';
 
 class Comment extends Component {
@@ -16,6 +17,7 @@ class Comment extends Component {
 
   componentWillMount() {
     this.fetchCurrentComments();
+    this.props.urlAction('comments');
   }
 
   fetchCurrentComments() {
@@ -28,6 +30,7 @@ class Comment extends Component {
 
   componentWillUnmount() {
     this.props.currentIsFetched(false);
+    this.props.urlAction(null);
   }
 
   handleChange(event) {
@@ -51,7 +54,7 @@ class Comment extends Component {
   render() {
     const comments = this.props.currentPhoto.map((comment, i) => {
       return (
-        <li key={i}>{ comment.text }</li>
+        <li className="comments-li" key={i}>{ comment.text }</li>
       );
     });
     const isFetched = this.props.isFetched;
@@ -64,7 +67,7 @@ class Comment extends Component {
     } else {
       return (
         <div>
-          <ul>
+          <ul className="comments-Ul">
             { comments }
           </ul>
           <form onSubmit={this.handleSubmit.bind(this)}>
@@ -81,12 +84,13 @@ const mapStateToProps = (state) => {
   return {
     photoArray: state.photoArray,
     currentPhoto: state.currentPhoto.current,
-    isFetched: state.currentPhoto.isFetched
+    isFetched: state.currentPhoto.isFetched,
+    url: state.url
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, addComment, currentIsFetched }, dispatch);
+  return bindActionCreators({ currentPhotoAction, incrementComment, addComment, currentIsFetched, urlAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

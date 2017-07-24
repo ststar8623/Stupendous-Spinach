@@ -6,7 +6,8 @@ import geo from './geo';
 import photoArray from './photos';
 import upload from './upload';
 import currentPhoto from './currentPhoto';
+import url from './url';
 
-const rootReducer = combineReducers({ upload, currentPhoto, location: geo, photoArray, routing: routerReducer });
+const rootReducer = combineReducers({ upload, currentPhoto, location: geo, photoArray, routing: routerReducer, url });
 
 export default rootReducer;
