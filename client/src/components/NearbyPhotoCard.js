@@ -26,7 +26,7 @@ class NearbyPhotoCard extends Component {
   }
 
   render() {
-    const { url, like_count, comment_count, id, caption, liked, age, first, distance } = this.props.photo;
+    const { url, like_count, comment_count, id, caption, liked, age, first, distance, profile_photo } = this.props.photo;
     const { i } = this.props;
     const commentId = `/comments/${id}/${i}`;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
@@ -56,6 +56,8 @@ class NearbyPhotoCard extends Component {
       timeLapse = 'Just now...';
     }
 
+    let profilePhoto =  profile_photo ? profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg'
+
     let distanceTime = ' ' + `${distance} mi, ${timeLapse}` + ' ';
 
     return (
@@ -67,6 +69,8 @@ class NearbyPhotoCard extends Component {
         <div className="likeCaptionComment">
           <div>
             <span className="profile">{ first }</span>
+            <img src={profilePhoto} className="fb-icon"/>
+
           </div>
           <CSSTransitionGroup transitionName="like" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
             <span key={ like_count } className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }></span>
