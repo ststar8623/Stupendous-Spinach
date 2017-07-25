@@ -137,7 +137,6 @@ passport.use('facebook', new FacebookStrategy({
 // );
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
-  console.log("oauthprofile=========", oauthProfile);
 
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
     withRelated: ['profile']
@@ -156,7 +155,6 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     })
     .then(profile => {
 
-      console.log("profile ====", profile)
 
       let profileInfo = {
         first: oauthProfile.name.givenName,

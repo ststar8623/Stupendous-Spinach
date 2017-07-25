@@ -28,8 +28,7 @@ router.post('/imageUpload', (req, res) => {
 
 
 router.post('/nearbyPhotos', (req, res) => {
-
-  console.log("req.user", req.user)
+  
   let coordinates;
 
   if (req.body.location) {
@@ -38,7 +37,27 @@ router.post('/nearbyPhotos', (req, res) => {
     coordinates = {latitude: 37.8837339, longitude: -122.5090785};
   }
 
-  PhotosController.getNearbyPhotos(coordinates, req.user.id)
+  PhotosController.getNearbyPhotos(coordinates, req.user.id, req.body.max, 10)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((data) => {
+      //send empty object if error
+      res.status(400).send([]);
+    });
+});
+
+router.post('/mapPhotos/:radius/', (req, res) => {
+
+  let coordinates;
+
+  if (req.body.location) {
+    coordinates = req.body.location;
+  } else {
+    coordinates = {latitude: 37.8837339, longitude: -122.5090785};
+  }
+
+  PhotosController.getNearbyPhotos(coordinates, req.user.id, undefined, req.params.radius)
     .then((data) => {
       res.status(200).send(data);
     })

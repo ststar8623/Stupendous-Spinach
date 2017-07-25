@@ -21,10 +21,14 @@ const filterOnlyAttributes = (arr) => {
   }) : [];
 };
 
-exports.filterByDistance = (photosArr, currentLocationObj = {latitude: 37.8837339, longitude: -122.5090785} ) => {
+exports.filterByDistance = (photosArr, currentLocationObj = {latitude: 37.8837339, longitude: -122.5090785}, radius) => {
 
+  console.log("photoarr", photosArr);
+  console.log("radius", radius)
   //get current location properties
   const { latitude, longitude } = currentLocationObj;
+
+  console.log(radius);
 
   //filter for photos that are within 30 miles and add the distance to the object
   return photosArr.filter((photo) => {
@@ -33,7 +37,7 @@ exports.filterByDistance = (photosArr, currentLocationObj = {latitude: 37.883733
     
     photo.distance = Number(distance.toFixed(2));
 
-    return distance < 10;
+    return distance < Number(radius);
 
   });
 

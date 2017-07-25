@@ -17,8 +17,18 @@ class PhotoQueries {
     return knex.raw(query);
   }
 
-  getPhotos(numOfPhotos = 20) {
-    let query = `select pro.first, p.*, age(current_date + current_time, p.created_at) as "age", pro.photo as "profile_photo" from photos p join profiles pro on p.profile_id = pro.id  order by created_at desc limit ${numOfPhotos}`;
+  getPhotos(numOfPhotos) {
+
+    let query;
+
+    if (numOfPhotos) {
+      query = `select pro.first, p.*, age(current_date + current_time, p.created_at) as "age", pro.photo as "profile_photo" from photos p join profiles pro on p.profile_id = pro.id order by created_at desc limit ${numOfPhotos}`;
+    } else {
+      query = `select pro.first, p.*, age(current_date + current_time, p.created_at) as "age", pro.photo as "profile_photo" from photos p join profiles pro on p.profile_id = pro.id order by created_at desc`;
+    }
+
+    console.log("query evaluated to: ", query)
+
 
     return knex.raw(query);
   }
