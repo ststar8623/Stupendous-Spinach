@@ -142,6 +142,7 @@ a {
   font-size: 16px;
   text-align: left;
   margin: 5px auto;
+  margin-top:10px;
 }
 
 /* ----------------------------------- */
@@ -226,14 +227,17 @@ a {
   float: right;
   font-size: 14px;
   margin-right: 12px;
+  margin-top:4px;
 }
 
 /* PREVIEW AND SHARE COMPONENT */
 .preview-share-ul {
   list-style-type: none;
   margin-top: 10px;
-  padding: 0;
-  font-size: .8em;
+/*  padding: 0;
+*/  font-size: .8em;
+  padding-top: 10px;
+  padding-left: 20px;
 }
 
 .preview-share-ul li {
@@ -278,3 +282,10 @@ a {
 }
 
 /* ----------------------------------- */
+.fb-icon {
+    float: right;
+    border-radius: 50%;
+    height:30px;
+    width:30px;
+    margin-right:10px;
+}
