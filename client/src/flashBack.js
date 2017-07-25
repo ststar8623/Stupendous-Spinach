@@ -12,7 +12,7 @@ import Camera from './components/Camera';
 import Nearby from './components/Nearby';
 import Comments from './components/Comments';
 import PreviewAndShare from './components/PreviewAndShare';
-import GoogleMap from './components/GoogleMap';
+import GoogleMap from './components/googleMap/GoogleMap';
 
 // import react router
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';

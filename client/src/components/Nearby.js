@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading';
-import { imageAction, imageIsFetched } from '../actions/imageAction';
+import { imageAction, imageIsFetched, fetchPhotoFromRadius } from '../actions/imageAction';
 import { Link } from 'react-router';
 import { axiosAction } from '../helpers/axiosAction';
 import { urlAction } from '../actions/urlAction';
@@ -23,10 +23,12 @@ class Nearby extends Component {
   
   componentWillUpdate(nextProps) {
     if (!nextProps.location.isFetched) {
-
       axiosAction('post', '/api/nearbyPhotos/', { location: nextProps.location, max: 20 }, (response) => {
         this.props.imageAction(response.data);
         this.props.imageIsFetched(true);
+      });
+      axiosAction('post', '/api/mapPhotos/1', { location: this.props.location }, (response) => {
+        this.props.fetchPhotoFromRadius(response.data);
       });
     }
   }
@@ -61,12 +63,13 @@ const mapStateToProps = (state) => {
   return {
     location: state.location,
     photoArray: state.photoArray,
-    url: state.url
+    url: state.url,
+    allPhotoFromRadius: state.currentPhoto.allPhotoFromRadius
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ imageAction, imageIsFetched, urlAction }, dispatch);
+  return bindActionCreators({ imageAction, imageIsFetched, urlAction, fetchPhotoFromRadius }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nearby);
