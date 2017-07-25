@@ -15,7 +15,7 @@ module.exports.saveComment = (text="this is a great photo", photo_id=1, profile_
         .then((commentCount) => {
 
           if (commentCount === null) {
-            return models.Photo.forge({id: photo_id}).save({'comment_count': 0});
+            return models.Photo.forge({id: photo_id}).save({'comment_count': 1});
           } else {
             return models.Photo.forge({id: photo_id}).save({'comment_count': commentCount + 1});
           }
