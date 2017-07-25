@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { imageIsFetched } from '../actions/imageAction'; //Needed?
+import { imageIsFetched } from '../actions/imageAction'; //Needed? YEAH //
 import { captionedImageUpload } from '../helpers/imageUploadAction';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';

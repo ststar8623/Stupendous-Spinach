@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { getAllComments, saveComment } from '../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
-import { incrementComment, addComment } from '../actions/likeAction';
+import { incrementComment } from '../actions/likeAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading';
 
@@ -23,6 +22,9 @@ class Comment extends Component {
   fetchCurrentComments() {
     const { postId } = this.props.params;
     this.props.currentPhotoAction(postId);
+    this.setState({
+      comment: ''
+    });
   }
 
   componentWillUnmount() {
@@ -37,20 +39,13 @@ class Comment extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let that = this;
     if (this.state.comment.length === 0) {
       return;
     }
     const { postId } = this.props.params;
     const { index } = this.props.params;
-    // this.props.addComment(this.state.comment);
-    this.props.incrementComment(index);
-    saveComment(postId, { text: this.state.comment }, (res) => {
-      console.log('Comment is saved to database');
-      that.fetchCurrentComments();
-      that.setState({
-        comment: ''
-      });
+    this.props.incrementComment(postId, { text: this.state.comment }, index, () => {
+      this.fetchCurrentComments();
     });
   }
 
@@ -108,7 +103,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, addComment, currentIsFetched, urlAction }, dispatch);
+  return bindActionCreators({ currentPhotoAction, incrementComment, currentIsFetched, urlAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

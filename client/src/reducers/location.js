@@ -1,4 +1,4 @@
-const geoLocation = (state = {isFetched: false}, action) => {
+const location = (state = {isFetched: false}, action) => {
   switch (action.type) {
   case 'GET_LOCATION':
     return {
@@ -17,4 +17,4 @@ const geoLocation = (state = {isFetched: false}, action) => {
   }
 };
 
-export default geoLocation;
+export default location;

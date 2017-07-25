@@ -6,7 +6,6 @@ import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading';
 import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
 import { Link } from 'react-router';
-import { nearbyPhoto, mapPhotosWithRadius } from '../helpers/axiosAction';
 import { urlAction } from '../actions/urlAction';
 import Promise from 'bluebird';
 import { getLocation } from '../actions/geoAction';

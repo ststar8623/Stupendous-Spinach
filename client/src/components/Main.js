@@ -16,10 +16,6 @@ if ('serviceWorker' in navigator) {
 }
 
 class Main extends Component {
-  // componentWillMount() {
-  //   this.props.getLocation();
-  // }
-
   render() {
     const displayBottomNav = this.props.url === 'nearby' ? <NavigationBarBottom /> : '';
 

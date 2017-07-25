@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Promise from 'bluebird';
 import GoogleMapReact from 'google-map-react';
 import Loading from '../Loading';
-import { nearbyPhoto, mapPhotosWithRadius } from '../../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../../actions/urlAction';
