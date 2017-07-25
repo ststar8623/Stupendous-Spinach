@@ -22,15 +22,11 @@ class Comment extends Component {
 
   fetchCurrentComments() {
     const { postId } = this.props.params;
-    getAllComments(postId, (comments) => {
-      this.props.currentPhotoAction(comments.data);
-      this.props.currentIsFetched(true);
-    });
+    this.props.currentPhotoAction(postId);
   }
 
   componentWillUnmount() {
     this.props.currentIsFetched(false);
-    this.props.urlAction('nearby');
   }
 
   handleChange(event) {

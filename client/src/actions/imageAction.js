@@ -1,7 +1,16 @@
-export const imageAction = (photoArray) => {
+import axios from 'axios';
+import Promise from 'bluebird';
+
+export const imageAction = (object) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.post('/api/nearbyPhotos', object)
+      .then(res => {
+        resolve(res.data);
+      });
+  });
   return {
     type: 'ALL_PHOTOS',
-    payload: photoArray
+    payload: data
   };
 };
 
@@ -12,17 +21,30 @@ export const imageStoreAction = (url) => {
   };
 };
 
-export const currentPhotoAction = (comments) => {
+export const currentPhotoAction = (postId) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.get(`/api/getAllComments/${postId}`)
+      .then(res => {
+        resolve(res.data);
+      });
+  });
   return {
     type: 'CURRENT_PHOTO_COMMENTS',
-    payload: comments
+    payload: data,
+    isFetched: true
   };
 };
 
-export const fetchPhotoFromRadius = (array) => {
+export const fetchPhotoFromRadius = (radius, object) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.post(`/api/mapPhotos/${radius}`, object)
+      .then(res => {
+        resolve(res.data);
+      });
+  });
   return {
     type: 'FETCH_PHOTO_FROM_RADIUS',
-    payload: array
+    payload: data
   };
 };
 

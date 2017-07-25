@@ -24,21 +24,13 @@ class GoogleMap extends Component {
       return new Promise((resolve, reject) => {
         resolve(this.props.getLocation());
       }).then(() => {
-        return mapPhotosWithRadius(0.2, { location: this.props.location }, (res) => {
-          this.props.fetchPhotoFromRadius(res.data);
-        });
+        return this.props.fetchPhotoFromRadius(0.5, { location: this.props.location });
       }).then(() => {
-        return nearbyPhoto({ location: this.props.location, max: 20 }, (res) => {
-          this.props.imageAction(res.data);
-        });
+        return this.props.imageAction({ location: this.props.location, max: 20 });
       }).then(() => {
         this.props.mapPhotoIsFetched(true);
       }).error((error) => console.log('error ', error));
     }
-  }
-
-  componentWillUnmount() {
-    this.props.urlAction('nearby');
   }
 
   enLargePhoto(url) {

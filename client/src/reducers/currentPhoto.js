@@ -6,7 +6,8 @@ export default function currentPhoto(state = {
   case 'CURRENT_PHOTO_COMMENTS':
     return {
       ...state,
-      current: action.payload
+      current: action.payload,
+      isFetched: action.isFetched
     }
   case 'ADD_COMMENT':
     let newStateCurrent = state.current.slice();

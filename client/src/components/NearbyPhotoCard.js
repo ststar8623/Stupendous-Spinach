@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { increment, decrement } from '../actions/likeAction';
 import { bindActionCreators } from 'redux';
-import { axiosAction } from '../helpers/axiosAction';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 require('../styles/main.css');
@@ -16,13 +15,7 @@ class NearbyPhotoCard extends Component {
 
   likeOrDislike(i, liked, id) {
     const incrementOrDecrement = liked ? 'decrement' : 'increment';
-    const putOrPost = liked ? 'put' : 'post';
-    const axiosLikeOrDislike = liked ? `/api/removelike/${id}` : `/api/addlike/${id}`;
-
-    this.props[incrementOrDecrement](i);
-    axiosAction(putOrPost, axiosLikeOrDislike, (response) => {
-      console.log('successfully from the database', response);
-    });
+    this.props[incrementOrDecrement](id, i);
   }
 
   render() {
