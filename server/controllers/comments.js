@@ -25,7 +25,7 @@ module.exports.saveComment = (text="this is a great photo", photo_id=1, profile_
 
 module.exports.getAllComments = (photoID = 1) => {
 
-  return knex.raw(`select p.display as "username", c.profile_id, c.photo_id, c.text, c.created_at, c.updated_at, p.photo as "profile_photo" from profiles p join comments c on c.profile_id = p.id where c.photo_id = ${photoID}`)
+  return models.Comment.CommentQueries.getAllCommentsForPhoto(photoID)
     .then((data) => {
       return data.rows;
     });
