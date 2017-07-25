@@ -6,7 +6,7 @@ import { nearbyPhoto, mapPhotosWithRadius } from '../../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../../actions/urlAction';
-import { imageAction, imageIsFetched, fetchPhotoFromRadius } from '../../actions/imageAction';
+import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../../actions/imageAction';
 import { getLocation } from '../../actions/geoAction';
 
 class GoogleMap extends Component {
@@ -20,24 +20,20 @@ class GoogleMap extends Component {
 
   componentWillMount() {
     this.props.urlAction('googleMap');
-    this.props.imageIsFetched(false);
-    if (!this.props.allPhotoFromRadius.length) {
+    if (!this.props.mapPhoto.isFetched) {
       return new Promise((resolve, reject) => {
         resolve(this.props.getLocation());
       }).then(() => {
-        return mapPhotosWithRadius(1, { location: this.props.location }, (res) => {
+        return mapPhotosWithRadius(0.2, { location: this.props.location }, (res) => {
           this.props.fetchPhotoFromRadius(res.data);
         });
-        if (!this.props.photoArray.length) {
-          return nearbyPhoto({ location: this.props.location, max: 20 }, (res) => {
-            this.props.imageAction(res.data);
-          });
-        }
       }).then(() => {
-        this.props.imageIsFetched(true);
+        return nearbyPhoto({ location: this.props.location, max: 20 }, (res) => {
+          this.props.imageAction(res.data);
+        });
+      }).then(() => {
+        this.props.mapPhotoIsFetched(true);
       }).error((error) => console.log('error ', error));
-    } else {
-      this.props.imageIsFetched(true);
     }
   }
 
@@ -55,8 +51,7 @@ class GoogleMap extends Component {
 
   render() {
     const { latitude, longitude } = this.props.location;
-    const { allPhotoFromRadius } = this.props;
-    const isFetched = this.props.location.isFetched;
+    const { allPhotoFromRadius, isFetched } = this.props.mapPhoto;
     const isImageClicked = !this.state.imageIsClicked ? 'hidden-image' : 'show-image';
     let currPosition = {
       center: {lat: latitude, lng: longitude},
@@ -92,14 +87,13 @@ class GoogleMap extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    location: state.location,
-    allPhotoFromRadius: state.currentPhoto.allPhotoFromRadius,
+    mapPhoto: state.mapPhoto,
     photoArray: state.photoArray
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ imageAction, urlAction, imageIsFetched, getLocation, fetchPhotoFromRadius }, dispatch);
+  return bindActionCreators({ imageAction, urlAction, imageIsFetched, getLocation, fetchPhotoFromRadius, mapPhotoIsFetched }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleMap);

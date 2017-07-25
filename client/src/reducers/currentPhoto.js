@@ -1,6 +1,5 @@
 export default function currentPhoto(state = {
   current: [],
-  allPhotoFromRadius: [],
   isFetched: false
 }, action) {
   switch (action.type) {
@@ -22,11 +21,6 @@ export default function currentPhoto(state = {
     return {
       ...state,
       isFetched: action.payload
-    }
-  case 'FETCH_PHOTO_FROM_RADIUS':
-    return {
-      ...state,
-      allPhotoFromRadius: action.payload
     }
   default:
     return state;

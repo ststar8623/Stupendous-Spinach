@@ -12,17 +12,24 @@ export const imageStoreAction = (url) => {
   };
 };
 
-export const imageIsFetched = (boolean) => {
-  return {
-    type: 'IMAGE_ISFETCHED',
-    payload: boolean
-  };
-};
-
 export const currentPhotoAction = (comments) => {
   return {
     type: 'CURRENT_PHOTO_COMMENTS',
     payload: comments
+  };
+};
+
+export const fetchPhotoFromRadius = (array) => {
+  return {
+    type: 'FETCH_PHOTO_FROM_RADIUS',
+    payload: array
+  };
+};
+
+export const imageIsFetched = (boolean) => {
+  return {
+    type: 'IMAGE_ISFETCHED',
+    payload: boolean
   };
 };
 
@@ -33,9 +40,9 @@ export const currentIsFetched = (boolean) => {
   };
 };
 
-export const fetchPhotoFromRadius = (array) => {
+export const mapPhotoIsFetched = (boolean) => {
   return {
-    type: 'FETCH_PHOTO_FROM_RADIUS',
-    payload: array
+    type: 'MAP_PHOTO_ISFETCHED',
+    payload: boolean
   };
 };

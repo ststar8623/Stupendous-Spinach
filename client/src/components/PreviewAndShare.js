@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { imageStoreAction, imageIsFetched } from '../actions/imageAction'; //Needed?
+import { imageIsFetched } from '../actions/imageAction'; //Needed?
 import { captionedImageUpload } from '../helpers/imageUploadAction';
 import { browserHistory } from 'react-router';
-import { urlAction } from '../actions/urlAction';
 import { bindActionCreators } from 'redux';
+import { urlAction } from '../actions/urlAction';
 
 class PreviewAndShare extends Component {
   constructor() {
@@ -82,7 +82,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ urlAction, imageIsFetched }, dispatch);
+  return bindActionCreators({ imageIsFetched, urlAction }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreviewAndShare);

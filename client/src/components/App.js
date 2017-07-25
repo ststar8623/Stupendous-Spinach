@@ -4,9 +4,11 @@ import Main from './Main';
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts,
-    comments: state.comments,
+    photoArray: state.photoArray,
+    mapPhoto: state.mapPhoto.allPhotoFromRadius,
+    currentPhoto: state.currentPhoto.current,
     geoLocation: state.geoLocation,
+    upload: state.upload.url
   };
 };
 
