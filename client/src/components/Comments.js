@@ -48,9 +48,27 @@ class Comment extends Component {
       this.fetchCurrentComments();
     });
   }
+  removeComment() {
+    axiosAction('put', `/api/removeComment/${postId}`, (response) => {
+      console.log('Comment saved to database');
+      that.fetchCurrentComments();
+      that.setState({
+        comment: ''
+      });
+    });
+  }
+
 
   render() {
     const comments = this.props.currentPhoto.map((comment, i) => {
+<<<<<<< HEAD
+=======
+      //console.log('current commenter id', this.props.currentPhoto[i].profile_id);
+      console.log('===.',comment); 
+      let isFalse = this.props.photoArray[this.props.params.index].profile_id === comment.profile_id; 
+
+      console.log('props====>',this.props);
+>>>>>>> show delete x for every comments if your are the commentor
       const firstName = comment.username ? comment.username.split(' ')[0] : '';
       const photo = comment.profile_photo ? comment.profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg';
 
@@ -59,11 +77,21 @@ class Comment extends Component {
           <div>
             <img src={photo} className="comments-icon"/>
             <span className="comment-combined">
+<<<<<<< HEAD
               <strong> { firstName}  </strong> &nbsp;
               { comment.text } 
             </span>
           </div>
         </li>
+=======
+              <strong> { firstName} </strong> &nbsp;
+              { comment.text } 
+              { isFalse ? <button className='deleteComments' onClick={this.removeComment.bind(null)}> &times; </button> : ''}
+            </span>           
+          </div>
+        </li>
+
+>>>>>>> show delete x for every comments if your are the commentor
       );
     });
 

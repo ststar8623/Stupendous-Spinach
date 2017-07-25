@@ -245,7 +245,7 @@ a {
   font-size: 14px;
   font-size: 14px;
   margin: 12px;
-  position: absolute;
+  position: relative;
   margin-top: 13px;
 
 
@@ -313,3 +313,10 @@ a {
 }
 
 /* ----------------------------------- */
+/*delete Comment*/
+.deleteComments {
+  position: absolute;
+  left: 280px;
+  top:0px;
+}
+
