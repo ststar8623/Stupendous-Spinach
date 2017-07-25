@@ -18,22 +18,25 @@ class Nearby extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentWillMount() {
     this.props.urlAction('nearby');
-    return new Promise((resolve, reject) => {
-      resolve(this.props.getLocation());
-    }).then(() => {
-      return this.props.imageAction({ location: this.props.location, max: 20 });
-    }).then(() => {
-      return this.props.imageIsFetched(true);
-    }).then(() => {
-      return this.props.fetchPhotoFromRadius(0.5, { location: this.props.location });
-    }).then(() => {
-      return this.props.mapPhotoIsFetched(true);
-    }).error(error => {
-      console.log('error: ', error);
-    });
+  }
+  
+  componentWillUpdate(nextProps) {
+    if (!nextProps.location.isFetched) {
+      Promise.resolve(this.props.imageAction({ location: this.props.location, max: 20 }))
+        .then(() => {
+          return this.props.imageIsFetched(true);
+        })
+        .then(() => {
+          return this.props.fetchPhotoFromRadius(0.5, { location: this.props.location });
+        }).then(() => {
+          return this.props.mapPhotoIsFetched(true);
+        }).error(error => {
+          console.log('error: ', error);
+        });
+    }
   }
  
   renderPhotos() {

@@ -171,16 +171,12 @@ a {
 
 /* COMMENT DIV SECTION */
 .commentDiv {
-  display: inline;
+  display: block;
+  width: 50px;
 }
 
 .commentCount {
   margin-right: 5px;
-}
-
-.comments {
-  width: 82px;
-  text-align: left;
 }
 
 .comments-Ul {
