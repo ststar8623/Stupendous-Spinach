@@ -6,12 +6,11 @@ module.exports.savePhoto = (options) => {
   return models.Photo.forge(options).save();
 };
 
-module.exports.getNearbyPhotos = (currentlocation, profile_id) => {
+module.exports.getNearbyPhotos = (currentlocation, profile_id, count, radius) => {
 
-
-  return models.Photo.PhotoQueries.getPhotos(20)
+  return models.Photo.PhotoQueries.getPhotos(count)
     .then((data) => {
-      return utils.filterByDistance(data.rows, currentlocation);
+      return utils.filterByDistance(data.rows, currentlocation, radius);
     })
     .then((photosObj) => {
       //check if user liked any of photos
