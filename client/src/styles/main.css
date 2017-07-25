@@ -36,6 +36,15 @@ a {
   padding: 0;
 }
 
+.fb-icon {
+  float: right;
+  border-radius: 50%;
+  height:30px;
+  width:30px;
+  margin-right:10px;
+}
+
+
 .img-rounded {
   font-size: 16px;
   padding: 0px;
@@ -182,6 +191,8 @@ a {
 .comments-li {
   list-style-type: none;
   border-bottom: 1px solid lightgrey;
+  margin-bottom: -6px;
+  padding: 6px;
 }
 
 .comments-profile {
@@ -192,6 +203,9 @@ a {
 
 .comments-text {
   font-size: 14px;
+  margin-bottom: 5px;
+  margin-top: 13px;
+  position: absolute;
 }
 
 .comments-form {
@@ -218,6 +232,23 @@ a {
 .comments-button {
   display: inline-block;
   font-size: 0.7em;
+}
+
+
+.comments-icon {
+  border-radius: 50%;
+  height:30px;
+  width:30px;
+}
+
+.comment-combined {
+  font-size: 14px;
+  font-size: 14px;
+  margin: 12px;
+  position: absolute;
+  margin-top: 13px;
+
+
 }
 
 /* ----------------------------------- */
@@ -282,10 +313,3 @@ a {
 }
 
 /* ----------------------------------- */
-.fb-icon {
-    float: right;
-    border-radius: 50%;
-    height:30px;
-    width:30px;
-    margin-right:10px;
-}

@@ -60,12 +60,26 @@ class Comment extends Component {
 
   render() {
     const comments = this.props.currentPhoto.map((comment, i) => {
+
       const firstName = comment.username ? comment.username.split(' ')[0] : '';
+      const photo = comment.profile_photo ? comment.profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg';
+
       return (
-        <li className="comments-li" key={i}><span className="comments-profile">{ firstName }</span><span className="comments-text">{ comment.text }</span></li>
+        <li className="comments-li" key={i}> 
+          <div>
+            <img src={photo} className="comments-icon"/>
+            <span className="comment-combined">
+            <strong> { firstName}  </strong> &nbsp;
+
+            { comment.text } </span>
+          </div>
+         </li>
+
       );
     });
+
     const isFetched = this.props.isFetched;
+
     if (!isFetched) {
       return (
         <div>
