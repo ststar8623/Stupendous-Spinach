@@ -33,7 +33,10 @@ module.exports.getAllComments = (photoID = 1) => {
 };
 
 module.exports.removeComment = (commentID) => {
-  return models.Comment.CommentQueries.removeComment(commentID);
+  return models.Comment.CommentQueries.decrementCommentCount(commentID)
+    .then(() => {
+      return models.Comment.CommentQueries.removeComment(commentID);
+    });
 };
 
 //how to insert data:
