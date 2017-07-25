@@ -7,13 +7,6 @@ import Nearby from './Nearby';
 import NavigationBarBottom from './navigation/navBottom';
 import NavigationBarTop from './navigation/navTop';
 
-// if ('serviceWorker' in navigator) {
-//   // window.addEventListener('load', () => {
-//   navigator.serviceWorker.register(__dirname + '../service-worker.js')
-//   .then(() => {
-//     console.log('Service Worker Registered');
-//   });
-// }
 
 class Main extends Component {
   render() {
