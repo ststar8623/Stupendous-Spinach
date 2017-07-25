@@ -27,13 +27,14 @@ class GoogleMap extends Component {
       }).then(() => {
         return mapPhotosWithRadius(1, { location: this.props.location }, (res) => {
           this.props.fetchPhotoFromRadius(res.data);
-          this.props.imageIsFetched(true);
         });
         if (!this.props.photoArray.length) {
           return nearbyPhoto({ location: this.props.location, max: 20 }, (res) => {
             this.props.imageAction(res.data);
           });
         }
+      }).then(() => {
+        this.props.imageIsFetched(true);
       }).error((error) => console.log('error ', error));
     } else {
       this.props.imageIsFetched(true);

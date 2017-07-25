@@ -27,9 +27,11 @@ class Nearby extends Component {
         this.props.imageAction(res.data);
         this.props.imageIsFetched(true);
       });
-      mapPhotosWithRadius(1, { location: this.props.location }, (res) => {
-        this.props.fetchPhotoFromRadius(res.data);
-      });
+      if (!this.props.allPhotoFromRadius.length) {
+        mapPhotosWithRadius(1, { location: this.props.location }, (res) => {
+          this.props.fetchPhotoFromRadius(res.data);
+        });
+      }
     }
   }
  

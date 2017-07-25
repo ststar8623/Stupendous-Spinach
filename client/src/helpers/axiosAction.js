@@ -8,7 +8,7 @@ export const nearbyPhoto = (object, callback) => {
 };
 
 export const mapPhotosWithRadius = (radius, object, callback) => {
-  axios.post(`/api/mapPhotos/${radius}`)
+  axios.post(`/api/mapPhotos/${radius}`, object)
     .then(res => {
       callback(res);
     });
