@@ -36,7 +36,7 @@ module.exports.getOne = (req, res) => {
     .error(err => {
       res.status(500).send(err);
     })
-    .catch(() => {
+    .catch((error) => {
       res.sendStatus(404);
     });
 };
@@ -49,15 +49,39 @@ module.exports.update = (req, res) => {
       }
       return profile.save(req.body, { method: 'update' });
     })
-    .then(() => {
+    .then((data) => {
       res.sendStatus(201);
     })
     .error(err => {
       res.status(500).send(err);
     })
-    .catch(() => {
+    .catch((error) => {
       res.sendStatus(404);
     });
+};
+
+module.exports.getProfile = (profileID, requestID) => {
+
+  //get profile for profile ID
+  let returnObj = {};
+  Number(profileID) === Number(requestID) ? returnObj.isOwnProfile = true : returnObj.isOwnProfile = false;
+
+  return models.Profile.ProfileQueries.getProfileData(profileID)
+    .then ((profileData) => {
+      
+      returnObj.profile = profileData.rows[0];
+
+      return models.Profile.ProfileQueries.getPhotosForProfile(profileID);
+    })
+    .then((data) => {
+      returnObj.photos = data.rows;
+      return returnObj;
+    });
+    
+  //get photos for profile
+
+  //check if profile is profile requesting
+
 };
 
 // module.exports.deleteOne = (req, res) => {
