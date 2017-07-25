@@ -88,7 +88,8 @@ class GoogleMap extends Component {
 const mapStateToProps = (state) => {
   return {
     mapPhoto: state.mapPhoto,
-    photoArray: state.photoArray
+    photoArray: state.photoArray,
+    location: state.location
   };
 };
 
