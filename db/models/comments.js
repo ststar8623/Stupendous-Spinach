@@ -20,12 +20,24 @@ class CommentQueries {
   }
 
   removeComment(commentID) {
-  	let query = `delete from comments where id = ${commentID}`;
-  	
-  	return knex.raw(query);
+    let query = `delete from comments where id = ${commentID}`;
+    
+    return knex.raw(query);
   }
 
-  
+  decrementCommentCount(commentID) {
+
+    let photoIDQuery = `select photo_id from comments where id = ${commentID}`;
+
+
+    return knex.raw(photoIDQuery)
+      .then((data) => {
+        let query = `update photos set comment_count = (case when comment_count > 0 then (comment_count - 1) else null end) where id = ${data.rows[0].photo_id}`;
+        return knex.raw(query);
+      });
+
+  }
+
 
 }
 
