@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import Promise from 'bluebird';
 import GoogleMapReact from 'google-map-react';
 import Loading from '../Loading';
 import { axiosAction } from '../../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../../actions/urlAction';
-import { imageIsFetched, fetchPhotoFromRadius } from '../../actions/imageAction';
+import { imageAction, imageIsFetched, fetchPhotoFromRadius } from '../../actions/imageAction';
 import { getLocation } from '../../actions/geoAction';
-import Promise from 'bluebird';
 
 class GoogleMap extends Component {
   constructor(props) {
@@ -21,19 +21,23 @@ class GoogleMap extends Component {
   componentWillMount() {
     this.props.urlAction('googleMap');
     this.props.imageIsFetched(false);
-    if (!this.props.imageIsFetched) {
+    if (!this.props.allPhotoFromRadius.length) {
       return new Promise((resolve, reject) => {
         resolve(this.props.getLocation());
       }).then(() => {
-        return axiosAction('post', '/api/nearbyPhotos', { location: this.props.location }, (response) => {
+        return axiosAction('post', '/api/mapPhotos/1', { location: this.props.location }, (response) => {
           this.props.fetchPhotoFromRadius(response.data);
           this.props.imageIsFetched(true);
         });
-      });
+        if (!this.props.photoArray.length) {
+          return axiosAction('post', '/api/nearbyPhotos', { location: this.props.location, max: 20 }, (response) => {
+            this.props.imageAction(response.data);
+          });
+        }
+      }).error((error) => console.log('error ', error));
     } else {
       this.props.imageIsFetched(true);
     }
-
   }
 
   componentWillUnmount() {
@@ -88,12 +92,13 @@ class GoogleMap extends Component {
 const mapStateToProps = (state) => {
   return {
     location: state.location,
-    allPhotoFromRadius: state.currentPhoto.allPhotoFromRadius
+    allPhotoFromRadius: state.currentPhoto.allPhotoFromRadius,
+    photoArray: state.photoArray
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ urlAction, imageIsFetched, getLocation, fetchPhotoFromRadius }, dispatch);
+  return bindActionCreators({ imageAction, urlAction, imageIsFetched, getLocation, fetchPhotoFromRadius }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleMap);
