@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { axiosAction } from '../helpers/axiosAction';
+import { getAllComments, saveComment } from '../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
@@ -22,7 +22,7 @@ class Comment extends Component {
 
   fetchCurrentComments() {
     const { postId } = this.props.params;
-    axiosAction('get', `/api/getAllComments/${postId}`, null, (comments) => {
+    getAllComments(postId, (comments) => {
       this.props.currentPhotoAction(comments.data);
       this.props.currentIsFetched(true);
     });
@@ -49,8 +49,7 @@ class Comment extends Component {
     const { index } = this.props.params;
     // this.props.addComment(this.state.comment);
     this.props.incrementComment(index);
-    axiosAction('post', `/api/saveComment/${postId}`, { text: this.state.comment }, (response) => {
-      console.log('Comment saved to database');
+    saveComment(postId, { text: this.state.comment }, (res) => {
       that.fetchCurrentComments();
       that.setState({
         comment: ''
@@ -60,7 +59,6 @@ class Comment extends Component {
 
   render() {
     const comments = this.props.currentPhoto.map((comment, i) => {
-
       const firstName = comment.username ? comment.username.split(' ')[0] : '';
       const photo = comment.profile_photo ? comment.profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg';
 
@@ -69,12 +67,11 @@ class Comment extends Component {
           <div>
             <img src={photo} className="comments-icon"/>
             <span className="comment-combined">
-            <strong> { firstName}  </strong> &nbsp;
-
-            { comment.text } </span>
+              <strong> { firstName}  </strong> &nbsp;
+              { comment.text } 
+            </span>
           </div>
-         </li>
-
+        </li>
       );
     });
 

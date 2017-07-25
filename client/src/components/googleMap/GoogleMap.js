@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Promise from 'bluebird';
 import GoogleMapReact from 'google-map-react';
 import Loading from '../Loading';
-import { axiosAction } from '../../helpers/axiosAction';
+import { nearbyPhoto, mapPhotosWithRadius } from '../../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../../actions/urlAction';
@@ -25,13 +25,13 @@ class GoogleMap extends Component {
       return new Promise((resolve, reject) => {
         resolve(this.props.getLocation());
       }).then(() => {
-        return axiosAction('post', '/api/mapPhotos/1', { location: this.props.location }, (response) => {
-          this.props.fetchPhotoFromRadius(response.data);
+        return mapPhotosWithRadius(1, { location: this.props.location }, (res) => {
+          this.props.fetchPhotoFromRadius(res.data);
           this.props.imageIsFetched(true);
         });
         if (!this.props.photoArray.length) {
-          return axiosAction('post', '/api/nearbyPhotos', { location: this.props.location, max: 20 }, (response) => {
-            this.props.imageAction(response.data);
+          return nearbyPhoto({ location: this.props.location, max: 20 }, (res) => {
+            this.props.imageAction(res.data);
           });
         }
       }).error((error) => console.log('error ', error));

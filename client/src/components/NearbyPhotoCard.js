@@ -20,7 +20,7 @@ class NearbyPhotoCard extends Component {
     const axiosLikeOrDislike = liked ? `/api/removelike/${id}` : `/api/addlike/${id}`;
 
     this.props[incrementOrDecrement](i);
-    axiosAction(putOrPost, axiosLikeOrDislike, null, (response) => {
+    axiosAction(putOrPost, axiosLikeOrDislike, (response) => {
       console.log('successfully from the database', response);
     });
   }

@@ -6,7 +6,7 @@ import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading';
 import { imageAction, imageIsFetched, fetchPhotoFromRadius } from '../actions/imageAction';
 import { Link } from 'react-router';
-import { axiosAction } from '../helpers/axiosAction';
+import { nearbyPhoto, mapPhotosWithRadius } from '../helpers/axiosAction';
 import { urlAction } from '../actions/urlAction';
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
@@ -23,12 +23,12 @@ class Nearby extends Component {
   
   componentWillUpdate(nextProps) {
     if (!nextProps.location.isFetched) {
-      axiosAction('post', '/api/nearbyPhotos/', { location: nextProps.location, max: 20 }, (response) => {
-        this.props.imageAction(response.data);
+      nearbyPhoto({ location: nextProps.location, max: 20 }, (res) => {
+        this.props.imageAction(res.data);
         this.props.imageIsFetched(true);
       });
-      axiosAction('post', '/api/mapPhotos/1', { location: this.props.location }, (response) => {
-        this.props.fetchPhotoFromRadius(response.data);
+      mapPhotosWithRadius(1, { location: this.props.location }, (res) => {
+        this.props.fetchPhotoFromRadius(res.data);
       });
     }
   }

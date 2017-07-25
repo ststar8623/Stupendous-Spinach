@@ -1,5 +1,5 @@
 import request from 'superagent';
-import { axiosAction } from './axiosAction';
+import { imageUpload } from './axiosAction';
 // import { CLOUDINARY_UPLOAD_URL, CLOUDINARY_UPLOAD_PRESET } from '../../../server/config/config';
 
 const CLOUDINARY_UPLOAD_PRESET = 'spinach-flashback';
@@ -19,7 +19,7 @@ export const initialImageUpload = (file, callback) => {
 };
 
 export const captionedImageUpload = (imageObj, callback) => {
-  axiosAction('post', '/api/imageUpload', imageObj, (url) => {
+  imageUpload(imageObj, url => {
     callback(url);
   });
 };
