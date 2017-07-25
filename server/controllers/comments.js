@@ -32,6 +32,10 @@ module.exports.getAllComments = (photoID = 1) => {
 
 };
 
+module.exports.removeComment = (commentID) => {
+  return models.Comment.CommentQueries.removeComment(commentID);
+};
+
 //how to insert data:
 
 // // Save with no arguments

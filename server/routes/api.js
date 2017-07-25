@@ -117,4 +117,15 @@ router.get('/getAllComments/:photoID', (req, res) =>{
     });
 });
 
+router.put('/removeComment/:commentID', (req, res) =>{
+
+  CommentsController.removeComment(req.params.commentID)
+    .then(() => {
+      res.status(200).send("Successfully removed commentt");
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+});
+
 module.exports = router;
