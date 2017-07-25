@@ -50,6 +50,7 @@ class Comment extends Component {
     // this.props.addComment(this.state.comment);
     this.props.incrementComment(index);
     saveComment(postId, { text: this.state.comment }, (res) => {
+      console.log('Comment is saved to database');
       that.fetchCurrentComments();
       that.setState({
         comment: ''

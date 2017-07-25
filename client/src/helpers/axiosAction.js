@@ -14,7 +14,7 @@ export const mapPhotosWithRadius = (radius, object, callback) => {
     });
 };
 
-export const getAllComments = (postId, object, callback) => {
+export const getAllComments = (postId, callback) => {
   axios.get(`/api/getAllComments/${postId}`)
     .then(res => {
       callback(res);
