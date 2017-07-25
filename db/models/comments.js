@@ -19,6 +19,12 @@ class CommentQueries {
     return knex.raw(query);
   }
 
+  removeComment(commentID) {
+  	let query = `delete from comments where id = ${commentID}`;
+  	
+  	return knex.raw(query);
+  }
+
   
 
 }
