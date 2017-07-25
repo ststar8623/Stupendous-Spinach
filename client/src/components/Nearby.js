@@ -4,10 +4,12 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading';
-import { imageAction, imageIsFetched, fetchPhotoFromRadius } from '../actions/imageAction';
+import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
 import { Link } from 'react-router';
-import { axiosAction } from '../helpers/axiosAction';
 import { urlAction } from '../actions/urlAction';
+import Promise from 'bluebird';
+import { getLocation } from '../actions/geoAction';
+
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 require('!style-loader!css-loader!sass-loader!../styles/main.css');
@@ -16,21 +18,22 @@ class Nearby extends Component {
   constructor(props) {
     super(props);
   }
-
+  
   componentWillMount() {
     this.props.urlAction('nearby');
-  }
-  
-  componentWillUpdate(nextProps) {
-    if (!nextProps.location.isFetched) {
-      axiosAction('post', '/api/nearbyPhotos/', { location: nextProps.location, max: 20 }, (response) => {
-        this.props.imageAction(response.data);
-        this.props.imageIsFetched(true);
-      });
-      axiosAction('post', '/api/mapPhotos/1', { location: this.props.location }, (response) => {
-        this.props.fetchPhotoFromRadius(response.data);
-      });
-    }
+    return new Promise((resolve, reject) => {
+      resolve(this.props.getLocation());
+    }).then(() => {
+      return this.props.imageAction({ location: this.props.location, max: 20 });
+    }).then(() => {
+      return this.props.imageIsFetched(true);
+    }).then(() => {
+      return this.props.fetchPhotoFromRadius(0.5, { location: this.props.location });
+    }).then(() => {
+      return this.props.mapPhotoIsFetched(true);
+    }).error(error => {
+      console.log('error: ', error);
+    });
   }
  
   renderPhotos() {
@@ -64,12 +67,12 @@ const mapStateToProps = (state) => {
     location: state.location,
     photoArray: state.photoArray,
     url: state.url,
-    allPhotoFromRadius: state.currentPhoto.allPhotoFromRadius
+    allPhotoFromRadius: state.mapPhoto.allPhotoFromRadius
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ imageAction, imageIsFetched, urlAction, fetchPhotoFromRadius }, dispatch);
+  return bindActionCreators({ imageAction, imageIsFetched, urlAction, fetchPhotoFromRadius, getLocation, mapPhotoIsFetched }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nearby);

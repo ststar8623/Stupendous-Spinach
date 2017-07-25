@@ -1,6 +1,3 @@
-import axios from 'axios';
-const GET_LOCATION = 'GET_LOCATION';
-
 export const getLocation = () => {
   const geolocation = navigator.geolocation;
   
@@ -15,7 +12,7 @@ export const getLocation = () => {
     });
   });
   return {
-    type: GET_LOCATION,
+    type: 'GET_LOCATION',
     payload: location
   };
 };

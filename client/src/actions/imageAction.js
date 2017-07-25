@@ -1,7 +1,16 @@
-export const imageAction = (photoArray) => {
+import axios from 'axios';
+import Promise from 'bluebird';
+
+export const imageAction = (object) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.post('/api/nearbyPhotos', object)
+      .then(res => {
+        resolve(res.data);
+      });
+  });
   return {
     type: 'ALL_PHOTOS',
-    payload: photoArray
+    payload: data
   };
 };
 
@@ -12,17 +21,37 @@ export const imageStoreAction = (url) => {
   };
 };
 
+export const currentPhotoAction = (postId) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.get(`/api/getAllComments/${postId}`)
+      .then(res => {
+        resolve(res.data);
+      });
+  });
+  return {
+    type: 'CURRENT_PHOTO_COMMENTS',
+    payload: data,
+    isFetched: true
+  };
+};
+
+export const fetchPhotoFromRadius = (radius, object) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.post(`/api/mapPhotos/${radius}`, object)
+      .then(res => {
+        resolve(res.data);
+      });
+  });
+  return {
+    type: 'FETCH_PHOTO_FROM_RADIUS',
+    payload: data
+  };
+};
+
 export const imageIsFetched = (boolean) => {
   return {
     type: 'IMAGE_ISFETCHED',
     payload: boolean
-  };
-};
-
-export const currentPhotoAction = (comments) => {
-  return {
-    type: 'CURRENT_PHOTO_COMMENTS',
-    payload: comments
   };
 };
 
@@ -33,9 +62,9 @@ export const currentIsFetched = (boolean) => {
   };
 };
 
-export const fetchPhotoFromRadius = (array) => {
+export const mapPhotoIsFetched = (boolean) => {
   return {
-    type: 'FETCH_PHOTO_FROM_RADIUS',
-    payload: array
+    type: 'MAP_PHOTO_ISFETCHED',
+    payload: boolean
   };
 };

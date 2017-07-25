@@ -4,3 +4,10 @@ export const urlAction = (url) => {
     payload: url
   };
 };
+
+export const urlUploadAction = (url) => {
+  return {
+    type: 'IMAGE_UPLOAD',
+    payload: url
+  };
+};

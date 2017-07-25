@@ -1,12 +1,11 @@
-const geoLocation = (state = {}, action) => {
+const location = (state = {isFetched: false}, action) => {
   switch (action.type) {
   case 'GET_LOCATION':
     return {
       ...state, 
       latitude: action.payload.coords.latitude,
       longitude: action.payload.coords.longitude,
-      timeStamp: action.payload.timestamp,
-      isFetched: false
+      timeStamp: action.payload.timestamp
     }
   case 'IMAGE_ISFETCHED':
     return {
@@ -18,4 +17,4 @@ const geoLocation = (state = {}, action) => {
   }
 };
 
-export default geoLocation;
+export default location;

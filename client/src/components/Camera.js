@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getLocation } from '../actions/geoAction';
 import { initialImageUpload } from '../helpers/imageUploadAction';
 import { browserHistory } from 'react-router';
-import { imageStoreAction } from '../actions/imageAction';
+import { urlUploadAction } from '../actions/urlAction';
 import { bindActionCreators } from 'redux';
 
 class Camera extends Component {
@@ -16,7 +16,7 @@ class Camera extends Component {
   onImageDrop(file) {
     let that = this;
     initialImageUpload(file, data => {
-      that.props.imageStoreAction(data);
+      that.props.urlUploadAction(data);
       browserHistory.push('/PreviewAndShare'); 
     });
   }
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getLocation, imageStoreAction }, dispatch);
+  return bindActionCreators({ getLocation, urlUploadAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Camera);

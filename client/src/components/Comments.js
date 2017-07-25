@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { axiosAction } from '../helpers/axiosAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
-import { incrementComment, addComment } from '../actions/likeAction';
+import { incrementComment } from '../actions/likeAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading';
 
@@ -22,15 +21,14 @@ class Comment extends Component {
 
   fetchCurrentComments() {
     const { postId } = this.props.params;
-    axiosAction('get', `/api/getAllComments/${postId}`, null, (comments) => {
-      this.props.currentPhotoAction(comments.data);
-      this.props.currentIsFetched(true);
+    this.props.currentPhotoAction(postId);
+    this.setState({
+      comment: ''
     });
   }
 
   componentWillUnmount() {
     this.props.currentIsFetched(false);
-    this.props.urlAction('nearby');
   }
 
   handleChange(event) {
@@ -41,26 +39,18 @@ class Comment extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let that = this;
     if (this.state.comment.length === 0) {
       return;
     }
     const { postId } = this.props.params;
     const { index } = this.props.params;
-    // this.props.addComment(this.state.comment);
-    this.props.incrementComment(index);
-    axiosAction('post', `/api/saveComment/${postId}`, { text: this.state.comment }, (response) => {
-      console.log('Comment saved to database');
-      that.fetchCurrentComments();
-      that.setState({
-        comment: ''
-      });
+    this.props.incrementComment(postId, { text: this.state.comment }, index, () => {
+      this.fetchCurrentComments();
     });
   }
 
   render() {
     const comments = this.props.currentPhoto.map((comment, i) => {
-
       const firstName = comment.username ? comment.username.split(' ')[0] : '';
       const photo = comment.profile_photo ? comment.profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg';
 
@@ -69,12 +59,11 @@ class Comment extends Component {
           <div>
             <img src={photo} className="comments-icon"/>
             <span className="comment-combined">
-            <strong> { firstName}  </strong> &nbsp;
-
-            { comment.text } </span>
+              <strong> { firstName}  </strong> &nbsp;
+              { comment.text } 
+            </span>
           </div>
-         </li>
-
+        </li>
       );
     });
 
@@ -114,7 +103,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, addComment, currentIsFetched, urlAction }, dispatch);
+  return bindActionCreators({ currentPhotoAction, incrementComment, currentIsFetched, urlAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);
