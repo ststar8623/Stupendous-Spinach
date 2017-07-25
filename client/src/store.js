@@ -34,7 +34,7 @@ function promiseMiddleware({dispatch}) {
   };
 }
 
-const createStoreWithMiddleware = applyMiddleware(logger, promiseMiddleware, thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, thunk)(createStore);
 
 const store = createStore(rootReducer, defaultState, enhancers);
 

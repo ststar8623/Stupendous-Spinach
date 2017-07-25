@@ -32,3 +32,10 @@ export const currentIsFetched = (boolean) => {
     payload: boolean
   };
 };
+
+export const fetchPhotoFromRadius = (array) => {
+  return {
+    type: 'FETCH_PHOTO_FROM_RADIUS',
+    payload: array
+  };
+};
