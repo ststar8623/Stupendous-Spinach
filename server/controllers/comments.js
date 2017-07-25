@@ -34,7 +34,7 @@ module.exports.getAllComments = (photoID = 1) => {
 
 module.exports.removeComment = (commentID) => {
   return models.Comment.CommentQueries.decrementCommentCount(commentID)
-    .then(() => {
+    .then((data) => {
       return models.Comment.CommentQueries.removeComment(commentID);
     });
 };

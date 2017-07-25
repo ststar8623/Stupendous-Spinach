@@ -4,6 +4,7 @@ const router = express.Router();
 const PhotosController = require('../controllers').Photos;
 const CommentsController = require('../controllers').Comments;
 const LikesController = require('../controllers').Likes;
+const ProfilesController = require('../controllers').Profiles;
 
 
 router.post('/imageUpload', (req, res) => {
@@ -16,11 +17,11 @@ router.post('/imageUpload', (req, res) => {
   //save url, lat, long to database
 
   PhotosController.savePhoto({ latitude, longitude, url, profile_id: req.user.id, caption })
-    .then(() => {
+    .then((data) => {
       //upon success, send URL back to client
       res.status(201).send(url);
     })
-    .catch(() => {
+    .catch((error) => {
       res.status(500).send("Sorry, your photo failed to upload");
     });
 
@@ -72,10 +73,10 @@ router.post('/saveComment/:photoID', (req, res) =>{
   const userID = req.user ? req.user.id : 1;
 
   CommentsController.saveComment(req.body.text, req.params.photoID, userID)
-    .then(()=> {
+    .then((data)=> {
       res.status(200).send('Successfully saved your comment');
     })
-    .catch(() => {
+    .catch((error) => {
       res.status(400).send('Something went wrong with saving your comment');
     });
 });
@@ -88,7 +89,6 @@ router.post('/addlike/:photoID', (req, res) => {
       res.status(201).send(data);
     })
     .catch((error) => {
-      console.log(error);
       //send empty object if error
       res.status(400).send("Sorry something went wrong with saving your like");
     });
@@ -99,10 +99,10 @@ router.put('/removelike/:photoID', (req, res) => {
   const userID = req.user ? req.user.id : 2;
 
   LikesController.removeLike(req.params.photoID, userID)
-    .then(() => {
+    .then((data) => {
       res.status(200).send('Successfully removed like');
     })
-    .catch(() => {
+    .catch((error) => {
       res.status(400).send('Sorry, something went wrong with your delete like request');
     });
 });
@@ -120,8 +120,19 @@ router.get('/getAllComments/:photoID', (req, res) =>{
 router.put('/removeComment/:commentID', (req, res) =>{
 
   CommentsController.removeComment(req.params.commentID)
-    .then(() => {
+    .then((data) => {
       res.status(200).send("Successfully removed commentt");
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+});
+
+router.get('/profilepage/:profileID', (req, res) => {
+
+  ProfilesController.getProfile(req.params.profileID, req.user.id)
+    .then((data) => {
+      res.status(200).send(data);
     })
     .catch((error) => {
       res.status(400).send(error);
