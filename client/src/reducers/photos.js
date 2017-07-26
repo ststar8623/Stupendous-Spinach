@@ -27,6 +27,14 @@ export default function photoArray(state = [], action) {
       },
       ...state.slice(i + 1),
     ]
+  case 'REMOVE_COMMENT':
+     return [
+      ...state.slice(0, i),
+      {
+        ...state[i], comment_count: state[i].comment_count === null ? state[i].comment_count = 1 : state[i].comment_count - 1
+      },
+       ...state.slice(i + 1),
+    ]
   default:
     return state;
   }

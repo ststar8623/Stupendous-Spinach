@@ -42,9 +42,21 @@ export const incrementComment = (id, object, index, callback) => {
   };
 };
 
-// export const addComment = (comment) => {
-//   return {
-//     type: 'ADD_COMMENT',
-//     payload: comment
-//   };
-// };
+//remove comment
+export const decrementComment = (index, commentId, callback) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.put(`/api/removeComment/${commentId}`)
+      .then(res => {
+        console.log('Successfully decrement comments');
+        callback();
+      })
+      .catch(err => {
+        console.log(err); 
+      });
+  });
+
+  return {
+    type: 'REMOVE_COMMENT',
+    index
+  };
+};
