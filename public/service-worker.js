@@ -4,7 +4,7 @@ const userDataCacheName = 'flashbackPWA-user-data-v01';
 const userDataUrl = 'localhost:3000';
 
 const photoCacheName = 'flashbackPWA-photos-v01';
-const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/'
+const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/';
 
 const urlEnv = 'localhost:3000';
 // const urlEnv = 'https://ss-flashback-staging.herokuapp.com'
