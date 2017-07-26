@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Comments from './Comments';
+import Profile from './Profile';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { increment, decrement } from '../actions/likeAction';
@@ -17,6 +18,12 @@ class NearbyPhotoCard extends Component {
     const incrementOrDecrement = liked ? 'decrement' : 'increment';
     this.props[incrementOrDecrement](id, i);
   }
+
+  // renderProfile() {
+  //   console.log('props -------->', this.props);
+  //   return <Profile />;
+  //onClick={this.renderProfile.bind(this)}
+  // }
 
   render() {
     const { url, like_count, comment_count, id, caption, liked, age, first, distance, profile_photo } = this.props.photo;
@@ -49,7 +56,7 @@ class NearbyPhotoCard extends Component {
       timeLapse = 'Just now...';
     }
 
-    let profilePhoto =  profile_photo ? profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg'
+    let profilePhoto = profile_photo ? profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg';
 
     let distanceTime = ' ' + `${distance} mi, ${timeLapse}` + ' ';
 
@@ -59,12 +66,14 @@ class NearbyPhotoCard extends Component {
           <span className="dateAndTime">{ distanceTime }</span>
           <img src={ url } className='img-thumbnail'/>
         </div>
+        
         <div className="likeCaptionComment">
-          <div>
-            <span className="profile">{ first }</span>
-            <img src={profilePhoto} className="fb-icon"/>
-
-          </div>
+          <Link to={ '/user/2'}>
+            <div>
+              <span className="profile">{ first }</span>
+              <img src={profilePhoto} className="fb-icon"/>
+            </div>
+          </Link>
           <CSSTransitionGroup transitionName="like" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
             <span key={ like_count } className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }></span>
           </CSSTransitionGroup>

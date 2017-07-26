@@ -60,3 +60,45 @@ export const decrementComment = (index, commentId, callback) => {
     index
   };
 };
+
+
+export const viewProfile = (userId, callback) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.get(`/api/profilepage/${userId}`)
+      .then(res => {
+        callback(res.data);
+      })
+      .catch(err => {
+        console.log(err); 
+      });
+  });
+
+
+
+
+
+  return {
+    type: 'VIEW_PROFILE',
+    userId
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

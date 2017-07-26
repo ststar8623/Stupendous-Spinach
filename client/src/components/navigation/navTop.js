@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { imageIsFetched } from '../../actions/imageAction';
 
 require('../../styles/main.css');
@@ -26,7 +26,7 @@ class NavigationBarTop extends Component {
         <div className="container navbar-container">
           <span className={ refreshOrBackButton } aria-hidden="true" onClick={ refreshOrBackFunction }></span>
           <h1 className="title">{ flashBackOrComments }</h1>
-          <span className="user-button glyphicon glyphicon-user" aria-hidden="true"></span>
+          <Link to='/user'><span className="user-button glyphicon glyphicon-user" aria-hidden="true"></span></Link>
         </div>
       </nav>
     );
