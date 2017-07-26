@@ -7,9 +7,9 @@ import { imageIsFetched } from '../../actions/imageAction';
 require('../../styles/main.css');
 
 class NavigationBarTop extends Component {
-  refreshButton() {
-    this.props.imageIsFetched(false);
-  }
+//   refreshButton() {
+//     this.props.imageIsFetched(false);
+//   }
 
   goBackButton() {
     browserHistory.push('/'); 
@@ -17,8 +17,8 @@ class NavigationBarTop extends Component {
 
   render() {
     const url = this.props.url;
-    const refreshOrBackButton = url === 'comments' || url === 'share' || url === 'googleMap' ? 'refresh-button glyphicon glyphicon-arrow-left' : 'refresh-button glyphicon glyphicon-refresh';
-    const refreshOrBackFunction = url === 'comments' || url === 'share' || url === 'googleMap' ? this.goBackButton.bind(this) : this.refreshButton.bind(this);
+    const refreshOrBackButton = url === 'comments' || url === 'share' || url === 'googleMap' ? 'refresh-button glyphicon glyphicon-arrow-left' : '';
+    const refreshOrBackFunction = url === 'comments' || url === 'share' || url === 'googleMap' ? this.goBackButton.bind(this) : '';
     const flashBackOrComments = url === 'comments' ? 'Comments' : url === 'share' ? 'Share Photo' : url === 'googleMap' ? 'Map' : 'flashBack';
     return (
       <nav className="navbar navbar-default navbar-fixed-top">
