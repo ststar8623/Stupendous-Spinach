@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
-import { incrementComment } from '../actions/likeAction';
+import { incrementComment, decrementComment } from '../actions/likeAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading';
 
@@ -48,20 +48,27 @@ class Comment extends Component {
       this.fetchCurrentComments();
     });
   }
+  
+  handleRemoveComment(index, commentId) {
+    this.props.decrementComment(index, commentId, ()=> {
+      this.fetchCurrentComments();
+    });
+  }
 
   render() {
     const comments = this.props.currentPhoto.map((comment, i) => {
+      let isUsersComment = this.props.photoArray[this.props.params.index].profile_id === comment.profile_id; 
       const firstName = comment.username ? comment.username.split(' ')[0] : '';
       const photo = comment.profile_photo ? comment.profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg';
-
       return (
         <li className="comments-li" key={i}> 
           <div>
             <img src={photo} className="comments-icon"/>
             <span className="comment-combined">
-              <strong> { firstName}  </strong> &nbsp;
+              <strong> { firstName} </strong> &nbsp;
               { comment.text } 
-            </span>
+              { isUsersComment ? <button className='deleteComments' onClick={ this.handleRemoveComment.bind(this, i, comment.comment_id)}> &times; </button> : ''}
+            </span>           
           </div>
         </li>
       );
@@ -103,7 +110,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, currentIsFetched, urlAction }, dispatch);
+  return bindActionCreators({ currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);
