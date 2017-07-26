@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 // import css from './styles/style.styl';
 
 // import components
-import App from './components/App';
+import Main from './components/Main';
 // import Single from './components/Single';
 // import PhotoGrid from './components/PhotoGrid'; 
 import Camera from './components/Camera';
@@ -22,7 +22,7 @@ import store, { history } from './store';
 const router = (
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/' component={App}>
+      <Route path='/' component={Main}>
         <IndexRoute component={Nearby} />
         <Route path='/nearby' component={Nearby} />
         <Route path='/comments/:postId/:index' component={Comments} />
