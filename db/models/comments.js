@@ -14,7 +14,7 @@ class CommentQueries {
 
   getAllCommentsForPhoto(photoID) {
 
-    let query = `select c.id as "comment_id", p.display as "username", c.profile_id, c.photo_id, c.text, c.created_at, c.updated_at, p.photo as "profile_photo" from profiles p join comments c on c.profile_id = p.id where c.photo_id = ${photoID}`;
+    let query = `select c.id as "comment_id", p.display as "username", c.profile_id, c.photo_id, c.text, c.created_at, c.updated_at, p.photo as "profile_photo" from profiles p join comments c on c.profile_id = p.id where c.photo_id = ${photoID} order by c.created_at asc`;
 
     return knex.raw(query);
   }
