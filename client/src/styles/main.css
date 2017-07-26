@@ -171,16 +171,12 @@ a {
 
 /* COMMENT DIV SECTION */
 .commentDiv {
-  display: flex !important;
+  display: block;
+  width: 50px;
 }
 
 .commentCount {
   margin-right: 5px;
-}
-
-.comments {
-  width: 82px;
-  text-align: left;
 }
 
 .comments-Ul {
@@ -193,6 +189,7 @@ a {
   border-bottom: 1px solid lightgrey;
   margin-bottom: -6px;
   padding: 6px;
+  margin: 10px 0;
 }
 
 .comments-profile {
@@ -237,18 +234,15 @@ a {
 
 .comments-icon {
   border-radius: 50%;
-  height:30px;
   width:30px;
+  margin-bottom: 6px;
 }
 
 .comment-combined {
   font-size: 14px;
-  font-size: 14px;
-  margin: 12px;
+  margin: 20px;
   position: relative;
-  margin-top: 13px;
-
-
+  bottom: 5px;
 }
 
 /* ----------------------------------- */
@@ -316,7 +310,7 @@ a {
 /*delete Comment*/
 .deleteComments {
   position: absolute;
-  left: 280px;
-  top:0px;
+  left: 300px;
+  top: -8px;
 }
 

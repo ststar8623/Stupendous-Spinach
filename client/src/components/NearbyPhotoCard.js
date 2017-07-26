@@ -34,7 +34,7 @@ class NearbyPhotoCard extends Component {
       likedCounts = like_count + ' ';
       oneOrMoreLike = 'Likes';
     }
-    const commentCounts = !comment_count ? 'No ' : comment_count + ' ';
+    const commentCounts = !comment_count ? 'No' : comment_count;
     const zeroOrMoreComment = comment_count <= 1 ? 'comment' : 'comments';
 
     let timeLapse = null;

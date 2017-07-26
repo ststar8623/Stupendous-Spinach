@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLocation } from '../actions/geoAction';
+import Nearby from './Nearby';
 
 import NavigationBarBottom from './navigation/navBottom';
 import NavigationBarTop from './navigation/navTop';
@@ -16,14 +17,18 @@ if ('serviceWorker' in navigator) {
 }
 
 class Main extends Component {
+  componentWillMount() {
+    this.props.getLocation();
+  }
+
   render() {
     const displayBottomNav = this.props.url === 'nearby' ? <NavigationBarBottom /> : '';
 
     return (
       <div>
         <NavigationBarTop />
+        { this.props.children }
         { displayBottomNav }
-        {this.props.children}
       </div>
     );
   }
