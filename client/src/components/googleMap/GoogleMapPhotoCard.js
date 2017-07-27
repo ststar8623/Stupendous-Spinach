@@ -3,6 +3,7 @@ import { urlAction } from '../../actions/urlAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectOnePhotoFromRadius } from '../../actions/imageAction';
+import NearbyPhotoCard from '../NearbyPhotoCard';
 
 class GoogleMapPhotoCard extends Component {
   componentWillMount() {
@@ -14,7 +15,7 @@ class GoogleMapPhotoCard extends Component {
   }
 
   render() {
-    const { somePhotoFromRadius, onePhotoFromRadius } = this.props.mapPhoto;
+    const { somePhotoFromRadius, onePhotoFromRadius, currentSelectedIndex } = this.props.mapPhoto;
     const blurOrNot = onePhotoFromRadius ? 'mapPhotoCard blurPhoto' : 'mapPhotoCard';
     const photoCard = somePhotoFromRadius.map((photo, i) => {
       return (
@@ -25,9 +26,7 @@ class GoogleMapPhotoCard extends Component {
     });
     const singlePhotoIsClicked = onePhotoFromRadius ? 'show-image-div' : 'hidden-image';
     const enLargePhoto = onePhotoFromRadius ? (
-      <div>
-        <img className={ singlePhotoIsClicked } src={ onePhotoFromRadius.url } onClick={this.enLargePhoto.bind(this, null)} />
-      </div>
+      <NearbyPhotoCard photo={ onePhotoFromRadius } i={ currentSelectedIndex } />
     ) : '';
 
     return (

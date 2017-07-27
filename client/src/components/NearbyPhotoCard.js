@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { increment, decrement } from '../actions/likeAction';
 import { bindActionCreators } from 'redux';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import { selectOnePhotoFromRadius } from '../actions/imageAction';
 
 require('../styles/main.css');
 
@@ -17,6 +18,10 @@ class NearbyPhotoCard extends Component {
   likeOrDislike(i, liked, id) {
     const incrementOrDecrement = liked ? 'decrement' : 'increment';
     this.props[incrementOrDecrement](id, i);
+  }
+
+  enLargePhoto(photo) {
+    this.props.selectOnePhotoFromRadius(photo);
   }
 
   render() {
@@ -54,11 +59,13 @@ class NearbyPhotoCard extends Component {
 
     let distanceTime = ' ' + `${distance} mi, ${timeLapse}` + ' ';
 
+    const inGoogleMapOrNearbyPhotoCard = this.props.url === 'nearby' ? <img src={ url } className='img-thumbnail' /> : <img src={ url } className='img-thumbnail' onClick={this.enLargePhoto.bind(this, null)} />;
+    const inGoogleMapOrNearbyPhotoCardClassName = this.props.url === 'nearby' ? "img-rounded" : "img-rounded photoCard-in-googleMap";
     return (
-      <div className="img-rounded">
+      <div className={ inGoogleMapOrNearbyPhotoCardClassName }>
         <div>
           <span className="dateAndTime">{ distanceTime }</span>
-          <img src={ url } className='img-thumbnail'/>
+          { inGoogleMapOrNearbyPhotoCard }
         </div>
         
         <div className="likeCaptionComment">
@@ -88,10 +95,15 @@ class NearbyPhotoCard extends Component {
   }
 }
 
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ increment, decrement }, dispatch);
+const mapStateToProps = (state) => {
+  return {
+    url: state.url
+  };
 };
 
-export default connect(null, mapDispatchToProps)(NearbyPhotoCard);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ increment, decrement, selectOnePhotoFromRadius }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NearbyPhotoCard);
 
