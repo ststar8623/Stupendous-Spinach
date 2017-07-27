@@ -11,17 +11,12 @@ class FollowersQueries {
 
     return knex.raw(query);
 
-    // INSERT INTO films (code, title, did, date_prod, kind)
-    // VALUES ('T_601', 'Yojimbo', 106, DEFAULT, 'Drama');
-
   }
 
   incrementFollowerCount(userID) {
 
     let query = `update profiles set follower_count = (follower_count + 1) where id = ${userID}`;
-
-    // update photos set like_count = (case when like_count > 0 then (like_count - 1) else null end) where id = ${photo_id}
-
+    
     return knex.raw(query);
   }
 
