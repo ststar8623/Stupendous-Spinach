@@ -40,7 +40,7 @@ class GoogleMap extends Component {
 
   selectedPhotoOnMap(i) {
     const { allPhotoFromRadius } = this.props.mapPhoto;
-    this.props.selectPhotoFromRadius(allPhotoFromRadius[i].elements);
+    this.props.selectPhotoFromRadius(allPhotoFromRadius[i].elements, i);
   }
 
   render() {

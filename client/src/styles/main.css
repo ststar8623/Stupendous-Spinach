@@ -327,6 +327,11 @@ a {
   opacity: 0.5;
 }
 
+.photoCard-in-googleMap {
+  position: fixed !important;
+  top: 15% !important;
+}
+
 /* ----------------------------------- */
 /*delete Comment*/
 .deleteComments {

@@ -2,6 +2,7 @@ export default function mapPhoto(state = {
   allPhotoFromRadius: [],
   somePhotoFromRadius: [],
   onePhotoFromRadius: null,
+  currentSelectedIndex: null,
   isFetched: false
 }, action) {
   switch (action.type) {
@@ -19,6 +20,7 @@ export default function mapPhoto(state = {
     return {
       ...state,
       onePhotoFromRadius: action.payload,
+      currentSelectedIndex: action.index
     }
   case 'MAP_PHOTO_ISFETCHED':
     return {

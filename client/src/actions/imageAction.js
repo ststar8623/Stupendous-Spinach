@@ -48,10 +48,11 @@ export const fetchPhotoFromRadius = (radius, object) => {
   };
 };
 
-export const selectPhotoFromRadius = (photos) => {
+export const selectPhotoFromRadius = (photos, i) => {
   return {
     type: 'SELECT_PHOTO_FROM_RADIUS',
-    payload: photos
+    payload: photos,
+    index: i
   };
 };
 
