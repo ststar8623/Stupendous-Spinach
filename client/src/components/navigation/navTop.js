@@ -12,13 +12,14 @@ class NavigationBarTop extends Component {
   }
 
   goBackButton() {
-    browserHistory.push('/'); 
+    const backToWhere = this.props.url === 'googleMapPhotoCard' ? '/googleMap' : '/';
+    browserHistory.push(backToWhere); 
   }
 
   render() {
     const url = this.props.url;
-    const refreshOrBackButton = url === 'comments' || url === 'share' || url === 'googleMap' ? 'refresh-button glyphicon glyphicon-arrow-left' : 'refresh-button glyphicon glyphicon-refresh';
-    const refreshOrBackFunction = url === 'comments' || url === 'share' || url === 'googleMap' ? this.goBackButton.bind(this) : this.refreshButton.bind(this);
+    const refreshOrBackButton = url === 'nearby' ? 'refresh-button glyphicon glyphicon-refresh' : 'refresh-button glyphicon glyphicon-arrow-left';
+    const refreshOrBackFunction = url === 'nearby' ? this.refreshButton.bind(this) : this.goBackButton.bind(this);
     const flashBackOrComments = url === 'comments' ? 'Comments' : url === 'share' ? 'Share Photo' : url === 'googleMap' ? 'Map' : 'flashBack';
     return (
       <nav className="navbar navbar-default navbar-fixed-top">

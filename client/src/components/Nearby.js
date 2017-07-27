@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import NearbyPhotoCard from './NearbyPhotoCard';
-import Loading from './Loading';
+import Loading from './Loading/Loading';
 import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
 import { Link } from 'react-router';
 import { urlAction } from '../actions/urlAction';
@@ -24,14 +24,16 @@ class Nearby extends Component {
   }
   
   componentWillUpdate(nextProps) {
-    if (!nextProps.photoArray.length || !nextProps.location.isFetched) {
+    if (!nextProps.location.isFetched) {
+      this.props.getLocation();
+    } else if (!nextProps.location.photoArrayIsFetched) {
       return new Promise((resolve, reject) => {
         resolve(this.props.imageAction({ location: this.props.location, max: 20 }));
       }).then(() => {
-        return this.props.fetchPhotoFromRadius(0.5, { location: this.props.location });
+        return this.props.fetchPhotoFromRadius(10, { location: this.props.location });
       }).then(() => {
         return this.props.imageIsFetched(true);
-      }).then(() => {
+      }).then((data) => {
         return this.props.mapPhotoIsFetched(true);
       }).catch(error => console.log('error: ', error));
     }
@@ -45,7 +47,7 @@ class Nearby extends Component {
     });
   }
   render() {
-    const isFetched = this.props.location.isFetched;
+    const isFetched = this.props.location.photoArrayIsFetched;
     if (!isFetched) {
       return (
         <div>
