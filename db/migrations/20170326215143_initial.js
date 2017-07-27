@@ -8,6 +8,8 @@ exports.up = function (knex, Promise) {
       table.string('display', 100).nullable();
       table.string('email', 100).nullable().unique();
       table.string('phone', 100).nullable();
+      table.integer('following_count').nullable().defaultTo(0);
+      table.integer('follower_count').nullable().defaultTo(0);
       table.timestamps(true, true);
     }),
 
@@ -40,8 +42,8 @@ exports.up = function (knex, Promise) {
 
     knex.schema.createTableIfNotExists('friends', function (table) {
       table.increments('id').unsigned().primary();
-      table.integer('profile1_id').references('id').inTable('profiles').onDelete('CASCADE');
-      table.integer('profile2_id').references('id').inTable('profiles').onDelete('CASCADE');
+      table.integer('user_id').references('id').inTable('profiles').onDelete('CASCADE');
+      table.integer('follower_id').references('id').inTable('profiles').onDelete('CASCADE');
       table.timestamps(true, true);
     }),
 
