@@ -30,7 +30,11 @@ const config = {
       { 
         test: /\.(scss|css)$/, 
         include: path.join(__dirname, 'client/src/styles'),
-        loader: 'style-loader!css-loader!stylus-loader!sass-loader'
+        loader: 'style-loader!css-loader!sass-loader'
+      },
+      {
+        test: /\.less$/,
+        loader: 'style-loader!css-loader!less-loader'
       }
     ]
   }

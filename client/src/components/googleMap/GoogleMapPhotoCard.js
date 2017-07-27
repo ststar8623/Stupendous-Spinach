@@ -17,7 +17,7 @@ class GoogleMapPhotoCard extends Component {
       );
     });
     return (
-      <div className="container">
+      <div className="mapPhotoCard-container">
         { photoCard }
       </div>
     );

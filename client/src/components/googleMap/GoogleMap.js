@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Promise from 'bluebird';
 import GoogleMapReact from 'google-map-react';
-import Loading from '../Loading';
+import Loading from '../Loading/Loading';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -23,7 +23,9 @@ class GoogleMap extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (!nextProps.location.isFetched || !nextProps.mapPhoto.isFetched) {
+    if (!nextProps.location.isFetched) {
+      this.props.getLocation();
+    } else if (!nextProps.mapPhoto.isFetched) {
       return new Promise((resolve, reject) => {
         resolve(this.props.fetchPhotoFromRadius(10, { location: this.props.location }));
       }).then(() => {
@@ -47,7 +49,7 @@ class GoogleMap extends Component {
     const isImageClicked = !this.state.imageIsClicked ? 'hidden-image' : 'show-image';
     let currPosition = {
       center: {lat: latitude, lng: longitude},
-      zoom: 12
+      zoom: 13
     };
     const photoCard = allPhotoFromRadius.map((photo, i) => {
       const latitude = photo.centroid[0];

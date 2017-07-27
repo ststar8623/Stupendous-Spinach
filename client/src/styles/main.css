@@ -309,13 +309,18 @@ a {
   border-radius: 10px;
 }
 
+.mapPhotoCard-container {
+  margin-top: 10px;
+}
+
 .photoCard-div {
   display: inline;
 }
 
 .mapPhotoCard {
-  width: 100px;
-  height: 100px;
+  width: 207px;
+  height: 207px;
+  padding: 10px;
 }
 
 /* ----------------------------------- */
