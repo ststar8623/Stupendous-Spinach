@@ -7,6 +7,11 @@ import { imageIsFetched } from '../../actions/imageAction';
 require('../../styles/main.css');
 
 class NavigationBarTop extends Component {
+  componentWillMount() {
+    this.state = {
+      userID: `/user/ ${parseInt(document.getElementById('userID').innerHTML)}`
+    };
+  }
   refreshButton() {
     this.props.imageIsFetched(false);
   }
@@ -26,7 +31,7 @@ class NavigationBarTop extends Component {
         <div className="container navbar-container">
           <span className={ refreshOrBackButton } aria-hidden="true" onClick={ refreshOrBackFunction }></span>
           <h1 className="title">{ flashBackOrComments }</h1>
-          <Link to='/user'><span className="user-button glyphicon glyphicon-user" aria-hidden="true"></span></Link>
+          <Link to={this.state.userID}><span className="user-button glyphicon glyphicon-user" aria-hidden="true"></span></Link>
         </div>
       </nav>
     );
@@ -35,7 +40,8 @@ class NavigationBarTop extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.url
+    url: state.url,
+    name: state
   };
 };
 

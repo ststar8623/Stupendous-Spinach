@@ -73,10 +73,6 @@ export const viewProfile = (userId, callback) => {
       });
   });
 
-
-
-
-
   return {
     type: 'VIEW_PROFILE',
     userId

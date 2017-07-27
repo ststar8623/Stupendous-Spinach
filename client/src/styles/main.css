@@ -378,7 +378,7 @@ a {
   height: auto;
   margin: 10px auto; 
   clear: both;
-  font-size: .4em;
+  font-size: .6em;
  
 }
 
@@ -388,11 +388,12 @@ a {
 
 .letters {
   color: grey;
+  font-weight: lighter;
 }
 
 .num {
   font-weight: bold;
-  font-size: .6em;
+  font-size: 1em;
 }
 
 .profileMap {

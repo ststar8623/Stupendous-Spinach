@@ -5,32 +5,44 @@ const router = express.Router();
 
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });
   });
 
 router.route('/nearby')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });
   });
 
 router.route('/comments/:postId/:index')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });
   });
 
 router.route('/PreviewAndShare')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });
   });
 
 router.route('/commentsAndLikes')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });
   });
 
 router.route('/googleMap')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });
   });
 
 router.route('/selectPhotoFromMap')
@@ -40,7 +52,9 @@ router.route('/selectPhotoFromMap')
   
 router.route('/user/:userId')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });
   });
 
 router.route('/login')

@@ -23,7 +23,9 @@ class Profile extends Component {
       this.setState({
         url: profile.profile.photo,
         isMyProfile: profile.isOwnProfile,
-        display: profile.profile.display
+        display: profile.profile.display,
+        followers: profile.profile.follower_count,
+        following: profile.profile.following_count
       });
     });
   }
@@ -45,7 +47,7 @@ class Profile extends Component {
           </div>
           <div className='text-center'>
             <p> {this.state.display} </p>
-            <p className="btn btn-primary btn-xs">Follow</p>
+            { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
           </div>
         </div>
         

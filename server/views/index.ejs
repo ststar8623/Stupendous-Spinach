@@ -1,6 +1,9 @@
 <% include head.ejs%>
 
-    <div id='root'></div>
+    <div id='root' ></div>
+
+    <p  id="userID" hidden><%= user? user.id: '' %></p>
+
     <script src="/dist/bundle.js"></script>
 
 <% include foot.ejs%>

@@ -19,14 +19,8 @@ class NearbyPhotoCard extends Component {
     this.props[incrementOrDecrement](id, i);
   }
 
-  // renderProfile() {
-  //   console.log('props -------->', this.props);
-  //   return <Profile />;
-  //onClick={this.renderProfile.bind(this)}
-  // }
-
   render() {
-    const { url, like_count, comment_count, id, caption, liked, age, first, distance, profile_photo } = this.props.photo;
+    const { url, like_count, comment_count, id, caption, liked, age, first, distance, profile_photo, profile_id } = this.props.photo;
     const { i } = this.props;
     const commentId = `/comments/${id}/${i}`;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
@@ -68,7 +62,7 @@ class NearbyPhotoCard extends Component {
         </div>
         
         <div className="likeCaptionComment">
-          <Link to={ '/user/2'}>
+          <Link to={ `/user/${profile_id}` }>
             <div>
               <span className="profile">{ first }</span>
               <img src={profilePhoto} className="fb-icon"/>
@@ -93,6 +87,7 @@ class NearbyPhotoCard extends Component {
     );
   }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ increment, decrement }, dispatch);
