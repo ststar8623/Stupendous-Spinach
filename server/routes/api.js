@@ -5,9 +5,9 @@ const PhotosController = require('../controllers').Photos;
 const CommentsController = require('../controllers').Comments;
 const LikesController = require('../controllers').Likes;
 const ProfilesController = require('../controllers').Profiles;
+const FollowersController = require('../controllers').Followers;
 const axios = require('axios');
 const geocluster = require('geocluster');
-
 
 router.post('/imageUpload', (req, res) => {
   
@@ -149,6 +149,25 @@ router.get('/profilepage/:profileID', (req, res) => {
     .catch((error) => {
       res.status(400).send(error);
     });
+});
+
+router.put('/addFollower/:followerID', (req, res) => {
+
+  let userID = req.user ? req.user.id : 2;
+
+  FollowersController.addFollower(userID, req.params.followerID)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+
+});
+
+router.get('/getFollowers', (req, res) => {
+
+
 });
 
 router.post('/cluster', (req, res) => {
