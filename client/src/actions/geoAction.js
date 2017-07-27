@@ -11,6 +11,7 @@ export const getLocation = () => {
       reject (new Error('Permission denied'));
     });
   });
+  console.log('location', location);
   return {
     type: 'GET_LOCATION',
     payload: location

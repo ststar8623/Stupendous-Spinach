@@ -48,6 +48,13 @@ export const fetchPhotoFromRadius = (radius, object) => {
   };
 };
 
+export const selectPhotoFromRadius = (photos) => {
+  return {
+    type: 'SELECT_PHOTO_FROM_RADIUS',
+    payload: photos
+  };
+};
+
 export const imageIsFetched = (boolean) => {
   return {
     type: 'IMAGE_ISFETCHED',

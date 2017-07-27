@@ -3,9 +3,10 @@ import Promise from 'bluebird';
 import GoogleMapReact from 'google-map-react';
 import Loading from '../Loading';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../../actions/urlAction';
-import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../../actions/imageAction';
+import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched, selectPhotoFromRadius } from '../../actions/imageAction';
 import { getLocation } from '../../actions/geoAction';
 
 class GoogleMap extends Component {
@@ -13,30 +14,31 @@ class GoogleMap extends Component {
     super(props);
     this.state = {
       imageIsClicked: false,
-      url: null
+      selectedPhoto: null || []
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.urlAction('googleMap');
-    if (!this.props.location.isFetched || !this.props.mapPhoto.isFetched) {
-      Promise.resolve(this.props.getLocation())
-        .then(() => {
-          return this.props.fetchPhotoFromRadius(0.5, { location: this.props.location });
-        }).then(() => {
-          return this.props.imageAction({ location: this.props.location, max: 20 });
-        }).then(() => {
-          return this.props.mapPhotoIsFetched(true);
-        }).error((error) => console.log('error ', error));
+  }
+
+  componentWillUpdate(nextProps) {
+    if (!nextProps.location.isFetched || !nextProps.mapPhoto.isFetched) {
+      return new Promise((resolve, reject) => {
+        resolve(this.props.fetchPhotoFromRadius(10, { location: this.props.location }));
+      }).then(() => {
+        return this.props.imageAction({ location: this.props.location, max: 20 });
+      }).then(() => {
+        return this.props.imageIsFetched(true);
+      }).then((data) => {
+        return this.props.mapPhotoIsFetched(true);
+      }).catch(error => console.log('error: ', error));
     }
   }
 
-  enLargePhoto(url) {
-    url = url || null;
-    this.setState({
-      imageIsClicked: !this.state.imageIsClicked,
-      url: url
-    });
+  selectedPhotoOnMap(i) {
+    const { allPhotoFromRadius } = this.props.mapPhoto;
+    this.props.selectPhotoFromRadius(allPhotoFromRadius[i].elements);
   }
 
   render() {
@@ -45,13 +47,15 @@ class GoogleMap extends Component {
     const isImageClicked = !this.state.imageIsClicked ? 'hidden-image' : 'show-image';
     let currPosition = {
       center: {lat: latitude, lng: longitude},
-      zoom: 16
+      zoom: 12
     };
     const photoCard = allPhotoFromRadius.map((photo, i) => {
-      const { latitude, longitude, url } = photo;
+      const latitude = photo.centroid[0];
+      const longitude = photo.centroid[1];
+      const numberOfPhotos = photo.elements.length;
       return (
-        <div key={i} lat={ latitude } lng={ longitude } onClick={this.enLargePhoto.bind(this, url)} >
-          <img src={ url } className='google-thumbnail' />
+        <div key={i} lat={ latitude } lng={ longitude }>
+          <Link to="selectPhotoFromMap" className='google-thumbnail' onClick={this.selectedPhotoOnMap.bind(this, i)}>{ numberOfPhotos }</Link>
         </div>
       );
     });
@@ -66,9 +70,6 @@ class GoogleMap extends Component {
       return (
         <GoogleMapReact style={{ width: '100%', height: '80%' }} center={currPosition.center} zoom={currPosition.zoom} >
           { photoCard }
-          <div className="show-image-div">
-            <img src={ this.state.url } className={ isImageClicked } onClick={this.enLargePhoto.bind(this)} />
-          </div>
         </GoogleMapReact>
       );
     }
@@ -84,7 +85,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ imageAction, urlAction, imageIsFetched, getLocation, fetchPhotoFromRadius, mapPhotoIsFetched }, dispatch);
+  return bindActionCreators({ imageAction, urlAction, imageIsFetched, getLocation, fetchPhotoFromRadius, mapPhotoIsFetched, selectPhotoFromRadius }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleMap);

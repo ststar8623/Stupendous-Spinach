@@ -33,6 +33,11 @@ router.route('/googleMap')
     res.render('index.ejs');
   });
 
+router.route('/selectPhotoFromMap')
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs');
+  });
+  
 router.route('/login')
   .get((req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });

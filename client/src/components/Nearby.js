@@ -28,10 +28,10 @@ class Nearby extends Component {
       return new Promise((resolve, reject) => {
         resolve(this.props.imageAction({ location: this.props.location, max: 20 }));
       }).then(() => {
-        return this.props.fetchPhotoFromRadius(0.5, { location: this.props.location });
+        return this.props.fetchPhotoFromRadius(10, { location: this.props.location });
       }).then(() => {
         return this.props.imageIsFetched(true);
-      }).then(() => {
+      }).then((data) => {
         return this.props.mapPhotoIsFetched(true);
       }).catch(error => console.log('error: ', error));
     }
