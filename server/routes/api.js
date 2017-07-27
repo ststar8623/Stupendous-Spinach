@@ -5,6 +5,8 @@ const PhotosController = require('../controllers').Photos;
 const CommentsController = require('../controllers').Comments;
 const LikesController = require('../controllers').Likes;
 const ProfilesController = require('../controllers').Profiles;
+const axios = require('axios');
+const geocluster = require('geocluster');
 
 
 router.post('/imageUpload', (req, res) => {
@@ -60,9 +62,19 @@ router.post('/mapPhotos/:radius/', (req, res) => {
 
   PhotosController.getNearbyPhotos(coordinates, req.user.id, undefined, req.params.radius)
     .then((data) => {
-      res.status(200).send(data);
+      // console.log('data from database ', data);
+      return axios.post('https://powerful-oasis-62289.herokuapp.com/cluster', { data }).then(response => {
+        // console.log('data from cluster API ==========================>>>>>>> ', JSON.stringify(response.data));
+        // res.status(200).send(response.data);
+        return response.data;
+      // }).error(err => console.log('err ', err));
+      });
+      // res.status(200).send(data);
     })
-    .catch((data) => {
+    .then((data) => {
+      res.status(200).send(data)
+    })
+    .catch((error) => {
       //send empty object if error
       res.status(400).send([]);
     });
@@ -137,6 +149,16 @@ router.get('/profilepage/:profileID', (req, res) => {
     .catch((error) => {
       res.status(400).send(error);
     });
+});
+
+router.post('/cluster', (req, res) => {
+
+  const array = req.body.data;
+
+  axios.post('https://powerful-oasis-62289.herokuapp.com/cluster', { data: array }).then(res => {
+    console.log('result from server ', res.data);
+  }).error(err => console.log('err ', err));
+
 });
 
 module.exports = router;

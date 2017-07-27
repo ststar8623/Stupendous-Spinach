@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
 import { incrementComment, decrementComment } from '../actions/likeAction';
 import { urlAction } from '../actions/urlAction';
-import Loading from './Loading';
+import Loading from './Loading/Loading';
 
 class Comment extends Component {
   constructor(props) {

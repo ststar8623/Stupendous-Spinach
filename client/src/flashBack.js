@@ -13,6 +13,7 @@ import Nearby from './components/Nearby';
 import Comments from './components/Comments';
 import PreviewAndShare from './components/PreviewAndShare';
 import GoogleMap from './components/googleMap/GoogleMap';
+import GoogleMapPhotoCard from './components/googleMap/GoogleMapPhotoCard';
 
 // import react router
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -28,6 +29,7 @@ const router = (
         <Route path='/comments/:postId/:index' component={Comments} />
         <Route path='/PreviewAndShare' component={PreviewAndShare} />
         <Route path='/googleMap' component={GoogleMap} />
+        <Route path='/selectPhotoFromMap' component={GoogleMapPhotoCard} />
       </Route>
     </Router>
   </Provider>
