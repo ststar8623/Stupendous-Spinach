@@ -32,6 +32,7 @@ class Profile extends Component {
 
   componentWillMount() {
     this.props.urlAction('profile');
+  
   }
 
   componentWillUnmount() {
@@ -41,46 +42,50 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <div className='profile-profile'>
-          <div className='round'>
-            <img className='profilePic' src={ this.state.url } /> 
-          </div>
-          <div className='text-center'>
-            <p> {this.state.display} </p>
-            { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
-          </div>
-        </div>
-        
+        { 
+          this.state.url ? 
+            <div>
+              <div className='profile-profile'>
+                <div className='round'>
+                  <img className='profilePic' src={ this.state.url } /> 
+                </div>
+                <div className='text-center'>
+                  <p> {this.state.display} </p>
+                  { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
+                </div>
+              </div>
+              
 
-        <div className='followDataContainer'>
-          <div className='col-xs-4'> 
-            <div className='num text-center'> {this.state.followers}</div>
-            <div className='letters text-center'> followers </div>
-          </div>
+              <div className='followDataContainer'>
+                <div className='col-xs-4'> 
+                  <div className='num text-center'> {this.state.followers}</div>
+                  <div className='letters text-center'> followers </div>
+                </div>
 
-          <div className='col-xs-4'> 
-            <div className='num text-center'> {this.state.following}</div>
-            <div className='letters text-center'> following </div>
-          </div>
+                <div className='col-xs-4'> 
+                  <div className='num text-center'> {this.state.following}</div>
+                  <div className='letters text-center'> following </div>
+                </div>
 
-          <div className='col-xs-4'> 
-            <div className='num text-center'> {this.state.posts}</div>
-            <div className='letters text-center'> posts </div>
-          </div>
-        </div>
+                <div className='col-xs-4'> 
+                  <div className='num text-center'> {this.state.posts}</div>
+                  <div className='letters text-center'> posts </div>
+                </div>
+              </div>
 
-        <div className='profileMap'>
-          this is map in profile
-          the size should be fixd
-
-        </div> 
-
-
+              <div className='profileMap'>
+                this is map in profile
+                the size should be fixd
+              </div> 
+            </div>
+          
+            : <Loading />
+        }
       </div>
+
     );
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {
