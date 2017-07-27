@@ -133,7 +133,7 @@ router.put('/removeComment/:commentID', (req, res) =>{
 
   CommentsController.removeComment(req.params.commentID)
     .then((data) => {
-      res.status(200).send("Successfully removed commentt");
+      res.status(200).send("Successfully removed comment");
     })
     .catch((error) => {
       res.status(400).send(error);
@@ -142,7 +142,9 @@ router.put('/removeComment/:commentID', (req, res) =>{
 
 router.get('/profilepage/:profileID', (req, res) => {
 
-  ProfilesController.getProfile(req.params.profileID, req.user.id)
+  let reqUserID = req.user ? req.user.id : 2;
+
+  ProfilesController.getProfile(req.params.profileID, reqUserID)
     .then((data) => {
       res.status(200).send(data);
     })

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Comments from './Comments';
+import Profile from './Profile';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { increment, decrement } from '../actions/likeAction';
@@ -19,7 +20,7 @@ class NearbyPhotoCard extends Component {
   }
 
   render() {
-    const { url, like_count, comment_count, id, caption, liked, age, first, distance, profile_photo } = this.props.photo;
+    const { url, like_count, comment_count, id, caption, liked, age, first, distance, profile_photo, profile_id } = this.props.photo;
     const { i } = this.props;
     const commentId = `/comments/${id}/${i}`;
     const heart = liked ? "fa fa-heart heart" : "glyphicon glyphicon-heart-empty heart";
@@ -49,7 +50,7 @@ class NearbyPhotoCard extends Component {
       timeLapse = 'Just now...';
     }
 
-    let profilePhoto =  profile_photo ? profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg'
+    let profilePhoto = profile_photo ? profile_photo : 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg';
 
     let distanceTime = ' ' + `${distance} mi, ${timeLapse}` + ' ';
 
@@ -59,12 +60,14 @@ class NearbyPhotoCard extends Component {
           <span className="dateAndTime">{ distanceTime }</span>
           <img src={ url } className='img-thumbnail'/>
         </div>
+        
         <div className="likeCaptionComment">
-          <div>
-            <span className="profile">{ first }</span>
-            <img src={profilePhoto} className="fb-icon"/>
-
-          </div>
+          <Link to={ `/user/${profile_id}` }>
+            <div>
+              <span className="profile">{ first }</span>
+              <img src={profilePhoto} className="fb-icon"/>
+            </div>
+          </Link>
           <CSSTransitionGroup transitionName="like" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
             <span key={ like_count } className={ heart } aria-hidden="true" onClick={ this.likeOrDislike.bind(this, i, liked, id) }></span>
           </CSSTransitionGroup>
@@ -84,6 +87,7 @@ class NearbyPhotoCard extends Component {
     );
   }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ increment, decrement }, dispatch);

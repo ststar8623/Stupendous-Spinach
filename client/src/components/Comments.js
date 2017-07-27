@@ -65,7 +65,7 @@ class Comment extends Component {
           <div>
             <img src={photo} className="comments-icon"/>
             <span className="comment-combined">
-              <strong> { firstName} </strong> &nbsp;
+              <strong> { firstName } </strong> &nbsp;
               { comment.text } 
               { isUsersComment ? <button className='deleteComments' onClick={ this.handleRemoveComment.bind(this, i, comment.comment_id)}> &times; </button> : ''}
             </span>           

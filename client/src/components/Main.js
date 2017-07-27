@@ -18,7 +18,7 @@ if ('serviceWorker' in navigator) {
 
 class Main extends Component {
   render() {
-    const displayBottomNav = this.props.url === 'nearby' ? <NavigationBarBottom /> : '';
+    const displayBottomNav = this.props.url === 'nearby' || this.props.url === 'profile' ? <NavigationBarBottom /> : '';
 
     return (
       <div>

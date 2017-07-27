@@ -241,9 +241,8 @@ a {
 
 .comment-combined {
   font-size: 14px;
-  margin: 20px;
-  position: relative;
-  bottom: 5px;
+  margin: 12px;
+  margin-top: 13px;
 }
 
 /* ----------------------------------- */
@@ -335,3 +334,67 @@ a {
   top: -8px;
 }
 
+/* ----------------------------------- */
+
+.profile-profile {
+  font-size: 14px; 
+  margin: 10% auto; 
+}
+
+.round {
+  overflow: hidden;
+  min-height: 7em;
+  height: 7em;
+  width: 7em;
+  min-width: 7em;
+  border: 1px solid rgba(46, 46, 46, 0.1);
+  border-radius: 50em;
+  margin: 10px auto;
+}
+
+.profilePic {
+  border-radius: 50em;
+  min-height: 7em;
+  height: 7em;
+  width: 7em;
+  min-width: 7em;
+  margin: -1px;
+  padding: 8px;
+  
+}
+
+.btn-xs {
+  border-color: #817FFD;
+  background-color: #817FFD;
+  width: 20%;
+}
+
+.followDataContainer {
+  width: 100%;
+  height: auto;
+  margin: 10px auto; 
+  clear: both;
+  font-size: .6em;
+}
+
+.col-xs-4{
+  margin: 0 auto;
+}
+
+.letters {
+  color: grey;
+  font-weight: lighter;
+}
+
+.num {
+  font-weight: bold;
+  font-size: 1em;   
+}
+
+.profileMap {
+  border: 2px solid black;
+  clear: both;
+  margin: 20% auto;
+  margin-top: 30%;
+  padding: 20%;
+}
