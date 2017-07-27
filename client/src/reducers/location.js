@@ -2,7 +2,6 @@ const location = (state = {
   isFetched: false,
   photoArrayIsFetched: false
 }, action) => {
-  console.log(action.payload);
   switch (action.type) {
   case 'GET_LOCATION':
     return {

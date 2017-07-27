@@ -15,12 +15,12 @@ export default function mapPhoto(state = {
     return {
       ...state,
       somePhotoFromRadius: action.payload,
+      currentSelectedIndex: action.index
     }
   case 'ONE_PHOTO_FROM_RADIUS':
     return {
       ...state,
       onePhotoFromRadius: action.payload,
-      currentSelectedIndex: action.index
     }
   case 'MAP_PHOTO_ISFETCHED':
     return {
