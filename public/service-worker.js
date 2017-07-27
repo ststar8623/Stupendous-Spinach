@@ -1,3 +1,5 @@
+// const idbKeyVal = require('idb-keyval');
+
 const shellCacheName = 'flashbackPWA-shell-v01';
 
 const userDataCacheName = 'flashbackPWA-user-data-v01';
@@ -10,7 +12,7 @@ const urlEnv = 'localhost:3000';
 // const urlEnv = 'https://ss-flashback-staging.herokuapp.com'
 
 var shellFilesToCache = [
-  // '/dist/bundle.js',
+  '/dist/bundle.js',
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
@@ -22,15 +24,17 @@ var shellFilesToCache = [
   '/install-service-worker.js',
   'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css',
   'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css',
+  'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/fonts/glyphicons-halflings-regular.woff',
+  'https://fonts.gstatic.com/s/kaushanscript/v5/qx1LSqts-NtiKcLw4N03IJsM3FTMmj2kTPH3yX99Yaw.woff2',
+  'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts/fontawesome-webfont.woff?v=4.0.3',
+  'https://fonts.googleapis.com/css?family=Plaster',
+  'https://fonts.googleapis.com/css?family=Kaushan+Script',
+  'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg'
+
+/* potential
   // 'https://maps.google.com/maps-api-v3/api/js/29/13/common.js',
   // 'https://maps.google.com/maps-api-v3/api/js/29/13/util.js',
   // 'https://maps.google.com/maps-api-v3/api/js/29/13/stats.js',
-  'https://fonts.googleapis.com/css?family=Plaster',
-  'https://fonts.googleapis.com/css?family=Kaushan+Script',
-
-
-
-/* potential
   Other styling
   '/profile',
   '/profile#_=_',
@@ -41,13 +45,18 @@ var shellFilesToCache = [
   '/likes', */
 ];
 
-var urlsToIgnore = [
+var urlsToIgnore = shellFilesToCache.concat([
   '/auth/facebook',
   '/Authentication',
   'Authenticate',
   '/login',
-
-];
+  'https://maps.google.com/maps-api-v3/api/js/29/13/common.js',
+  'https://maps.google.com/maps-api-v3/api/js/29/13/util.js',
+  'https://maps.google.com/maps-api-v3/api/js/29/13/stats.js',
+  'https://maps.google.com/maps/api',
+  'https://csi.gstatic.com/',
+  'https://scontent.xx.fbcdn.net'
+]);
 
 
 // Install SW and cache shell files
@@ -77,50 +86,50 @@ self.addEventListener('activate', (e) => {
 });
 
 // Need to know API call for data caching
+
 self.addEventListener('fetch', (e) => {
   // console.log('[ServiceWorker] Fetch URL: ', e.request.url);
   // if (urlsToIgnore.every(urlBit => e.request.url.indexOf(urlBit) === -1)) {
   if (!e.request.headers.has('Authorization')) {
 
-    if (shellFilesToCache.concat(urlsToIgnore).every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
+    if (urlsToIgnore.every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
       let openCache;
 
       if (e.request.url.indexOf(userDataUrl) > -1) {
         e.respondWith(
           caches.open(userDataCacheName).then((cache) => {
             // console.log('[ServiceWorker] User Data caching');
-            // console.log('[ServiceWorker] User Data cache: ', cache, ' url: ', e.request.url);
+            // console.log('[ServiceWorker] User Data cache: ', cache, '\nurl: ', e.request.url);
             openCache = cache;
             return fetch(e.request); // {credentials include} arg needed?
           }).then((response) => {
-            console.log('[ServiceWorker] User Data openCache: ', openCache, ' url: ', e.request.url);
+            // console.log('[ServiceWorker] User Data openCache: ', openCache, '\nurl: ', e.request.url);
             // console.log('[ServiceWorker] e.request.url to clone into cache: ', e.request.url);
             openCache.put(e.request.url, response.clone());
             return response;
           }).catch((error) => {
             // console.log('[ServiceWorker] caught error in data caching');
-            console.log('[ServiceWorker] Caught error in data caching: ', error, ' url: ', e.request.url);
+            console.log('[ServiceWorker] ERROR serverApi: ', error, '\nurl: ', e.request.url);
           })
         );
 
       } else if (e.request.url.indexOf(photoApiUrl) > -1) {
-        e.respondWith(
-          caches.open(photoCacheName).then((cache) => {
-            // console.log('[ServiceWorker] Photo caching');
-            // console.log('[ServiceWorker] Photo cache: ', cache, ' url: ', e.request.url);
-            // console.log('[ServiceWorker] e.request.url to clone into cache, pre-fetch: ', e.request.url);
-            openCache = cache;
-            return fetch(e.request); // {credentials include} arg needed?
-          }).then((response) => {
-            console.log('[ServiceWorker] Photo openCache: ', openCache, ' url: ', e.request.url);
-            // console.log('[ServiceWorker] e.request.url to clone into cache, post-fetch: ', e.request.url);
-            openCache.put(e.request.url, response.clone());
-            return response; 
-          }).catch((error) => {
-            // console.log('[ServiceWorker] caught error in photo caching');
-            console.log('[ServiceWorker] Error: ', error, ' url: ', e.request.url);
-          })
-        );
+        caches.open(photoCacheName).then((cache) => {
+          // console.log('[ServiceWorker] Photo caching');
+          // console.log('[ServiceWorker] Photo cache: ', cache, ' url: ', e.request.url);
+          // console.log('[ServiceWorker] e.request.url to clone into cache, pre-fetch: ', e.request.url);
+          openCache = cache;
+          return fetch(e.request); // {credentials include} arg needed?
+        }).then((response) => {
+          // console.log('[ServiceWorker] Photo openCache: ', openCache, '\nurl: ', e.request.url);
+          // console.log('[ServiceWorker] e.request.url to clone into cache, post-fetch: ', e.request.url);
+          console.log('request URL: ', e.request.url, '\nresponse.clone(): ', response.clone(), '\nresponse.clone() type: ', typeof response.clone());
+          openCache.put(e.request.url, response.clone());
+          return response; 
+        }).catch((error) => {
+          // console.log('[ServiceWorker] caught error in photo caching');
+          console.log('[ServiceWorker] ERROR photoApi: ', error, '\nurl: ', e.request.url);
+        });
 
       } else {
         console.log('[ServiceWorker] no match to caches for: ', e.request.url);
@@ -132,7 +141,7 @@ self.addEventListener('fetch', (e) => {
       }
 
     } else {
-      console.log('[Service Worker] ignored URL: ', e.request.url);
+      // console.log('[Service Worker] ignored URL: ', e.request.url);
       e.respondWith(
         caches.match(e.request).then((response) => {
           return response || fetch(e.request);
@@ -142,6 +151,15 @@ self.addEventListener('fetch', (e) => {
 
   }
 });
+
+// navigator.storageQuota.queryInfo('temporary').then(function(info) {
+//   console.log(info.quota); // Result: <quota in bytes>
+//   console.log(info.usage); // Result: <used data in bytes>
+// });
+
+// function cloudinaryAPIResponse(request) {
+//   if ()
+// }
 
 /* SW-Cache example
 
@@ -191,3 +209,21 @@ if ('serviceWorker' in navigator) {
   });
 }
 */
+
+
+// e.respondWith(() => {
+  
+//   caches.match(e.request.url).then((response) => {
+//     return new Promise((res, rej) => {
+//       if 
+//       console.log()
+//     })
+//   })
+// }
+
+
+//   fetch(e.request).then((response) => {
+//     idbKeyVal.set(e.request.url, response);
+
+
+//   })
