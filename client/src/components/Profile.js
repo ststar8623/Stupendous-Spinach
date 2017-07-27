@@ -32,7 +32,6 @@ class Profile extends Component {
 
   componentWillMount() {
     this.props.urlAction('profile');
-  
   }
 
   componentWillUnmount() {
