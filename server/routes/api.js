@@ -5,7 +5,7 @@ const PhotosController = require('../controllers').Photos;
 const CommentsController = require('../controllers').Comments;
 const LikesController = require('../controllers').Likes;
 const ProfilesController = require('../controllers').Profiles;
-const FollowersController = require('../controllers').Followers
+const FollowersController = require('../controllers').Followers;
 
 
 router.post('/imageUpload', (req, res) => {
@@ -142,9 +142,15 @@ router.get('/profilepage/:profileID', (req, res) => {
 
 router.put('/addFollower/:followerID', (req, res) => {
 
-  let userID = req.user ? req.user.id : 12;
+  let userID = req.user ? req.user.id : 2;
 
-
+  FollowersController.addFollower(userID, req.params.followerID)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
 
 });
 
