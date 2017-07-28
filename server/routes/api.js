@@ -33,6 +33,7 @@ router.post('/imageUpload', (req, res) => {
 router.post('/nearbyPhotos', (req, res) => {
   
   let coordinates;
+  const userID = req.user ? req.user.id : 2;
 
   if (req.body.location) {
     coordinates = req.body.location;
@@ -40,7 +41,7 @@ router.post('/nearbyPhotos', (req, res) => {
     coordinates = {latitude: 37.8837339, longitude: -122.5090785};
   }
 
-  PhotosController.getNearbyPhotos(coordinates, req.user.id, req.body.max, 10)
+  PhotosController.getNearbyPhotos(coordinates, userID, req.body.max, 10)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -54,13 +55,17 @@ router.post('/mapPhotos/:radius/', (req, res) => {
 
   let coordinates;
 
+  let profileID = req.body.profileID ? req.body.profileID : undefined;
+
+  const userID = req.user ? req.user.id : 2;
+
   if (req.body.location) {
     coordinates = req.body.location;
   } else {
     coordinates = {latitude: 37.8837339, longitude: -122.5090785};
   }
 
-  PhotosController.getNearbyPhotos(coordinates, req.user.id, undefined, req.params.radius)
+  PhotosController.getNearbyPhotos(coordinates, userID, undefined, req.params.radius, profileID)
     .then((data) => {
       // console.log('data from database ', data);
       return axios.post('https://powerful-oasis-62289.herokuapp.com/cluster', { data }).then(response => {
@@ -72,7 +77,7 @@ router.post('/mapPhotos/:radius/', (req, res) => {
       // res.status(200).send(data);
     })
     .then((data) => {
-      res.status(200).send(data)
+      res.status(200).send(data);
     })
     .catch((error) => {
       //send empty object if error

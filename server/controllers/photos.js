@@ -6,9 +6,9 @@ module.exports.savePhoto = (options) => {
   return models.Photo.forge(options).save();
 };
 
-module.exports.getNearbyPhotos = (currentlocation, profile_id, count, radius) => {
+module.exports.getNearbyPhotos = (currentlocation, user_id, count, radius, profile_id) => {
 
-  return models.Photo.PhotoQueries.getPhotos(count)
+  return models.Photo.PhotoQueries.getPhotos(count, profile_id)
     .then((data) => {
       return utils.filterByDistance(data.rows, currentlocation, radius);
     })
@@ -17,7 +17,7 @@ module.exports.getNearbyPhotos = (currentlocation, profile_id, count, radius) =>
 
       if (photosObj.length > 0) {
 
-        return models.Photo.PhotoQueries.getPhotoLikesForUser(profile_id)
+        return models.Photo.PhotoQueries.getPhotoLikesForUser(user_id)
           .then((likesObj) => {
             return utils.addLikedProperty(photosObj, likesObj.rows);
           });
@@ -27,6 +27,7 @@ module.exports.getNearbyPhotos = (currentlocation, profile_id, count, radius) =>
     });
 
 };
+
 
 module.exports.addLike = (photo_id, profile_id) => {
   
