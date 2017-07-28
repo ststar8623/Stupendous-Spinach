@@ -56,7 +56,6 @@ a {
 .img-thumbnail {
   width: 100%;
   padding: 0px;
-  margin-bottom: 10px;
 }
 
 .h4-heading {
@@ -85,8 +84,8 @@ a {
 
 /* LIKE CAPTION COMMENT DIV FROM PHOTOCARD SECTION */
 .likeCaptionComment {
-  margin-bottom: 30px;
-  margin-left: 12px;
+  padding: 15px 15px 35px;
+  background-color: white;
 }
 /* ----------------------------------- */
 
@@ -230,6 +229,8 @@ a {
 .comments-button {
   display: inline-block;
   font-size: 0.7em;
+  background-color: white;
+  padding: 10px 30px 10px 5px;
 }
 
 
@@ -252,7 +253,6 @@ a {
 .profile {
   float: right;
   font-size: 14px;
-  margin-right: 12px;
   margin-top:4px;
 }
 
