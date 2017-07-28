@@ -11,7 +11,7 @@ const location = (state = {
       longitude: action.payload.coords.longitude,
       timeStamp: action.payload.timestamp,
       isFetched: true
-      //isFetched: action.payload.isFetched
+      // isFetched: action.payload.isFetched
     }
   case 'IMAGE_ISFETCHED':
     return {
