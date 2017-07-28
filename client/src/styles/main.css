@@ -276,6 +276,12 @@ a {
 /* ----------------------------------- */
 
 /* GOOGLE MAP SECTION */
+.google-map {
+  margin: 12% 0;
+  height: 87%;
+  width: 100%;
+}
+
 .google-thumbnail {
   border: 2px solid white;
   padding: 5px;

@@ -10,7 +10,7 @@ import NavigationBarTop from './navigation/navTop';
 
 class Main extends Component {
   render() {
-    const displayBottomNav = this.props.url === 'comments' ? '' : <NavigationBarBottom />;
+    const displayBottomNav = this.props.url === 'comments' || this.props.url === 'share' ? '' : <NavigationBarBottom />;
 
     return (
       <div>
