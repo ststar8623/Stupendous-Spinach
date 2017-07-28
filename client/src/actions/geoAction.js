@@ -11,16 +11,16 @@ export const getLocation = () => {
       reject (new Error('Permission denied'));
     });
   });
-  const fakeLocation = {
-    coords: {
-      latitude: 37.7836526, 
-      longitude:-122.4089972
-    },
-    timestamp: 0,
-    isFetched: true
-  };
+//   const fakeLocation = {
+//     coords: {
+//       latitude: 37.7836526, 
+//       longitude:-122.4089972
+//     },
+//     timestamp: 0,
+//     isFetched: true
+//   };
   return {
     type: 'GET_LOCATION',
-    payload: fakeLocation
+    payload: location
   };
 };
