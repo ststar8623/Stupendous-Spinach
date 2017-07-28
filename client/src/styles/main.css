@@ -26,6 +26,10 @@ a {
   margin-top: -10px;
   border-bottom: 1px solid grey;
 }
+
+.button-opacity {
+  opacity: 0.5;
+}
 /* ----------------------------------- */
 
 .photoCard-container {
