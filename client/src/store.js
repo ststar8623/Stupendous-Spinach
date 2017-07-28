@@ -1,6 +1,7 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+// import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
@@ -11,12 +12,14 @@ import rootReducer from './reducers/index';
 // import posts from './data/posts';
 
 // create an object for the default data
-const defaultState = {};
+// let defaultState = localStorage.redux || {};
+const defaultState = {}; //blank default state
 
 // Redux dev tools installation
 // Install redux dev tools from chrome
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
+  // , persistState() // save state of store
 );
 
 // promise middleware
@@ -34,6 +37,7 @@ function promiseMiddleware({dispatch}) {
   };
 }
 
+// const createStoreWithMiddleware = applyMiddleware(logger, promiseMiddleware, thunk)(createStore);
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, thunk)(createStore);
 
 const store = createStore(rootReducer, defaultState, enhancers);
