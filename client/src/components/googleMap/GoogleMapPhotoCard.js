@@ -28,7 +28,6 @@ class GoogleMapPhotoCard extends Component {
         </div>
       );
     });
-    const singlePhotoIsClicked = onePhotoFromRadius ? 'show-image-div' : 'hidden-image';
     const enLargePhoto = onePhotoFromRadius ? (
       <NearbyPhotoCard photo={ onePhotoFromRadius } i={ currentSelectedIndex } />
     ) : '';
