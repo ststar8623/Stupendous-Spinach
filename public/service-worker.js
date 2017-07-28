@@ -92,6 +92,7 @@ self.addEventListener('fetch', (e) => {
   // console.log('[ServiceWorker] Fetch URL: ', e.request.url);
   if (!e.request.headers.has('Authorization')) {
 
+    //if the cached 
     if (urlsToIgnore.every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
       let openCache;
 
@@ -116,7 +117,7 @@ self.addEventListener('fetch', (e) => {
           openCache = cache;
           return fetch(e.request); // {credentials include} arg needed?
         }).then((response) => {
-          // console.log('[ServiceWorker]\nrequest URL: ', e.request.url, '\nresponse.clone(): ', response.clone(), '\nresponse.clone() type: ', typeof response.clone());
+          console.log('[ServiceWorker]\nrequest URL: ', e.request.url, '\nresponse.clone(): ', response.clone());
           openCache.put(e.request.url, response.clone());
           return response; 
         }).catch((error) => {
