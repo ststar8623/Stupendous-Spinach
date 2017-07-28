@@ -14,6 +14,10 @@ class GoogleMapPhotoCard extends Component {
     this.props.selectOnePhotoFromRadius(photo);
   }
 
+  componentWillUnmount() {
+    this.props.selectOnePhotoFromRadius(null);
+  }
+
   render() {
     const { somePhotoFromRadius, onePhotoFromRadius, currentSelectedIndex } = this.props.mapPhoto;
     const blurOrNot = onePhotoFromRadius ? 'mapPhotoCard blurPhoto' : 'mapPhotoCard';
