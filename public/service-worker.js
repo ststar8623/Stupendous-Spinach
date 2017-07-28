@@ -89,7 +89,6 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   // console.log('[ServiceWorker] Fetch URL: ', e.request.url);
-  // if (urlsToIgnore.every(urlBit => e.request.url.indexOf(urlBit) === -1)) {
   if (!e.request.headers.has('Authorization')) {
 
     if (urlsToIgnore.every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
@@ -98,36 +97,28 @@ self.addEventListener('fetch', (e) => {
       if (e.request.url.indexOf(userDataUrl) > -1) {
         e.respondWith(
           caches.open(userDataCacheName).then((cache) => {
-            // console.log('[ServiceWorker] User Data caching');
-            // console.log('[ServiceWorker] User Data cache: ', cache, '\nurl: ', e.request.url);
+            // console.log('[ServiceWorker] User Data caching pre-fetch\nurl: ', e.request.url);
             openCache = cache;
             return fetch(e.request); // {credentials include} arg needed?
           }).then((response) => {
-            // console.log('[ServiceWorker] User Data openCache: ', openCache, '\nurl: ', e.request.url);
-            // console.log('[ServiceWorker] e.request.url to clone into cache: ', e.request.url);
+            // console.log('[ServiceWorker] User Data caching post-fetch\nurl: ', e.request.url);
             openCache.put(e.request.url, response.clone());
             return response;
           }).catch((error) => {
-            // console.log('[ServiceWorker] caught error in data caching');
             console.log('[ServiceWorker] ERROR serverApi: ', error, '\nurl: ', e.request.url);
           })
         );
 
       } else if (e.request.url.indexOf(photoApiUrl) > -1) {
         caches.open(photoCacheName).then((cache) => {
-          // console.log('[ServiceWorker] Photo caching');
-          // console.log('[ServiceWorker] Photo cache: ', cache, ' url: ', e.request.url);
-          // console.log('[ServiceWorker] e.request.url to clone into cache, pre-fetch: ', e.request.url);
+          // console.log('[ServiceWorker] Photo caching pre-fetch\nurl: ', e.request.url);
           openCache = cache;
           return fetch(e.request); // {credentials include} arg needed?
         }).then((response) => {
-          // console.log('[ServiceWorker] Photo openCache: ', openCache, '\nurl: ', e.request.url);
-          // console.log('[ServiceWorker] e.request.url to clone into cache, post-fetch: ', e.request.url);
-          console.log('request URL: ', e.request.url, '\nresponse.clone(): ', response.clone(), '\nresponse.clone() type: ', typeof response.clone());
+          // console.log('[ServiceWorker]\nrequest URL: ', e.request.url, '\nresponse.clone(): ', response.clone(), '\nresponse.clone() type: ', typeof response.clone());
           openCache.put(e.request.url, response.clone());
           return response; 
         }).catch((error) => {
-          // console.log('[ServiceWorker] caught error in photo caching');
           console.log('[ServiceWorker] ERROR photoApi: ', error, '\nurl: ', e.request.url);
         });
 
