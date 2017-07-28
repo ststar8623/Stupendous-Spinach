@@ -17,7 +17,6 @@ class Main extends Component {
         <NavigationBarTop />
         { this.props.children }
         { displayBottomNav }
-//         <NavigationBarBottom />
       </div>
     );
   }
