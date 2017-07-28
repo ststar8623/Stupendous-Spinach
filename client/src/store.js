@@ -13,14 +13,13 @@ import rootReducer from './reducers/index';
 
 // create an object for the default data
 // let defaultState = localStorage.redux || {};
-const defaultState = {};
-// console.log('defaultState in store.js: ', defaultState);
+const defaultState = {}; //blank default state
 
 // Redux dev tools installation
 // Install redux dev tools from chrome
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
-  // , persistState()
+  // , persistState() // save state of store
 );
 
 // promise middleware
