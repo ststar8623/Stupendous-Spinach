@@ -12,7 +12,6 @@ const urlEnv = 'localhost:3000';
 // const urlEnv = 'https://ss-flashback-staging.herokuapp.com'
 
 var shellFilesToCache = [
-  '/dist/bundle.js',
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
