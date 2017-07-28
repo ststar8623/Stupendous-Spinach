@@ -10,14 +10,14 @@ import NavigationBarTop from './navigation/navTop';
 
 class Main extends Component {
   render() {
-    const displayBottomNav = this.props.url === 'nearby' || this.props.url === 'profile' ? <NavigationBarBottom /> : '';
+    const displayBottomNav = this.props.url === 'comments' ? '' : <NavigationBarBottom />;
 
     return (
       <div>
         <NavigationBarTop />
         { this.props.children }
-        {/* { displayBottomNav } */}
-        <NavigationBarBottom />
+        { displayBottomNav }
+//         <NavigationBarBottom />
       </div>
     );
   }
