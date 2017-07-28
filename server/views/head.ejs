@@ -25,18 +25,43 @@
 
   <!-- consider declaring service worker here -->
   <script src="install-service-worker.js"></script>
+  <style>
+    body {
+      font-size: 3em;
+    }
+    .login-container {
+      height: 736px;
+      width: 100%;
+      background: url('assets/sf.png') no-repeat;
+      background-size: 100%;
+      position: fixed;
+    }
+    .login-mid {
+      margin-top: 50%;
+      background-color: black;
+      opacity: 0.5;
+      height: 300px;
+      text-align: center;
+    }
+    .login-mid h1 {
+      color: white;
+      padding-top: 30px;
+    }
 
+    .login-icon {
+      background-color: blue;
+      width: 40%;
+      margin: 0 auto;
+      padding: 5px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
 
-    <style>
-      body { 
-				padding-top:50px;
-				font-size: 3em;
-       }
-       .row {
-       		padding: 2%;
-       }
-     
-    </style>
+    .login-icon img {
+      margin-right: 50px;
+    }
+
+  </style>
 </head>
 <body>
-<div class="container">
+<div class="container-login-div">

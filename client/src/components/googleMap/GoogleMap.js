@@ -12,10 +12,6 @@ import { getLocation } from '../../actions/geoAction';
 class GoogleMap extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      imageIsClicked: false,
-      selectedPhoto: null || []
-    };
   }
 
   componentDidMount() {
@@ -46,7 +42,6 @@ class GoogleMap extends Component {
   render() {
     const { latitude, longitude } = this.props.location;
     const { allPhotoFromRadius, isFetched } = this.props.mapPhoto;
-    const isImageClicked = !this.state.imageIsClicked ? 'hidden-image' : 'show-image';
     let currPosition = {
       center: {lat: latitude, lng: longitude},
       zoom: 13
@@ -57,7 +52,9 @@ class GoogleMap extends Component {
       const numberOfPhotos = photo.elements.length;
       return (
         <div key={i} lat={ latitude } lng={ longitude }>
-          <Link to="selectPhotoFromMap" className='google-thumbnail' onClick={this.selectedPhotoOnMap.bind(this, i)}>{ numberOfPhotos }</Link>
+          <div className="google-cluster-div">
+            <Link to="selectPhotoFromMap" className='google-thumbnail' onClick={this.selectedPhotoOnMap.bind(this, i)}><span className="google-cluster">{ numberOfPhotos }</span></Link>
+          </div>
         </div>
       );
     });

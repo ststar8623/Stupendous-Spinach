@@ -1,12 +1,7 @@
-
 .title {
   font-family: 'Kaushan Script', cursive;
   margin: 3% 18%;
   font-size: 100%;
-}
-
-.container {
-  padding: 0;
 }
 
 a {
@@ -35,6 +30,7 @@ a {
 
 .photoCard-container {
   padding: 0;
+  margin: 50px 0;
 }
 
 .fb-icon {
@@ -44,7 +40,6 @@ a {
   width:30px;
   margin-right:10px;
 }
-
 
 .img-rounded {
   font-size: 16px;
@@ -274,25 +269,25 @@ a {
   margin-left: 10px;
 }
 
-/* input[type=radio] {
-  transform: scale(2);
-  margin: 10px;
-} */
-
 /* ----------------------------------- */
 
 /* GOOGLE MAP SECTION */
-.google-thumbnail {
-  border-radius: 50%;
-  padding: 5px;
-  background-color: forestgreen;
-  color: white;
-  font-size: 30px;
-  animation: blinker 1s linear infinite;
+.google-cluster-div {
+  width: 100px;
+  height: 100px;
 }
 
-@keyframes blinker {
-  50% { opacity: 0 }
+.google-cluster {
+  width: 100px;
+  height: 100px;
+}
+
+.google-thumbnail {
+  border: 2px solid white;
+  padding: 5px;
+  background-color: #8B74FC;
+  color: white;
+  font-size: 1.5em;
 }
 
 .show-image-div {
@@ -302,18 +297,6 @@ a {
   top: 25%;
   border: 5px solid black;
 }
-
-.hidden-image {
-  display: none;
-}
-
-/* .show-image {
-  width: 300px;
-  height: 300px;
-  position: fixed;
-  border-radius: 10px;
-  top: 25%;
-} */
 
 .mapPhotoCard-container {
   margin-top: 10px;
@@ -347,6 +330,7 @@ a {
 
 /* ----------------------------------- */
 
+/* PROFILE SECTION */
 .profile-profile {
   font-size: 14px; 
   margin: 10% auto; 

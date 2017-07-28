@@ -8,6 +8,6 @@ import currentPhoto from './currentPhoto';
 import url from './url';
 import mapPhoto from './mapPhoto';
 
-const rootReducer = combineReducers({ upload, currentPhoto, location, photoArray, routing: routerReducer, url, mapPhoto, routing: routerReducer });
+const rootReducer = combineReducers({ upload, currentPhoto, location, photoArray, url, mapPhoto, routing: routerReducer });
 
 export default rootReducer;
