@@ -67,7 +67,7 @@ class GoogleMap extends Component {
       );
     } else {
       return (
-        <GoogleMapReact className="google-map" center={currPosition.center} zoom={currPosition.zoom} >
+        <GoogleMapReact style={{ width: '100%', height: '80%' }} center={currPosition.center} zoom={currPosition.zoom} >
           { photoCard }
         </GoogleMapReact>
       );
