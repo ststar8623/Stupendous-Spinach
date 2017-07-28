@@ -59,9 +59,6 @@ router.post('/mapPhotos/:radius/', (req, res) => {
 
   const userID = req.user ? req.user.id : 2;
 
-
-  console.log("req.body inside mapPhotos", req.body);
-
   if (req.body.location) {
     coordinates = req.body.location;
   } else {

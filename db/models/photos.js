@@ -18,10 +18,6 @@ class PhotoQueries {
   }
 
   getPhotos(numOfPhotos, userID) {
-
-    console.log("num of photos", numOfPhotos);
-    console.log("userID", userID);
-
     let query;
 
     if (numOfPhotos) {
@@ -34,13 +30,8 @@ class PhotoQueries {
     } else {
       //run this if numof photos is undefined and user id is defined
       query = `select pro.first, p.*, age(current_date + current_time, p.created_at) as "age", pro.photo as "profile_photo" from photos p join profiles pro on p.profile_id = pro.id order by created_at desc`;
-
-
      
     }
-
-    console.log(query);
-
     return knex.raw(query);
   }
 }
