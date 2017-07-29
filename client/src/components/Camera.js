@@ -2,28 +2,19 @@ import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { getLocation } from '../actions/geoAction';
-import { initialImageUpload } from '../helpers/imageUploadAction';
 import { browserHistory } from 'react-router';
 import { urlUploadAction } from '../actions/urlAction';
 import { bindActionCreators } from 'redux';
 
 class Camera extends Component {
-
-  componentWillMount() {
-    this.props.getLocation();
-  }
-
   onImageDrop(file) {
-    let that = this;
-    initialImageUpload(file, data => {
-      that.props.urlUploadAction(data);
-      browserHistory.push('/PreviewAndShare'); 
-    });
+    this.props.urlUploadAction(file[0]);
+    browserHistory.push('/PreviewAndShare');
   }
 
   render() {
     return (
-      <Dropzone multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} className="glyphicon glyphicon-camera button-opacity" aria-hidden="true">
+      <Dropzone className="glyphicon glyphicon-camera button-opacity" aria-hidden="true" multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} >
       </Dropzone>
     );
   }
@@ -41,3 +32,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Camera);
+
+// multiple={false} accept='image/*' onDrop={this.onImageDrop.bind(this)} 

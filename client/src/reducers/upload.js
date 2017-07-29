@@ -1,11 +1,8 @@
-export default function upload(state = { url: null }, action) {
+export default function upload(state = null, action) {
   switch (action.type) {
   case 'IMAGE_UPLOAD':
-    return {
-      ...state,
-      url: action.payload
-    }
-    default: 
-      return state;
+    return action.payload;
+  default: 
+    return state;
   }
 }

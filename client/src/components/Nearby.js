@@ -39,8 +39,8 @@ class Nearby extends Component {
     const isFetched = this.props.location.photoArrayIsFetched;
     const photoArray = this.props.photoArray.map((photo, i) => {
       return (
-        <LazyLoad height={200}>
-          <NearbyPhotoCard key={i} photo={photo} i={i} />
+        <LazyLoad height={200} key={i}>
+          <NearbyPhotoCard photo={photo} i={i} />
         </LazyLoad>
       );
     });
