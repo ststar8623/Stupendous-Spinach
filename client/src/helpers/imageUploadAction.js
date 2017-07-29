@@ -19,7 +19,7 @@ export const initialImageUpload = (file, callback) => {
 
 export const captionedImageUpload = (object, callback) => {
   axios.post('/api/imageUpload', object)
-    .then(res => {
+    .then((res) => {
       callback(res);
     });
 };

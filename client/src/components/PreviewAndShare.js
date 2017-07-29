@@ -6,13 +6,15 @@ import { captionedImageUpload, initialImageUpload } from '../helpers/imageUpload
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../actions/urlAction';
+import Loading from './Loading/Loading';
 
 class PreviewAndShare extends Component {
   constructor() {
     super();
     this.state = {
       shareSelection: 'everyone',
-      captionText: ''
+      captionText: '',
+      uploading: false
     };
   
     this.handleCaptionSubmit = this.handleCaptionSubmit.bind(this);
@@ -22,10 +24,6 @@ class PreviewAndShare extends Component {
 
   componentWillMount() {
     this.props.urlAction('share');
-  }
-
-  componentWillUnmount() {
-    this.props.urlAction('nearby');
   }
 
   handleCaptionChange(e) {
@@ -42,6 +40,9 @@ class PreviewAndShare extends Component {
 
   handleCaptionSubmit(e) {
     e.preventDefault();
+    this.setState({
+      uploading: true
+    });
     return new Promise((resolve, reject) => {
       initialImageUpload(this.props.url, data => {
         resolve(data);
@@ -54,9 +55,9 @@ class PreviewAndShare extends Component {
         shareSelection: this.state.shareSelection
       };
     }).then(imageObj => {
-      captionedImageUpload(imageObj, (Url) => {
-        browserHistory.push('/');
+      captionedImageUpload(imageObj, () => {
         this.props.imageIsFetched(false);
+        browserHistory.push('/nearby');
       });
     }).catch(error => {
       console.log('error on upload ', error);
@@ -64,21 +65,29 @@ class PreviewAndShare extends Component {
   }
 
   render() {
-    return (
-      <div className="preview-share-comp">
-        <div className="img-rounded">
-          <img src={this.props.url.preview} height={200} width={300} className='img-thumbnail'/>
+    if (this.state.uploading) {
+      return (
+        <div>
+          <Loading />
         </div>
-        <ul className="preview-share-ul">
-          <li><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} /><span>Share with everyone</span></li>
-          <li><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} /><span>Share with friends only</span></li>
-        </ul>
-        <form className="comments-form" onSubmit={this.handleCaptionSubmit}>
-          <input className="comments-input" type="text" placeholder="Add a caption..." onChange={this.handleCaptionChange} />
-          <span className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleCaptionSubmit} ></span>
-        </form>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="preview-share-comp">
+          <div className="img-rounded">
+            <img src={this.props.url.preview} height={200} width={300} className='img-thumbnail'/>
+          </div>
+          <ul className="preview-share-ul">
+            <li><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} /><span>Share with everyone</span></li>
+            <li><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} /><span>Share with friends only</span></li>
+          </ul>
+          <form className="comments-form" onSubmit={this.handleCaptionSubmit}>
+            <input className="comments-input" type="text" placeholder="Add a caption..." onChange={this.handleCaptionChange} />
+            <span className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleCaptionSubmit} ></span>
+          </form>
+        </div>
+      );
+    }
   }
 }
 

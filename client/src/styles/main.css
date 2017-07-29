@@ -159,7 +159,7 @@ a {
 /* DATE AND TIME DIV */
 .dateAndTime {
   position: absolute;
-  margin: 2%;
+  margin: 2% 0 0 2.5%;
   color: white;
   z-index: 100;
   background-color: rgba(0,0,0,.5);
