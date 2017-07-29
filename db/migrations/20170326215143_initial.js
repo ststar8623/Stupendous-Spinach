@@ -56,7 +56,7 @@ exports.up = function (knex, Promise) {
       table.integer('profile_id').references('profiles.id').onDelete('CASCADE');
     }),
 
-    knex.schema.createTableIfNotExists('auths', function(table) {
+    knex.schema.createTableIfNotExists('chats', function(table) {
       table.increments('id').unsigned().primary();
       table.string('text', 255).notNullable();
       table.integer('send_id').references('profiles.id').onDelete('CASCADE');
@@ -75,8 +75,8 @@ exports.down = function (knex, Promise) {
     knex.schema.dropTable('comments'),
     knex.schema.dropTable('photos'),
     knex.schema.dropTable('friends'),
-    knex.schema.dropTable('profiles')
-    
+    knex.schema.dropTable('profiles'),
+    knew.schema.dropTable('chats')
   ]);
 };
 
