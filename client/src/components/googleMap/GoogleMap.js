@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../../actions/urlAction';
-import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched, selectPhotoFromRadius } from '../../actions/imageAction';
-import { getLocation } from '../../actions/geoAction';
 
 class GoogleMap extends Component {
   constructor(props) {
@@ -16,22 +14,6 @@ class GoogleMap extends Component {
 
   componentDidMount() {
     this.props.urlAction('googleMap');
-  }
-
-  componentWillUpdate(nextProps) {
-    if (!nextProps.location.isFetched) {
-      this.props.getLocation();
-    } else if (!nextProps.mapPhoto.isFetched) {
-      return new Promise((resolve, reject) => {
-        resolve(this.props.fetchPhotoFromRadius(50, { location: this.props.location }));
-      }).then(() => {
-        return this.props.imageAction({ location: this.props.location, max: 20 });
-      }).then(() => {
-        return this.props.imageIsFetched(true);
-      }).then((data) => {
-        return this.props.mapPhotoIsFetched(true);
-      }).catch(error => console.log('error: ', error));
-    }
   }
 
   selectedPhotoOnMap(i) {
@@ -80,13 +62,12 @@ class GoogleMap extends Component {
 const mapStateToProps = (state) => {
   return {
     mapPhoto: state.mapPhoto,
-    photoArray: state.photoArray,
     location: state.location
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ imageAction, urlAction, imageIsFetched, getLocation, fetchPhotoFromRadius, mapPhotoIsFetched, selectPhotoFromRadius }, dispatch);
+  return bindActionCreators({ urlAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleMap);
