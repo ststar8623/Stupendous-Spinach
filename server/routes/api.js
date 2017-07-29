@@ -45,7 +45,7 @@ router.get('/nearbyPhotos/:latitude/:longitude/:max', (req, res) => {
   //   coordinates = {latitude: 37.8837339, longitude: -122.5090785};
   // }
 
-  PhotosController.getNearbyPhotos(req.params.location, userID, Number(req.params.max), 10)
+  PhotosController.getNearbyPhotos(coordinates, userID, Number(req.params.max), 10)
     .then((data) => {
       res.status(200).send(data);
     })
