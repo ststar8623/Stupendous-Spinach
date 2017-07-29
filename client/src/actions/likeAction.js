@@ -64,7 +64,7 @@ export const decrementComment = (index, commentId, callback) => {
 
 export const getPhotosOfUser = (userId, callback) => {
   let data = new Promise((resolve, reject) => {
-    return axios.post('/api/mapPhotos/13000', {profileID: 2})
+    return axios.get(`/api/profilePhotos/${userId}`)
       .then(res => {
         //callback(res.data);
         console.log('response from the user', res);

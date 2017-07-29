@@ -19,18 +19,23 @@ module.exports.getNearbyPhotos = (currentlocation, user_id, count, radius, profi
 
         return models.Photo.PhotoQueries.getPhotoLikesForUser(user_id)
           .then((likesObj) => {
-            return utils.addLikedProperty(photosObj, likesObj.rows);
+            return utils.addLikedProperty(photosObj, likesObj.rows); 
           });
       } else {
         return [];
       }
     });
-
 };
 
+module.exports.getProfilePhotos = (profile_id) => {
+  
+  return models.Photo.PhotoQueries.getProfilePhotos(profile_id)
+    .then((data) => {
+      return data.rows;
+    });
+};
 
 module.exports.addLike = (photo_id, profile_id) => {
-  
   // check if the photo id an the user id already exist 
   return models.Like.forge({photo_id, profile_id})
     .save()

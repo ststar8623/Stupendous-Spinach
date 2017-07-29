@@ -34,6 +34,13 @@ class PhotoQueries {
     }
     return knex.raw(query);
   }
+
+  getProfilePhotos(userID) {
+    let query = `select pro.first, p.*, age(current_date + current_time, p.created_at) as "age", pro.photo as "profile_photo" from photos p join profiles pro on p.profile_id = pro.id where p.profile_id = ${userID} order by created_at desc`;
+    
+    return knex.raw(query); 
+  }
+
 }
 
 

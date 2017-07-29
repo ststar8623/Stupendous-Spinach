@@ -7,6 +7,8 @@ import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 import ProfileGoogleMap from './ProfileGoogleMap';
+import Lightbox from 'react-image-lightbox';
+
 
 class Profile extends Component {
   constructor(props) {
@@ -34,25 +36,38 @@ class Profile extends Component {
   componentWillMount() {
     this.props.urlAction('profile');
     let logedUser = parseInt(document.getElementById('userID').innerHTML);
-    //console.log('how many times will this log', this.props.getPhotosOfUser(logedUser));
     this.props.getPhotosOfUser(logedUser);
-    // console.log('map photo-->', this.props.mapPhoto[1]);
-
-    
-
   }
 
   componentWillUnmount() {
     this.props.urlAction('nearby');
   }
+  selectedPhotoOnMap(i) {
+    console.log('clicked--->', i);
+
+  }
 
   render() {
+    // <img src={photo.url} className='test'/>
     let currPosition = {
       center: {lat: 37.7837141, lng: -122.4090657},
       zoom: 11
     };
-    
-    console.log('---->', this.props.mapPhoto.onePhotoFromRadius);
+    var photos = this.props.mapPhoto.onePhotoFromRadius;
+
+    console.log('map photos', this.props.mapPhoto);
+    if (photos) {
+      var latitudeObj = {};
+      var photosDiv = photos.map((photo, i)=>{
+        let latitude = photo.latitude;
+        latitudeObj[latitude] ? latitudeObj[latitude] = latitude : '';
+        return (
+          <div key={i} lat={ photo.latitude } lng={ photo.longitude } >
+            <img src={photo.url} className='test' onClick={this.selectedPhotoOnMap.bind(this, i)} />
+          </div>
+        );
+      });
+    }
 
     return (
       <div>
@@ -88,18 +103,14 @@ class Profile extends Component {
 
               <div className='profileMap'>
                 <GoogleMapReact center={currPosition.center} zoom={13} >
-                  <div lat={ 37.7837141} lng={-122.4090657}>
-                    sdfsdfsdfsdfs
-                  </div>
+                  {photosDiv}
                 </GoogleMapReact>
-              
               </div>
             </div>
           
             : <Loading />
         }
       </div>
-
     );
   }
 }
