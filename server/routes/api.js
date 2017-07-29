@@ -32,7 +32,6 @@ router.post('/imageUpload', (req, res) => {
 
 router.get('/nearbyPhotos/:latitude/:longitude/:max', (req, res) => {
 
-  console.log("params ======>", req.params);
   
   let coordinates = {
     longitude: Number(req.params.longitude),
