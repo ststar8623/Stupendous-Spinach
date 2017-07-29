@@ -13,7 +13,7 @@ const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/'
 
 
 var shellFilesToCache = [
-
+  // '/dist/bundle.js',
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
@@ -21,6 +21,8 @@ var shellFilesToCache = [
   '/assets/camera.png',
   '/assets/dislike.png',
   '/assets/nearby.png',
+  '/assets/sf.png',
+  '/assets/google-logo.png',
   '/manifest.json',
   '/install-service-worker.js',
   'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css',
@@ -56,13 +58,14 @@ var urlsToIgnore = shellFilesToCache.concat([
   'https://maps.google.com/maps-api-v3/api/js/29/13/stats.js',
   'https://maps.google.com/maps/api',
   'https://csi.gstatic.com/',
-  'https://scontent.xx.fbcdn.net'
+  'https://scontent.xx.fbcdn.net',
+  '/api/mapPhotos/',
+  'nearby#_=_'
 ]);
 
 
 // Install SW and cache shell files
 self.addEventListener('install', (e) => {
-  // console.log('Fetch URL localhost or cloudinary: ', e.request.url.indexOf(userDataUrl) > -1 || e.request.url.indexOf(photoUrl) > -1);
   // console.log('[ServiceWorker] Install');
   e.waitUntil( //SW is still "installing" until resolved
     caches.open(shellCacheName).then((cache) => {
@@ -74,7 +77,7 @@ self.addEventListener('install', (e) => {
 
 
 self.addEventListener('activate', (e) => {
-  // console.log('[ServiceWorker] Activate');
+  console.log('[ServiceWorker] Activated');
   e.waitUntil(caches.keys().then((keyList) => {
     return Promise.all(keyList.map((key) => {
       if (key !== shellCacheName && key !== userDataCacheName && key !== photoCacheName) {
@@ -86,48 +89,22 @@ self.addEventListener('activate', (e) => {
   return self.clients.claim();
 });
 
-// Need to know API call for data caching
 
 self.addEventListener('fetch', (e) => {
   // console.log('[ServiceWorker] Fetch URL: ', e.request.url);
   if (!e.request.headers.has('Authorization')) {
-
-    //if the cached 
     if (urlsToIgnore.every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
-      let openCache;
 
       if (e.request.url.indexOf(userDataUrl) > -1) {
-        e.respondWith(
-          caches.open(userDataCacheName).then((cache) => {
-            // console.log('[ServiceWorker] User Data caching pre-fetch\nurl: ', e.request.url);
-            openCache = cache;
-            return fetch(e.request); // {credentials include} arg needed?
-          }).then((response) => {
-            // console.log('[ServiceWorker] User Data caching post-fetch\nurl: ', e.request.url);
-            openCache.put(e.request.url, response.clone());
-            return response;
-          }).catch((error) => {
-            console.log('[ServiceWorker] ERROR serverApi: ', error, '\nurl: ', e.request.url);
-          })
-        );
+        e.respondWith(flashbackApiResponse(e.request.url));
 
       } else if (e.request.url.indexOf(photoApiUrl) > -1) {
-        caches.open(photoCacheName).then((cache) => {
-          // console.log('[ServiceWorker] Photo caching pre-fetch\nurl: ', e.request.url);
-          openCache = cache;
-          return fetch(e.request); // {credentials include} arg needed?
-        }).then((response) => {
-          console.log('[ServiceWorker]\nrequest URL: ', e.request.url, '\nresponse.clone(): ', response.clone());
-          openCache.put(e.request.url, response.clone());
-          return response; 
-        }).catch((error) => {
-          console.log('[ServiceWorker] ERROR photoApi: ', error, '\nurl: ', e.request.url);
-        });
+        e.respondWith(cloudinaryImageResponse(e.request.url));
 
       } else {
-        // console.log('[ServiceWorker] no match to caches for: ', e.request.url);
         e.respondWith(
           caches.match(e.request).then((response) => {
+            // console.log('[ServiceWorker] no match to caches for: ', e.request.url, '\nresponse: ', response);
             return response || fetch(e.request);
           })
         );
@@ -141,18 +118,53 @@ self.addEventListener('fetch', (e) => {
         })
       );
     }
-
   }
 });
+
+
+const cloudinaryImageResponse = function(requestUrl) {
+  return caches.match(requestUrl).then(function(response) {
+    if (response) { return response; }
+    return fetch(requestUrl).then(function(response) {
+      if (response) {
+        let cacheResponse = response.clone();
+        // console.log('response in caching attempt: ', response);
+        caches.open(photoCacheName).then(function(cache) {
+          cache.put(requestUrl, cacheResponse);
+        });
+        return response;
+      } else { console.log('Cloudinary no response and no cache response'); }
+    });
+  }).catch(function(error) {
+    console.log('[ServiceWorker] ERROR Cloudinary response: ', error);
+  });
+};
+
+const flashbackApiResponse = function(requestUrl) {
+  return fetch(requestUrl).then(function(response) {
+    if (response) {
+      let cacheResponse = response.clone();
+      caches.open(userDataCacheName).then(function(cache) {
+        console.log('response in caching attempt: ', cacheResponse);
+        cache.put(requestUrl, cacheResponse);
+      });
+      return response;
+    }
+    return caches.match(requestUrl).then(function(response) {
+      if (response) {
+        return response;
+      } else { console.log('flashback no API response and no cache response'); }
+    });
+  }).catch(function(error) {
+    console.log('[ServiceWorker] ERROR API response: ', error);
+  });
+};
 
 // navigator.storageQuota.queryInfo('temporary').then(function(info) {
 //   console.log(info.quota); // Result: <quota in bytes>
 //   console.log(info.usage); // Result: <used data in bytes>
 // });
 
-// function cloudinaryAPIResponse(request) {
-//   if ()
-// }
 
 /* SW-Cache example
 
@@ -204,19 +216,14 @@ if ('serviceWorker' in navigator) {
 */
 
 
-// e.respondWith(() => {
-  
-//   caches.match(e.request.url).then((response) => {
-//     return new Promise((res, rej) => {
-//       if 
-//       console.log()
-//     })
-//   })
-// }
-
-
-//   fetch(e.request).then((response) => {
-//     idbKeyVal.set(e.request.url, response);
-
-
-//   })
+// caches.open(userDataCacheName).then((cache) => {
+//   // console.log('[ServiceWorker] User Data caching pre-fetch\nurl: ', e.request.url);
+//   openCache = cache;
+//   return fetch(e.request); // {credentials include} arg needed?
+// }).then((response) => {
+//   // console.log('[ServiceWorker] User Data caching post-fetch\nurl: ', e.request.url);
+//   openCache.put(e.request.url, response.clone());
+//   return response;
+// }).catch((error) => {
+//   console.log('[ServiceWorker] ERROR serverApi: ', error, '\nurl: ', e.request.url);
+// })
