@@ -1,15 +1,16 @@
 // const idbKeyVal = require('idb-keyval');
 
+const urlEnv = 'localhost:3000';
+// const urlEnv = 'https://ss-flashback-staging.herokuapp.com'
+
 const shellCacheName = 'flashbackPWA-shell-v01';
 
 const userDataCacheName = 'flashbackPWA-user-data-v01';
-const userDataUrl = 'localhost:3000';
+const userDataUrl = urlEnv;
 
 const photoCacheName = 'flashbackPWA-photos-v01';
 const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/';
 
-const urlEnv = 'localhost:3000';
-// const urlEnv = 'https://ss-flashback-staging.herokuapp.com'
 
 var shellFilesToCache = [
   '/assets/fb-logo.png',
@@ -61,10 +62,10 @@ var urlsToIgnore = shellFilesToCache.concat([
 // Install SW and cache shell files
 self.addEventListener('install', (e) => {
   // console.log('Fetch URL localhost or cloudinary: ', e.request.url.indexOf(userDataUrl) > -1 || e.request.url.indexOf(photoUrl) > -1);
-  console.log('[ServiceWorker] Install');
+  // console.log('[ServiceWorker] Install');
   e.waitUntil( //SW is still "installing" until resolved
     caches.open(shellCacheName).then((cache) => {
-      console.log('[ServiceWorker] Caching app shell');
+      // console.log('[ServiceWorker] Caching app shell');
       return cache.addAll(shellFilesToCache);
     })
   );
@@ -122,7 +123,7 @@ self.addEventListener('fetch', (e) => {
         });
 
       } else {
-        console.log('[ServiceWorker] no match to caches for: ', e.request.url);
+        // console.log('[ServiceWorker] no match to caches for: ', e.request.url);
         e.respondWith(
           caches.match(e.request).then((response) => {
             return response || fetch(e.request);
