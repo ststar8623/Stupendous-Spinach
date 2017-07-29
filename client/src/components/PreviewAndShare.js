@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import Promise from 'bluebird';
 import { connect } from 'react-redux';
 import { imageIsFetched } from '../actions/imageAction'; //Needed? YEAH //
-import { captionedImageUpload } from '../helpers/imageUploadAction';
+import { captionedImageUpload, initialImageUpload } from '../helpers/imageUploadAction';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../actions/urlAction';
@@ -41,25 +42,32 @@ class PreviewAndShare extends Component {
 
   handleCaptionSubmit(e) {
     e.preventDefault();
-    let imageObj = {
-      location: this.props.location,
-      url: this.props.url,
-      caption: this.state.captionText,
-      shareSelection: this.state.shareSelection
-    };
-
-    captionedImageUpload(imageObj, (Url) => {
-      browserHistory.push('/');
-      this.props.imageIsFetched(false);
+    return new Promise((resolve, reject) => {
+      initialImageUpload(this.props.url, data => {
+        resolve(data);
+      });
+    }).then(url => {
+      return {
+        location: this.props.location,
+        url: url,
+        caption: this.state.captionText,
+        shareSelection: this.state.shareSelection
+      };
+    }).then(imageObj => {
+      captionedImageUpload(imageObj, (Url) => {
+        browserHistory.push('/');
+        this.props.imageIsFetched(false);
+      });
+    }).catch(error => {
+      console.log('error on upload ', error);
     });
- 
   }
 
   render() {
     return (
       <div className="preview-share-comp">
         <div className="img-rounded">
-          <img src={this.props.url} height={200} width={300} className='img-thumbnail'/>
+          <img src={this.props.url.preview} height={200} width={300} className='img-thumbnail'/>
         </div>
         <ul className="preview-share-ul">
           <li><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} /><span>Share with everyone</span></li>
@@ -76,7 +84,7 @@ class PreviewAndShare extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.upload.url,
+    url: state.upload,
     location: state.location
   };
 };
