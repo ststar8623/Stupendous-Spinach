@@ -11,7 +11,6 @@ const userDataUrl = urlEnv;
 const photoCacheName = 'flashbackPWA-photos-v01';
 const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/';
 
-
 var shellFilesToCache = [
   // '/dist/bundle.js',
   '/assets/fb-logo.png',
@@ -60,7 +59,8 @@ var urlsToIgnore = shellFilesToCache.concat([
   'https://csi.gstatic.com/',
   'https://scontent.xx.fbcdn.net',
   '/api/mapPhotos/',
-  'nearby#_=_'
+  '/nearbyPhotos',
+  '/nearby'
 ]);
 
 
@@ -77,7 +77,7 @@ self.addEventListener('install', (e) => {
 
 
 self.addEventListener('activate', (e) => {
-  console.log('[ServiceWorker] Activated');
+  // console.log('[ServiceWorker] Activated');
   e.waitUntil(caches.keys().then((keyList) => {
     return Promise.all(keyList.map((key) => {
       if (key !== shellCacheName && key !== userDataCacheName && key !== photoCacheName) {
@@ -91,46 +91,62 @@ self.addEventListener('activate', (e) => {
 
 
 self.addEventListener('fetch', (e) => {
-  // console.log('[ServiceWorker] Fetch URL: ', e.request.url);
+  console.log(e.request.url, '[ServiceWorker] Fetch URL');
   if (!e.request.headers.has('Authorization')) {
+    // console.log(e.request.url, '[ServiceWorker] headers do not contain Authorization');
     if (urlsToIgnore.every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
+      console.log(e.request.url, '[ServiceWorker] request URL not ignored');
 
       if (e.request.url.indexOf(userDataUrl) > -1) {
-        e.respondWith(flashbackApiResponse(e.request.url));
-
-      } else if (e.request.url.indexOf(photoApiUrl) > -1) {
-        e.respondWith(cloudinaryImageResponse(e.request.url));
-
-      } else {
-        e.respondWith(
-          caches.match(e.request).then((response) => {
-            // console.log('[ServiceWorker] no match to caches for: ', e.request.url, '\nresponse: ', response);
-            return response || fetch(e.request);
-          })
-        );
+        console.log(e.request.url, '[ServiceWorker] going into flashbackAPIResponse');
+        console.log(e.request.url, '[ServiceWorker] e.request stringified:', JSON.stringify(e.request));
+        e.respondWith(flashbackApiResponse(e.request));
       }
 
+    } else if (e.request.url.indexOf(photoApiUrl) > -1) {
+      e.respondWith(cloudinaryImageResponse(e.request.url));
+
     } else {
-      // console.log('[Service Worker] ignored URL: ', e.request.url);
-      e.respondWith(
-        caches.match(e.request).then((response) => {
-          return response || fetch(e.request);
-        })
-      );
+      e.respondWith(fetch(e.request));
+      //   caches.match(e.request).then((response) => {
+      //     console.log(e.request.url, '[ServiceWorker] no userData or photoApi URLs');
+      //     // console.log('[ServiceWorker] no match to caches for: ', e.request.url, '\nresponse: ', response);
+      //     return response || fetch(e.request);
+      //   })
+      // );
     }
   }
+
+  // else {
+  //   // console.log('[Service Worker] ignored URL: ', e.request.url);
+  //   e.respondWith(
+  //     caches.match(e.request).then((response) => {
+  //       return response || fetch(e.request);
+  //     })
+  //   );
+  // }
+  // }
+
+  // else {
+  //   // console.log('[Service Worker] ignored URL: ', e.request.url);
+  //   e.respondWith(
+  //     caches.match(e.request).then((response) => {
+  //       return response || fetch(e.request);
+  //     })
+  //   );
+  // }
 });
 
 
-const cloudinaryImageResponse = function(requestUrl) {
-  return caches.match(requestUrl).then(function(response) {
+const cloudinaryImageResponse = function(request) {
+  return caches.match(request).then(function(response) {
     if (response) { return response; }
-    return fetch(requestUrl).then(function(response) {
+    return fetch(request).then(function(response) {
       if (response) {
         let cacheResponse = response.clone();
         // console.log('response in caching attempt: ', response);
         caches.open(photoCacheName).then(function(cache) {
-          cache.put(requestUrl, cacheResponse);
+          cache.put(request, cacheResponse);
         });
         return response;
       } else { console.log('Cloudinary no response and no cache response'); }
@@ -140,17 +156,19 @@ const cloudinaryImageResponse = function(requestUrl) {
   });
 };
 
-const flashbackApiResponse = function(requestUrl) {
-  return fetch(requestUrl).then(function(response) {
+const flashbackApiResponse = function(request) {
+  console.log('[ServiceWorker] flashback API request:', request);
+  return fetch(request).then(function(response) {
     if (response) {
+      console.log('[ServiceWorker] flashback API response:', response);
       let cacheResponse = response.clone();
       caches.open(userDataCacheName).then(function(cache) {
         console.log('response in caching attempt: ', cacheResponse);
-        cache.put(requestUrl, cacheResponse);
+        cache.put(request, cacheResponse);
       });
       return response;
     }
-    return caches.match(requestUrl).then(function(response) {
+    return caches.match(request).then(function(response) {
       if (response) {
         return response;
       } else { console.log('flashback no API response and no cache response'); }
