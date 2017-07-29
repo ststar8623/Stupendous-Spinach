@@ -7,7 +7,6 @@ import Nearby from './Nearby';
 import NavigationBarBottom from './navigation/navBottom';
 import NavigationBarTop from './navigation/navTop';
 
-
 class Main extends Component {
   render() {
     const displayBottomNav = this.props.url === 'comments' || this.props.url === 'share' ? '' : <NavigationBarBottom />;

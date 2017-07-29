@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import Promise from 'bluebird';
 
 // import components
 import Main from './components/Main';
@@ -16,6 +17,15 @@ import Chat from './components/Chat';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store, { history } from './store';
+
+import { firstLoad } from './helpers/firstLoad';
+import { imageAction } from './actions/imageAction';
+
+store.dispatch(() => {
+  firstLoad;
+});
+
+console.log(store);
 
 const router = (
   <Provider store={store}>

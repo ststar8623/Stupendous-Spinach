@@ -8,8 +8,6 @@ import { bindActionCreators } from 'redux';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import { selectOnePhotoFromRadius } from '../actions/imageAction';
 
-require('../styles/main.css');
-
 class NearbyPhotoCard extends Component {
   constructor(props) {
     super(props);

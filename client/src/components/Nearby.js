@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import LazyLoad from 'react-lazyload';
+import Promise from 'bluebird';
+import axios from 'axios';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading/Loading';
-import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
-import { Link } from 'react-router';
 import { urlAction } from '../actions/urlAction';
-import Promise from 'bluebird';
 import { getLocation } from '../actions/geoAction';
-
+import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 require('!style-loader!css-loader!sass-loader!../styles/main.css');
@@ -22,32 +22,28 @@ class Nearby extends Component {
   componentWillMount() {
     this.props.urlAction('nearby');
   }
-  
+
   componentWillUpdate(nextProps) {
     if (!nextProps.location.isFetched) {
       this.props.getLocation();
     } else if (!nextProps.location.photoArrayIsFetched) {
       return new Promise((resolve, reject) => {
-        resolve(this.props.imageAction({ location: this.props.location, max: 20 }));
-      }).then(() => {
-        return this.props.fetchPhotoFromRadius(50, { location: this.props.location });
+        resolve(this.props.imageAction({ location: this.props.location, max: 100 }));
       }).then(() => {
         return this.props.imageIsFetched(true);
-      }).then((data) => {
-        return this.props.mapPhotoIsFetched(true);
       }).catch(error => console.log('error: ', error));
     }
   }
- 
-  renderPhotos() {
-    return this.props.photoArray.map((photo, i) => {
-      return (
-        <NearbyPhotoCard key={i} photo={photo} i={i}/>
-      );
-    });
-  }
+
   render() {
     const isFetched = this.props.location.photoArrayIsFetched;
+    const photoArray = this.props.photoArray.map((photo, i) => {
+      return (
+        <LazyLoad height={200}>
+          <NearbyPhotoCard key={i} photo={photo} i={i} />
+        </LazyLoad>
+      );
+    });
     if (!isFetched) {
       return (
         <div>
@@ -58,7 +54,7 @@ class Nearby extends Component {
       return (
         <div className="photoCard-container container">
           <h4 className="h4-heading"> Nearby Photos </h4>
-          {this.renderPhotos.bind(this)()} 
+          { photoArray }
         </div>
       );
     }
@@ -67,15 +63,14 @@ class Nearby extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    location: state.location,
     photoArray: state.photoArray,
     url: state.url,
-    allPhotoFromRadius: state.mapPhoto.allPhotoFromRadius
+    location: state.location
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ imageAction, imageIsFetched, urlAction, fetchPhotoFromRadius, getLocation, mapPhotoIsFetched }, dispatch);
+  return bindActionCreators({ urlAction, getLocation, imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nearby);

@@ -5835,6 +5835,12 @@ react-element-to-jsx-string@^6.0.0:
     stringify-object "^3.2.0"
     traverse "^0.6.6"
 
+react-lazyload@^2.2.7:
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/react-lazyload/-/react-lazyload-2.2.7.tgz#6adf0713f32240a21c630ab5d1e8cf62d0c264af"
+  dependencies:
+    prop-types "^15.5.6"
+
 react-overlays@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.0.tgz#531898ff566c7e5c7226ead2863b8cf9fbb5a981"
