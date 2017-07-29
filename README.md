@@ -1,13 +1,13 @@
-# Project Name
+# Flashback
 
-The project description
+flashback is Instagram meets Pokemon Go!
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Paul Dockery
+- Joseph Lei
+- Steve Leung
+- Sara Daqiq
 
 ## Roadmap
 
@@ -31,10 +31,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Requirements
 
+- Yarn
 - Node 6.9.x
 - Redis 3.2.x
 - Postgresql 9.6.x
-- etc
 
 ## Development
 
@@ -44,6 +44,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 brew install yarn
 brew install redis
 brew install postgresql
+yarn install
 ```
 
 Yarn is a replacement for npm. It's faster and *guarantees* consistency -- as you deploy your code in various environments, you won't run the risk of slight variations in what gets installed.
@@ -98,6 +99,8 @@ Note: `--env NODE_ENV` may be omitted for development. For example, `knex migrat
 To run webpack build: `yarn run build`
 
 To run server: `yarn run start`
+
+To run development server: `yarn run dev-start`
 
 To run tests: `yarn run test`
 
