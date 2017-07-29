@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectOnePhotoFromRadius } from '../../actions/imageAction';
 import NearbyPhotoCard from '../NearbyPhotoCard';
+import LazyLoad from 'react-lazyload';
 
 class GoogleMapPhotoCard extends Component {
   componentWillMount() {
@@ -23,9 +24,9 @@ class GoogleMapPhotoCard extends Component {
     const blurOrNot = onePhotoFromRadius ? 'mapPhotoCard blurPhoto' : 'mapPhotoCard';
     const photoCard = somePhotoFromRadius.map((photo, i) => {
       return (
-        <div key={i} className="photoCard-div">
+        <LazyLoad height={50} key={i} className="photoCard-div">
           <img className={ blurOrNot } src={ photo[2].url } alt="..." onClick={this.enLargePhoto.bind(this, photo[2])} />
-        </div>
+        </LazyLoad>
       );
     });
     const enLargePhoto = onePhotoFromRadius ? (
