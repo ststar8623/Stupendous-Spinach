@@ -1,9 +1,10 @@
 import axios from 'axios';
 import Promise from 'bluebird';
 
-export const imageAction = (object) => {
+export const imageAction = (options) => {
   let data = new Promise((resolve, reject) => {
-    return axios.post('/api/nearbyPhotos', object)
+
+    return axios.get(`/api/nearbyPhotos/${options.location.latitude}/${options.location.longitude}/${options.max}`)
       .then(res => {
         resolve(res.data);
       });
