@@ -1,13 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-// import css
-// import css from './styles/style.styl';
-
 // import components
 import Main from './components/Main';
-// import Single from './components/Single';
-// import PhotoGrid from './components/PhotoGrid'; 
 import Camera from './components/Camera';
 import Nearby from './components/Nearby';
 import Comments from './components/Comments';
@@ -33,7 +28,7 @@ const router = (
         <Route path='/googleMap' component={GoogleMap} />
         <Route path='/selectPhotoFromMap' component={GoogleMapPhotoCard} />
         <Route path='/user/:userId' component={Profile} />
-        <Route path='/chat' component={Chat} />
+        <Route path='/chat' component={Chat} /> 
       </Route>
     </Router>
   </Provider>

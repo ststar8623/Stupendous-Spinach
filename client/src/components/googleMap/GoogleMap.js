@@ -23,7 +23,7 @@ class GoogleMap extends Component {
       this.props.getLocation();
     } else if (!nextProps.mapPhoto.isFetched) {
       return new Promise((resolve, reject) => {
-        resolve(this.props.fetchPhotoFromRadius(10, { location: this.props.location }));
+        resolve(this.props.fetchPhotoFromRadius(25000, { location: this.props.location }));
       }).then(() => {
         return this.props.imageAction({ location: this.props.location, max: 20 });
       }).then(() => {
