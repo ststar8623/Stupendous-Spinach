@@ -30,18 +30,23 @@ router.post('/imageUpload', (req, res) => {
 });
 
 
-router.post('/nearbyPhotos', (req, res) => {
+router.get('/nearbyPhotos/:latitude/:longitude/:max', (req, res) => {
+
+  console.log("params ======>", req.params);
   
-  let coordinates;
+  let coordinates = {
+    longitude: Number(req.params.longitude),
+    latitude: Number(req.params.latitude)
+  }
   const userID = req.user ? req.user.id : 2;
 
-  if (req.body.location) {
-    coordinates = req.body.location;
-  } else {
-    coordinates = {latitude: 37.8837339, longitude: -122.5090785};
-  }
+  // if (req.body.location) {
+  //   coordinates = req.body.location;
+  // } else {
+  //   coordinates = {latitude: 37.8837339, longitude: -122.5090785};
+  // }
 
-  PhotosController.getNearbyPhotos(coordinates, userID, req.body.max, 10)
+  PhotosController.getNearbyPhotos(req.params.location, userID, Number(req.params.max), 10)
     .then((data) => {
       res.status(200).send(data);
     })
