@@ -38,16 +38,18 @@ class Nearby extends Component {
       }).catch(error => console.log('error: ', error));
     }
   }
- 
-  renderPhotos() {
-    return this.props.photoArray.map((photo, i) => {
-      return (
-        <NearbyPhotoCard key={i} photo={photo} i={i}/>
-      );
-    });
+
+  lazyLoad() {
+    // need an endpoint to grabs extra photos
   }
+
   render() {
     const isFetched = this.props.location.photoArrayIsFetched;
+    const photoArray = this.props.photoArray.map((photo, i) => {
+      return (
+        <NearbyPhotoCard key={i} photo={photo} i={i} />
+      );
+    });
     if (!isFetched) {
       return (
         <div>
@@ -58,7 +60,7 @@ class Nearby extends Component {
       return (
         <div className="photoCard-container container">
           <h4 className="h4-heading"> Nearby Photos </h4>
-          {this.renderPhotos.bind(this)()} 
+          { photoArray }
         </div>
       );
     }

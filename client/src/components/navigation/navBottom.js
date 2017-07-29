@@ -3,8 +3,6 @@ import { Link } from 'react-router';
 import Camera from '../Camera';
 import { connect } from 'react-redux';
 
-require('../../styles/main.css');
-
 class NavigationBar extends Component {
   render() {
     const { url } = this.props;

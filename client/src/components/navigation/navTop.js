@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 import { Link, browserHistory } from 'react-router';
 import { imageIsFetched } from '../../actions/imageAction';
 
-require('../../styles/main.css');
-
 class NavigationBarTop extends Component {
   componentWillMount() {
     this.state = {
