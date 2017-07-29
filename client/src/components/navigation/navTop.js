@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link, browserHistory } from 'react-router';
 import { imageIsFetched } from '../../actions/imageAction';
+// import store from '../../store';
+// import { firstLoad } from '../../helpers/firstLoad';
 
 class NavigationBarTop extends Component {
   componentWillMount() {

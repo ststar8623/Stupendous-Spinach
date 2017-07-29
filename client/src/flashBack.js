@@ -13,28 +13,19 @@ import GoogleMapPhotoCard from './components/googleMap/GoogleMapPhotoCard';
 import Profile from './components/Profile';
 import Chat from './components/Chat';
 
-import { getLocation } from './actions/geoAction';
-import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from './actions/imageAction';
-
 // import react router
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store, { history } from './store';
 
-store.dispatch((dispatch) => {
-  // console.log('store ', store.getState());
-  return new Promise((resolve, reject) => {
-    resolve(dispatch(getLocation()));
-  }).then(() => {
-    return dispatch(imageAction({ location: store.getState().location, max: 20 }));
-  }).then(() => {
-    return dispatch(fetchPhotoFromRadius(50, { location: store.getState().location }));
-  }).then(() => {
-    return dispatch(imageIsFetched(true));
-  }).then((data) => {
-    return dispatch(mapPhotoIsFetched(true));
-  }).catch(error => console.log('error: ', error));
+import { firstLoad } from './helpers/firstLoad';
+import { imageAction } from './actions/imageAction';
+
+store.dispatch(() => {
+  firstLoad;
 });
+
+console.log(store);
 
 const router = (
   <Provider store={store}>

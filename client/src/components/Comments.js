@@ -74,7 +74,7 @@ class Comment extends Component {
       );
     });
 
-    const isFetched = this.props.isFetched;
+    const { isFetched } = this.props;
 
     if (!isFetched) {
       return (

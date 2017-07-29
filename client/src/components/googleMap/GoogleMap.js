@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { urlAction } from '../../actions/urlAction';
+import { selectPhotoFromRadius } from '../../actions/imageAction';
 
 class GoogleMap extends Component {
   constructor(props) {
@@ -67,7 +68,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ urlAction }, dispatch);
+  return bindActionCreators({ urlAction, selectPhotoFromRadius }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleMap);

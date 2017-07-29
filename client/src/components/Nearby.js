@@ -7,6 +7,8 @@ import Loading from './Loading/Loading';
 import { Link } from 'react-router';
 import { urlAction } from '../actions/urlAction';
 import Promise from 'bluebird';
+import { getLocation } from '../actions/geoAction';
+import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 require('!style-loader!css-loader!sass-loader!../styles/main.css');
@@ -18,6 +20,18 @@ class Nearby extends Component {
 
   componentWillMount() {
     this.props.urlAction('nearby');
+  }
+
+  componentWillUpdate(nextProps) {
+    if (!nextProps.location.isFetched) {
+      this.props.getLocation();
+    } else if (!nextProps.location.photoArrayIsFetched) {
+      return new Promise((resolve, reject) => {
+        resolve(this.props.imageAction({ location: this.props.location, max: 20 }));
+      }).then(() => {
+        return this.props.imageIsFetched(true);
+      }).catch(error => console.log('error: ', error));
+    }
   }
 
   lazyLoad() {
@@ -57,7 +71,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ urlAction }, dispatch);
+  return bindActionCreators({ urlAction, getLocation, imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nearby);
