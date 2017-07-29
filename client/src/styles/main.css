@@ -34,7 +34,8 @@ a {
 
 .photoCard-container {
   padding: 0;
-  margin: 12% 0;
+  margin: 12% -1%;
+  overflow: auto;
 }
 
 .fb-icon {
@@ -299,6 +300,8 @@ a {
 
 .mapPhotoCard-container {
   margin: 13% 0 0;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
 }
 
 .photoCard-div {

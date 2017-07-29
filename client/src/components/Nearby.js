@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import LazyLoad from 'react-lazyload';
+import Promise from 'bluebird';
+import axios from 'axios';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading/Loading';
-import { Link } from 'react-router';
 import { urlAction } from '../actions/urlAction';
-import Promise from 'bluebird';
 import { getLocation } from '../actions/geoAction';
 import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
 
@@ -27,22 +28,20 @@ class Nearby extends Component {
       this.props.getLocation();
     } else if (!nextProps.location.photoArrayIsFetched) {
       return new Promise((resolve, reject) => {
-        resolve(this.props.imageAction({ location: this.props.location, max: 20 }));
+        resolve(this.props.imageAction({ location: this.props.location, max: 100 }));
       }).then(() => {
         return this.props.imageIsFetched(true);
       }).catch(error => console.log('error: ', error));
     }
   }
 
-  lazyLoad() {
-    // need an endpoint to grabs extra photos
-  }
-
   render() {
     const isFetched = this.props.location.photoArrayIsFetched;
     const photoArray = this.props.photoArray.map((photo, i) => {
       return (
-        <NearbyPhotoCard key={i} photo={photo} i={i} />
+        <LazyLoad height={200}>
+          <NearbyPhotoCard key={i} photo={photo} i={i} />
+        </LazyLoad>
       );
     });
     if (!isFetched) {
