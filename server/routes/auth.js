@@ -57,6 +57,13 @@ router.route('/user/:userId')
     });
   });
 
+router.route('/chat')
+  .get(middleware.auth.verify, (req, res) => {
+    res.render('index.ejs', {
+      user: req.user // get the user out of session and pass to template
+    });
+  });
+
 router.route('/login')
   .get((req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });

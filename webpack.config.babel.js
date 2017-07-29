@@ -2,12 +2,12 @@ import webpack from 'webpack';
 import path from 'path';
 
 const config = {
+  devtool: '#eval-source-map',
   entry: './client/src/flashBack',
   output: {
     path: path.join(__dirname, 'public/dist'),
     filename: 'bundle.js'
   },
-  devtool: '#eval-source-map',
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     // new webpack.DefinePlugin({
