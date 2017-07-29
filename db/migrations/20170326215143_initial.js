@@ -54,7 +54,17 @@ exports.up = function (knex, Promise) {
       table.string('password', 100).nullable();
       table.string('salt', 100).nullable();
       table.integer('profile_id').references('profiles.id').onDelete('CASCADE');
+    }),
+
+    knex.schema.createTableIfNotExists('auths', function(table) {
+      table.increments('id').unsigned().primary();
+      table.string('text', 255).notNullable();
+      table.integer('send_id').references('profiles.id').onDelete('CASCADE');
+      table.integer('receive_id').references('profiles.id').onDelete('CASCADE');
+      table.boolean('read').nullable().defaultTo(false);
+      table.timestamps(true, true);
     })
+
   ]);
 };
 

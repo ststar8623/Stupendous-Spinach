@@ -15,6 +15,7 @@ import PreviewAndShare from './components/PreviewAndShare';
 import GoogleMap from './components/googleMap/GoogleMap';
 import GoogleMapPhotoCard from './components/googleMap/GoogleMapPhotoCard';
 import Profile from './components/Profile';
+import Chat from './components/Chat';
 
 // import react router
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -32,6 +33,7 @@ const router = (
         <Route path='/googleMap' component={GoogleMap} />
         <Route path='/selectPhotoFromMap' component={GoogleMapPhotoCard} />
         <Route path='/user/:userId' component={Profile} />
+        <Route path='/chat' component={Chat} />
       </Route>
     </Router>
   </Provider>
