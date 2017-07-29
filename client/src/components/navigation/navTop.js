@@ -9,7 +9,7 @@ import { imageIsFetched } from '../../actions/imageAction';
 class NavigationBarTop extends Component {
   componentWillMount() {
     this.state = {
-      userID: `/user/ ${parseInt(document.getElementById('userID').innerHTML)}`
+      userID: `/user/${parseInt(document.getElementById('userID').innerHTML)}`
     };
   }
   refreshButton() {

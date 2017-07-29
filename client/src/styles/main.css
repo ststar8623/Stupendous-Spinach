@@ -358,6 +358,7 @@ a {
   min-width: 7em;
   margin: -1px;
   padding: 8px;
+  z-index: 100;
   
 }
 
@@ -390,9 +391,21 @@ a {
 }
 
 .profileMap {
-  border: 2px solid black;
+ /* border: 2px solid black;
   clear: both;
+ 
+  
+  background-color: blue;*/
+  height: 300px;
+  width: 370px;
+  
   margin: 20% auto;
   margin-top: 30%;
-  padding: 20%;
+  margin-bottom: 0px;
+/*padding: 20%;*/
+}
+
+#test {
+  height: 20px;
+  width: 30px;
 }

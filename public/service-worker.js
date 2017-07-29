@@ -13,6 +13,7 @@ const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/'
 
 
 var shellFilesToCache = [
+
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { viewProfile } from '../actions/likeAction';
+import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
+import { incrementComment, decrementComment, viewProfile, getPhotosOfUser } from '../actions/likeAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
-
+import GoogleMapReact from 'google-map-react';
+import ProfileGoogleMap from './ProfileGoogleMap';
 
 class Profile extends Component {
   constructor(props) {
@@ -31,6 +33,13 @@ class Profile extends Component {
 
   componentWillMount() {
     this.props.urlAction('profile');
+    let logedUser = parseInt(document.getElementById('userID').innerHTML);
+    //console.log('how many times will this log', this.props.getPhotosOfUser(logedUser));
+    this.props.getPhotosOfUser(logedUser);
+    // console.log('map photo-->', this.props.mapPhoto[1]);
+
+    
+
   }
 
   componentWillUnmount() {
@@ -38,6 +47,13 @@ class Profile extends Component {
   }
 
   render() {
+    let currPosition = {
+      center: {lat: 37.7837141, lng: -122.4090657},
+      zoom: 11
+    };
+    
+    console.log('---->', this.props.mapPhoto.onePhotoFromRadius);
+
     return (
       <div>
         { 
@@ -53,7 +69,6 @@ class Profile extends Component {
                 </div>
               </div>
               
-
               <div className='followDataContainer'>
                 <div className='col-xs-4'> 
                   <div className='num text-center'> {this.state.followers}</div>
@@ -72,9 +87,13 @@ class Profile extends Component {
               </div>
 
               <div className='profileMap'>
-                this is map in profile
-                the size should be fixd
-              </div> 
+                <GoogleMapReact center={currPosition.center} zoom={13} >
+                  <div lat={ 37.7837141} lng={-122.4090657}>
+                    sdfsdfsdfsdfs
+                  </div>
+                </GoogleMapReact>
+              
+              </div>
             </div>
           
             : <Loading />
@@ -87,12 +106,24 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
+<<<<<<< HEAD
     url: state.url
+=======
+    photoArray: state.photoArray,
+    currentPhoto: state.currentPhoto.current,
+    isFetched: state.currentPhoto.isFetched,
+    url: state.url,
+    mapPhoto: state.mapPhoto
+>>>>>>> get the data for the profile to the component
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
+<<<<<<< HEAD
   return bindActionCreators({ viewProfile, urlAction }, dispatch);
+=======
+  return bindActionCreators({ currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction, viewProfile, getPhotosOfUser }, dispatch);
+>>>>>>> get the data for the profile to the component
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

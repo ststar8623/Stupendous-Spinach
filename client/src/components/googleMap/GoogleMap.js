@@ -29,6 +29,7 @@ class GoogleMap extends Component {
       center: {lat: latitude, lng: longitude},
       zoom: 13
     };
+    console.log('lag ..', currPosition);
     const photoCard = allPhotoFromRadius.map((photo, i) => {
       const latitude = photo.centroid[0];
       const longitude = photo.centroid[1];
