@@ -23,7 +23,7 @@ class GoogleMap extends Component {
       this.props.getLocation();
     } else if (!nextProps.mapPhoto.isFetched) {
       return new Promise((resolve, reject) => {
-        resolve(this.props.fetchPhotoFromRadius(25000, { location: this.props.location }));
+        resolve(this.props.fetchPhotoFromRadius(50, { location: this.props.location }));
       }).then(() => {
         return this.props.imageAction({ location: this.props.location, max: 20 });
       }).then(() => {
@@ -67,9 +67,11 @@ class GoogleMap extends Component {
       );
     } else {
       return (
-        <GoogleMapReact style={{ width: '100%', height: '80%' }} center={currPosition.center} zoom={currPosition.zoom} >
-          { photoCard }
-        </GoogleMapReact>
+        <div className="google-map">
+          <GoogleMapReact center={currPosition.center} zoom={currPosition.zoom} >
+            { photoCard }
+          </GoogleMapReact>
+        </div>
       );
     }
   }
