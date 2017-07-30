@@ -1,7 +1,10 @@
 // const idbKeyVal = require('idb-keyval');
 
-const urlEnv = 'localhost:3000';
-// const urlEnv = 'https://ss-flashback-staging.herokuapp.com'
+// ********Uncomment this for local*********
+// const urlEnv = 'localhost:3000';
+
+// ********Comment this out for local*******
+const urlEnv = 'https://ss-flashback-staging.herokuapp.com';
 
 const shellCacheName = 'flashbackPWA-shell-v01';
 
@@ -12,7 +15,7 @@ const photoCacheName = 'flashbackPWA-photos-v01';
 const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/';
 
 var shellFilesToCache = [
-  '/dist/bundle.js',
+  // '/dist/bundle.js', // ******* Comment this out for local, uncomment the one in urlsToIgnore below
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
@@ -46,7 +49,7 @@ var shellFilesToCache = [
 ];
 
 var urlsToIgnore = shellFilesToCache.concat([
-  // '/dist/bundle.js',
+  '/dist/bundle.js', // Uncomment this for local
   '/auth/facebook',
   '/Authentication',
   'Authenticate',
