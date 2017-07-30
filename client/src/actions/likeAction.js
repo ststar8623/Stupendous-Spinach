@@ -61,7 +61,6 @@ export const decrementComment = (index, commentId, callback) => {
   };
 };
 
-
 export const getPhotosOfUser = (userId, callback) => {
   let data = new Promise((resolve, reject) => {
     return axios.get(`/api/profilePhotos/${userId}`)
@@ -82,7 +81,6 @@ export const getPhotosOfUser = (userId, callback) => {
   };
 };
 
-
 export const viewProfile = (userId, callback) => {
   let data = new Promise((resolve, reject) => {
     return axios.get(`/api/profilepage/${userId}`)
@@ -99,27 +97,3 @@ export const viewProfile = (userId, callback) => {
     userId
   };
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

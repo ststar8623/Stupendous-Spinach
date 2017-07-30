@@ -6,7 +6,7 @@ import { incrementComment, decrementComment, viewProfile, getPhotosOfUser } from
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
-import ProfileGoogleMap from './ProfileGoogleMap';
+
 import Lightbox from 'react-image-lightbox';
 
 
@@ -117,24 +117,16 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-<<<<<<< HEAD
-    url: state.url
-=======
     photoArray: state.photoArray,
     currentPhoto: state.currentPhoto.current,
     isFetched: state.currentPhoto.isFetched,
     url: state.url,
     mapPhoto: state.mapPhoto
->>>>>>> get the data for the profile to the component
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-<<<<<<< HEAD
-  return bindActionCreators({ viewProfile, urlAction }, dispatch);
-=======
   return bindActionCreators({ currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction, viewProfile, getPhotosOfUser }, dispatch);
->>>>>>> get the data for the profile to the component
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
