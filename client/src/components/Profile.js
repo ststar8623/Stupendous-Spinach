@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { viewProfile } from '../actions/likeAction';
+import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
+import { incrementComment, decrementComment, viewProfile, getPhotosOfUser } from '../actions/likeAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
+import GoogleMapReact from 'google-map-react';
+
+import Lightbox from 'react-image-lightbox';
 
 
 class Profile extends Component {
@@ -31,13 +35,40 @@ class Profile extends Component {
 
   componentWillMount() {
     this.props.urlAction('profile');
+    let logedUser = parseInt(document.getElementById('userID').innerHTML);
+    this.props.getPhotosOfUser(logedUser);
   }
 
   componentWillUnmount() {
     this.props.urlAction('nearby');
   }
+  selectedPhotoOnMap(i) {
+    console.log('clicked--->', i);
+
+  }
 
   render() {
+    // <img src={photo.url} className='test'/>
+    let currPosition = {
+      center: {lat: 37.7837141, lng: -122.4090657},
+      zoom: 11
+    };
+    var photos = this.props.mapPhoto.onePhotoFromRadius;
+
+    console.log('map photos', this.props.mapPhoto);
+    if (photos) {
+      var latitudeObj = {};
+      var photosDiv = photos.map((photo, i)=>{
+        let latitude = photo.latitude;
+        latitudeObj[latitude] ? latitudeObj[latitude] = latitude : '';
+        return (
+          <div key={i} lat={ photo.latitude } lng={ photo.longitude } >
+            <img src={photo.url} className='test' onClick={this.selectedPhotoOnMap.bind(this, i)} />
+          </div>
+        );
+      });
+    }
+
     return (
       <div>
         { 
@@ -53,7 +84,6 @@ class Profile extends Component {
                 </div>
               </div>
               
-
               <div className='followDataContainer'>
                 <div className='col-xs-4'> 
                   <div className='num text-center'> {this.state.followers}</div>
@@ -72,27 +102,31 @@ class Profile extends Component {
               </div>
 
               <div className='profileMap'>
-                this is map in profile
-                the size should be fixd
-              </div> 
+                <GoogleMapReact center={currPosition.center} zoom={13} >
+                  {photosDiv}
+                </GoogleMapReact>
+              </div>
             </div>
           
             : <Loading />
         }
       </div>
-
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    url: state.url
+    photoArray: state.photoArray,
+    currentPhoto: state.currentPhoto.current,
+    isFetched: state.currentPhoto.isFetched,
+    url: state.url,
+    mapPhoto: state.mapPhoto
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ viewProfile, urlAction }, dispatch);
+  return bindActionCreators({ currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction, viewProfile, getPhotosOfUser }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

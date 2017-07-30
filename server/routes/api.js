@@ -6,6 +6,7 @@ const CommentsController = require('../controllers').Comments;
 const LikesController = require('../controllers').Likes;
 const ProfilesController = require('../controllers').Profiles;
 const FollowersController = require('../controllers').Followers;
+
 const axios = require('axios');
 const geocluster = require('geocluster');
 
@@ -54,6 +55,25 @@ router.get('/nearbyPhotos/:latitude/:longitude/:max', (req, res) => {
       res.status(400).send([]);
     });
 });
+
+
+router.get('/profilePhotos/:profileID', (req, res) => {
+  PhotosController.getProfilePhotos(req.params.profileID)
+    .then((data)=> {
+      console.log(data);
+      res.status(200).send(data);
+    });
+
+  // get the prfile id
+  // call this passing the profile id getProfilePhotos()
+  // get the data and send it as a resoponse 
+  //error handeling 
+
+
+  
+});
+
+
 
 router.post('/mapPhotos/:radius/', (req, res) => {
 

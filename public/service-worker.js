@@ -13,6 +13,7 @@ const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/'
 
 
 var shellFilesToCache = [
+
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
@@ -73,7 +74,7 @@ self.addEventListener('install', (e) => {
 
 
 self.addEventListener('activate', (e) => {
-  console.log('[ServiceWorker] Activate');
+  // console.log('[ServiceWorker] Activate');
   e.waitUntil(caches.keys().then((keyList) => {
     return Promise.all(keyList.map((key) => {
       if (key !== shellCacheName && key !== userDataCacheName && key !== photoCacheName) {
