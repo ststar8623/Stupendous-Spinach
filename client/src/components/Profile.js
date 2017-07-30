@@ -7,9 +7,6 @@ import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 
-import Lightbox from 'react-image-lightbox';
-
-
 class Profile extends Component {
   constructor(props) {
     super(props);

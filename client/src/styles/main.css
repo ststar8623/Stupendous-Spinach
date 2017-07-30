@@ -1,7 +1,7 @@
 .title {
   font-family: 'Kaushan Script', cursive;
   margin: 3% 18%;
-  font-size: 100%;
+  font-size: 90%;
 }
 
 a {
@@ -9,22 +9,27 @@ a {
   text-decoration: none !important;
 }
 
-/* NAVIGATION TOP AND BOTTOM SECTION */
-.navbar-container {
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-  text-align: justify;
-  margin-top: 5px;
+a:hover {
+  color: black;
 }
 
-.navbar-fixed-bottom {
-  margin-top: 10px;
+/* NAVIGATION TOP AND BOTTOM SECTION */
+.navbar-container {  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navbar {
+  border-color: white;
+}
+
+.icon-button {
+  font-size: 22px;
+  margin-top: 3%; 
 }
 
 .navbar-fixed-top {
-  margin-top: -10px;
-  border-bottom: 1px solid grey;
+  height: 7%;
 }
 
 .button-opacity {
@@ -67,11 +72,6 @@ a {
   text-align: center;
   color: #000000;
   margin-top: 15px;
-}
-
-.refresh-button, .user-button {
-  font-size: 22px;
-  margin-top: 22px; 
 }
 
 .overAll {

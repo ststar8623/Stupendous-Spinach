@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 class NavigationBar extends Component {
   render() {
     const { url } = this.props;
-    const mapOpacity = url === 'googleMap' ? 'glyphicon glyphicon-record' : 'glyphicon glyphicon-record button-opacity';
-    const nearbyOpacity = url === 'nearby' ? 'glyphicon glyphicon-map-marker' : 'glyphicon glyphicon-map-marker button-opacity';
+    const nearbyOpacity = url === 'nearby' ? 'glyphicon glyphicon-record' : 'glyphicon glyphicon-record button-opacity';
+    const mapOpacity = url === 'googleMap' ? 'glyphicon glyphicon-map-marker' : 'glyphicon glyphicon-map-marker button-opacity';
     return (
       <nav className="navbar navbar-default navbar-fixed-bottom">
         <div className="container navbar-container">
