@@ -1,9 +1,12 @@
 const models = require('../../db/models');
 const utils = require('./lib/utils.js');
 
-module.exports.savePhoto = (options) => {
+module.exports.savePhoto = (options, userID) => {
 
-  return models.Photo.forge(options).save();
+  return models.Photo.forge(options).save()
+  .then((data) => {
+    return models.Photo.PhotoQueries.incrementPostCount(userID);
+  });
 };
 
 module.exports.getNearbyPhotos = (currentlocation, user_id, count, radius, profile_id) => {

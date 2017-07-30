@@ -16,10 +16,12 @@ router.post('/imageUpload', (req, res) => {
   const { latitude, longitude } = req.body.location;
   const { caption } = req.body;
   const { shareSelection } = req.body; //currently unused
+
+  let userID = req.user ? req.user.id : 2;
   
   //save url, lat, long to database
 
-  PhotosController.savePhoto({ latitude, longitude, url, profile_id: req.user.id, caption })
+  PhotosController.savePhoto({ latitude, longitude, url, profile_id: userID, caption }, userID)
     .then((data) => {
       //upon success, send URL back to client
       res.status(201).send(url);
