@@ -10,6 +10,12 @@ const Photo = db.Model.extend({
 
 class PhotoQueries {
 
+  incrementPostCount(userID) {
+    let query = `update profiles set post_count = post_count + 1 where id = ${userID}`;
+
+    return knex.raw(query);
+  }
+
 
   getPhotoLikesForUser(userID) {
     let query = `select * from likes where profile_id = ${userID}`;
