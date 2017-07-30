@@ -15,6 +15,8 @@ a:hover {
 .navbar-container {  padding: 0;
   display: flex;
   justify-content: space-around;
+  border-bottom: 1px solid lightgrey;
+  border-top: 1px solid lightgrey;
 }
 
 .navbar {
@@ -261,7 +263,6 @@ a:hover {
 /* GOOGLE MAP SECTION */
 .google-map {
   margin: 50px 0;
-  height: 21.3em;
 }
 
 .google-thumbnail {
