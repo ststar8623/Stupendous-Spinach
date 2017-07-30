@@ -306,6 +306,11 @@ a:hover {
   top: 15% !important;
 }
 
+/* CHAT COMPONENT */
+.messageBox {
+  margin-top: 50px;
+}
+
 /* ----------------------------------- */
 /*delete Comment*/
 .deleteComments {
