@@ -22,13 +22,13 @@ var shellFilesToCache = [
   '/assets/nearby.png',
   '/assets/sf.png',
   '/assets/google-logo.png',
-  // 'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css',
-  // 'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css',
-  // 'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/fonts/glyphicons-halflings-regular.woff',
-  // 'https://fonts.gstatic.com/s/kaushanscript/v5/qx1LSqts-NtiKcLw4N03IJsM3FTMmj2kTPH3yX99Yaw.woff2',
-  // 'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts/fontawesome-webfont.woff?v=4.0.3',
-  // 'https://fonts.googleapis.com/css?family=Plaster',
-  // 'https://fonts.googleapis.com/css?family=Kaushan+Script',
+  'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css',
+  'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css',
+  'https://netdna.bootstrapcdn.com/bootstrap/3.0.2/fonts/glyphicons-halflings-regular.woff',
+  'https://fonts.gstatic.com/s/kaushanscript/v5/qx1LSqts-NtiKcLw4N03IJsM3FTMmj2kTPH3yX99Yaw.woff2',
+  'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts/fontawesome-webfont.woff?v=4.0.3',
+  'https://fonts.googleapis.com/css?family=Plaster',
+  'https://fonts.googleapis.com/css?family=Kaushan+Script'
   // 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg'
 
 /* potential
@@ -93,21 +93,23 @@ self.addEventListener('fetch', (e) => {
   if (e.request.url.indexOf(photoApiUrl) > -1) {
     e.respondWith(cloudinaryImageResponse(e.request));
 
-  } else if (e.request.url.indexOf(`${urlEnv}/nearbyPhotos`) > -1 && e.request.method === 'GET') {
-    console.log('[ServiceWorker] entering flashback API', '\n', e.request.url, e.request);
+  } else if (e.request.url.indexOf(`${urlEnv}/api/nearbyPhotos`) > -1 /*&& e.request.method === 'GET'*/) {
+    // console.log('[ServiceWorker] entering flashback API', '\n', e.request.url, e.request);
     e.respondWith(flashbackApiResponse(e.request));
   
-  } else if (shellFilesToCache.every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
+  } else if (shellFilesToCache.some(urlBit => (e.request.url.indexOf(urlBit) > -1))) {
     e.respondWith(cachedShellResponse(e.request));
   
-  } else { console.log('[ServiceWorker] not in caching system', '\n', e.request.url, e.request); }
+  } else {
+    // console.log('[ServiceWorker] not in caching system', '\n', e.request.url, e.request);
+  }
 
 });
 
 const cloudinaryImageResponse = function(request) {
   return caches.match(request).then(function(response) {
     if (response) {
-      // console.log('[ServiceWorker] response from cache: ', response);
+      // console.log('[ServiceWorker] photo response from cache: ', response.url, response);
       return response;
     }
     return fetch(request).then(function(response) {
@@ -116,7 +118,7 @@ const cloudinaryImageResponse = function(request) {
         caches.open(photoCacheName).then(function(cache) {
           cache.put(request, cacheResponse);
         });
-        // console.log('response in caching attempt: ', response);
+        // console.log('response in caching attempt: ', response.url, response);
         return response;
       } else {
         console.log('[ServiceWorker] Cloudinary no response and no cache response', '\n', request.url, request);
@@ -128,13 +130,13 @@ const cloudinaryImageResponse = function(request) {
 };
 
 const flashbackApiResponse = function(request) {
-  console.log('[ServiceWorker] flashback API request:', request);
+  // console.log('[ServiceWorker] flashback API request:', request.url, request);
   return fetch(request).then(function(response) {
     if (response) {
-      console.log('[ServiceWorker] flashback API response:', response);
+      // console.log('[ServiceWorker] flashback API response:', response.url, response);
       let cacheResponse = response.clone();
       caches.open(userDataCacheName).then(function(cache) {
-        console.log('response in caching attempt: ', cacheResponse);
+        // console.log('response in caching attempt: ', cacheResponse.url, cacheResponse);
         cache.put(request, cacheResponse);
       });
       return response;
@@ -143,7 +145,7 @@ const flashbackApiResponse = function(request) {
       if (response) {
         return response;
       } else {
-        console.log('[ServiceWorker] flashback no API response and no cache response', '\n', request.url, request);
+        console.log('[ServiceWorker] Flashback API no response and no cache response', '\n', request.url, request);
       }
     });
   }).catch(function(error) {
@@ -154,17 +156,16 @@ const flashbackApiResponse = function(request) {
 const cachedShellResponse = function(request) {
   return caches.match(request).then(function(response) {
     if (response) {
-      console.log('[ServiceWorker] response from shell cache: ', response);
+      // console.log('[ServiceWorker] response from shell cache: ', response.url, response);
       return response;
     } else {
       return fetch(request).then(function(response) {
         if (response) {
           let cacheResponse = response.clone();
           caches.open(shellCacheName).then(function(cache) {
-            console.log('---------------', request.url, request.method);
             cache.put(request, cacheResponse);
           });
-          // console.log('response in caching attempt: ', response);
+          // console.log('response in caching attempt: ', response.url, response);
           return response;
         } else {
           console.log('[ServiceWorker] Shell no response and no cache response', '\n', request.url, request);
@@ -172,7 +173,7 @@ const cachedShellResponse = function(request) {
       });
     }
   }).catch(function(error) {
-    console.error('[ServiceWorker] ERROR caught during shell cache retrieval', error, '\n', request.url, request);
+    console.error('[ServiceWorker] ERROR shell response', error, '\n', request.url, request);
   });
 };
 
@@ -232,6 +233,7 @@ if ('serviceWorker' in navigator) {
 */
 
 
+// } else if (shellFilesToCache.every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
 // caches.open(userDataCacheName).then((cache) => {
 //   // console.log('[ServiceWorker] User Data caching pre-fetch\nurl: ', e.request.url);
 //   openCache = cache;
