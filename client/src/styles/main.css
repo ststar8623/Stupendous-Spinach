@@ -1,7 +1,5 @@
 .title {
   font-family: 'Kaushan Script', cursive;
-  margin: 3% 18%;
-  font-size: 90%;
 }
 
 a {
@@ -21,6 +19,7 @@ a:hover {
 
 .navbar {
   border-color: white;
+  min-height: 0;
 }
 
 .icon-button {
@@ -28,19 +27,34 @@ a:hover {
   margin-top: 3%; 
 }
 
-.navbar-fixed-top {
-  height: 7%;
-}
-
 .button-opacity {
   opacity: 0.5;
 }
 /* ----------------------------------- */
 
+/* NEARBY COMPONENT */
 .photoCard-container {
-  padding: 0;
-  margin: 12% -1%;
+  margin: 10% -1%;
   overflow: auto;
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.h4-heading {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 15px;
+}
+/* ----------------------------------- */
+
+/* NEARBY PHOTOCARD COMPONENT */
+.img-rounded {
+  font-size: 16px;
+}
+
+.img-thumbnail {
+  padding: 0px;
 }
 
 .fb-icon {
@@ -51,41 +65,9 @@ a:hover {
   margin-right:10px;
 }
 
-.img-rounded {
-  font-size: 16px;
-  padding: 0px;
-  margin-bottom: 10px;
-  margin: 0 -1px;
-}
-
-.img-thumbnail {
-  width: 100%;
-  padding: 0px;
-}
-
-.h4-heading {
-  width: 100%;
-  height: 16px;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: -0.2px;
-  text-align: center;
-  color: #000000;
-  margin-top: 15px;
-}
-
-.overAll {
-  position: relative;
-}
-
-.image {
-  position: absolute;
-}
-
 /* LIKE CAPTION COMMENT DIV FROM PHOTOCARD SECTION */
 .likeCaptionComment {
-  padding: 15px 15px 35px;
-  background-color: white;
+  padding: 15px 15px 30px;
 }
 /* ----------------------------------- */
 
@@ -408,4 +390,19 @@ a:hover {
 .test {
   height: 60px;
   width: 60px;
+}
+
+.overAll {
+  position: relative;
+}
+
+.image {
+  position: absolute;
+}
+
+/* MEDIA QUERY  */
+@media only screen and (mid-width: 959px) {
+  .photoCard-container {
+    padding: 0 3%;
+  }
 }

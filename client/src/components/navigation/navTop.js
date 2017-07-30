@@ -30,7 +30,7 @@ class NavigationBarTop extends Component {
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid navbar-container">
           <span className={ refreshOrBackButton } aria-hidden="true" onClick={ refreshOrBackFunction }></span>
-          <h1 className="title">{ flashBackOrComments }</h1>
+          <span className="title">{ flashBackOrComments }</span>
           <Link to={this.state.userID} className="icon-button"><span className="glyphicon glyphicon-user" aria-hidden="true"></span></Link>
         </div>
       </nav>

@@ -52,9 +52,11 @@ class Nearby extends Component {
       );
     } else {
       return (
-        <div className="photoCard-container container">
-          <h4 className="h4-heading"> Nearby Photos </h4>
-          { photoArray }
+        <div className="photoCard-container container-fluid">
+          <div className="row">
+            <h4 className="h4-heading"> Nearby Photos </h4>
+            { photoArray }
+          </div>
         </div>
       );
     }
