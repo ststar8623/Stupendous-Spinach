@@ -58,7 +58,7 @@ class NearbyPhotoCard extends Component {
     let distanceTime = ' ' + `${distance} mi, ${timeLapse}` + ' ';
 
     const inGoogleMapOrNearbyPhotoCard = this.props.url === 'nearby' ? <img src={ url } className='img-thumbnail' /> : <img src={ url } className='img-thumbnail' onClick={this.enLargePhoto.bind(this, null)} />;
-    const inGoogleMapOrNearbyPhotoCardClassName = this.props.url === 'nearby' ? "img-rounded" : "img-rounded photoCard-in-googleMap";
+    const inGoogleMapOrNearbyPhotoCardClassName = this.props.url === 'nearby' ? "img-rounded col-xs-12 col-md-6 col-lg-3" : "img-rounded photoCard-in-googleMap col-xs-12 col-md-6 col-lg-3";
     return (
       <div className={ inGoogleMapOrNearbyPhotoCardClassName }>
         <div>

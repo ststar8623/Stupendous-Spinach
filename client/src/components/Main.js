@@ -12,7 +12,7 @@ class Main extends Component {
     const displayBottomNav = this.props.url === 'comments' || this.props.url === 'share' ? '' : <NavigationBarBottom />;
 
     return (
-      <div>
+      <div className="container-fluid">
         <NavigationBarTop />
         { this.props.children }
         { displayBottomNav }

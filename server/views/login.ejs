@@ -1,6 +1,16 @@
 <% include head.ejs%>
 
     <div class="login-container">
+      <div class="login-mid .col-xs-12 .col-sm-12">
+        <h1 class="text-center">flashBack</h1>
+        <div class="login-icon text-center">
+          <a href="/auth/facebook"><img src="/assets/fb_login-en.png" class="fb-login" /></a>
+        </div>
+      </div>
+    </div>
+
+<% include foot.ejs%>
+
 <!-- 
         <h1><span class="fa fa-sign-in"></span> Login</h1>
         <% if (message.length) { %>
@@ -32,12 +42,3 @@
 
         <p>Need to sign up for an account? <a href="/signup">Signup</a></p>
         <p><a href="/">home</a></p> -->
-      <div class="login-mid">
-        <h1>flashBack</h1>
-        <div class="login-icon">
-          <a href="/auth/facebook"><img src="/assets/fb-logo.png" />Facebook</a>
-        </div>
-      </div>
-    </div>
-
-<% include foot.ejs%>
