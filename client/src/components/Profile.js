@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
-import { incrementComment, decrementComment, viewProfile, getPhotosOfUser } from '../actions/likeAction';
+import { currentPhotoAction } from '../actions/imageAction';
+import { viewProfile, getPhotosOfUser } from '../actions/likeAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router';
 import Carousel from './Carousel';
+import { getLocation } from '../actions/geoAction';
+
 
 class Profile extends Component {
   constructor(props) {
@@ -21,7 +23,8 @@ class Profile extends Component {
       posts: 25,
       isFetched: false,
       mapView: true,
-      index: null
+      index: null,
+      userId: null
     };
     this.props.viewProfile(this.props.params.userId, (profile)=> {
       this.setState({
@@ -29,19 +32,21 @@ class Profile extends Component {
         isMyProfile: profile.isOwnProfile,
         display: profile.profile.display,
         followers: profile.profile.follower_count,
-        following: profile.profile.following_count
+        following: profile.profile.following_count,
+        userId: profile.profile.id
+      }, ()=>{
+        this.props.getPhotosOfUser(this.state.userId);
       });
     });
   }
 
   componentWillMount() {
     this.props.urlAction('profile');
-    let logedUser = parseInt(document.getElementById('userID').innerHTML);
-    this.props.getPhotosOfUser(logedUser);
   }
 
   componentWillUnmount() {
     this.props.urlAction('nearby');
+
   }
   selectedPhotoOnMap(i) {
     this.setState ({
@@ -58,6 +63,7 @@ class Profile extends Component {
 
   render() {
     //change this location
+    // console.log('my props',this.props.getLocation());
     let currPosition = {
       center: {lat: 37.7837141, lng: -122.4090657},
       zoom: 11
@@ -65,6 +71,7 @@ class Profile extends Component {
     var photos = this.props.mapPhoto.onePhotoFromRadius;
 
     if (photos) {
+
       var latitudeObj = {};
       var isFetched = true;
       var photosDiv = photos.map((photo, i)=>{
@@ -140,7 +147,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction, viewProfile, getPhotosOfUser }, dispatch);
+  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser, getLocation }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
