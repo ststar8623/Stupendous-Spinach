@@ -65,15 +65,13 @@ export const getPhotosOfUser = (userId, callback) => {
   let data = new Promise((resolve, reject) => {
     return axios.get(`/api/profilePhotos/${userId}`)
       .then(res => {
-        //callback(res.data);
-        console.log('response from the user', res);
+        // console.log('response from the user', res.data);
         resolve(res.data);
       })
       .catch(err => {
         console.log(err); 
       });
   });
-    console.log('userid from action',data);
 
   return {
     type: 'ONE_PHOTO_FROM_RADIUS',

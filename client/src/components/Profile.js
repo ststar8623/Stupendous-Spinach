@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
-import { incrementComment, decrementComment, viewProfile, getPhotosOfUser } from '../actions/likeAction';
+import { currentPhotoAction } from '../actions/imageAction';
+import { viewProfile, getPhotosOfUser } from '../actions/likeAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router';
+import Carousel from './Carousel';
+import { getLocation } from '../actions/geoAction';
+
 
 class Profile extends Component {
   constructor(props) {
@@ -17,51 +20,64 @@ class Profile extends Component {
       display: null,
       following: 151,
       followers: 67,
-      posts: 25
+      posts: 25,
+      isFetched: false,
+      mapView: true,
+      index: null,
+      userId: null
     };
-    //this.props.params.userId
     this.props.viewProfile(this.props.params.userId, (profile)=> {
       this.setState({
         url: profile.profile.photo,
         isMyProfile: profile.isOwnProfile,
         display: profile.profile.display,
         followers: profile.profile.follower_count,
-        following: profile.profile.following_count
+        following: profile.profile.following_count,
+        userId: profile.profile.id
+      }, ()=>{
+        this.props.getPhotosOfUser(this.state.userId);
       });
     });
   }
 
   componentWillMount() {
     this.props.urlAction('profile');
-    let logedUser = parseInt(document.getElementById('userID').innerHTML);
-    this.props.getPhotosOfUser(logedUser);
   }
 
   componentWillUnmount() {
     this.props.urlAction('nearby');
+
   }
   selectedPhotoOnMap(i) {
-    console.log('clicked--->', i);
+    this.setState ({
+      index: i
+    });
+    this.changeMapViewStat(false);
+  }
 
+  changeMapViewStat(state) {
+    this.setState ({
+      mapView: state
+    });
   }
 
   render() {
-    // <img src={photo.url} className='test'/>
     let currPosition = {
-      center: {lat: 37.7837141, lng: -122.4090657},
+      center: {lat: this.props.location.latitude, lng: this.props.location.longtitude},
       zoom: 11
     };
     var photos = this.props.mapPhoto.onePhotoFromRadius;
 
-    console.log('map photos', this.props.mapPhoto);
     if (photos) {
+
       var latitudeObj = {};
+      var isFetched = true;
       var photosDiv = photos.map((photo, i)=>{
         let latitude = photo.latitude;
         latitudeObj[latitude] ? latitudeObj[latitude] = latitude : '';
         return (
           <div key={i} lat={ photo.latitude } lng={ photo.longitude } >
-            <img src={photo.url} className='test' onClick={this.selectedPhotoOnMap.bind(this, i)} />
+            <img src={photo.url} className='profileMapPhoto' onClick={this.selectedPhotoOnMap.bind(this, i) } />
           </div>
         );
       });
@@ -101,9 +117,13 @@ class Profile extends Component {
               </div>
 
               <div className='profileMap'>
-                <GoogleMapReact center={currPosition.center} zoom={13} >
-                  {photosDiv}
-                </GoogleMapReact>
+                {this.state.mapView ? 
+                  <GoogleMapReact center={currPosition.center} zoom={currPosition.zoom} >
+                    {photosDiv}
+                  </GoogleMapReact>
+                  : <Carousel mapView={this.changeMapViewStat.bind(this)} photos={photos} index={this.state.index} /> 
+                }
+                
               </div>
             </div>
           
@@ -120,12 +140,13 @@ const mapStateToProps = (state) => {
     currentPhoto: state.currentPhoto.current,
     isFetched: state.currentPhoto.isFetched,
     url: state.url,
-    mapPhoto: state.mapPhoto
+    mapPhoto: state.mapPhoto,
+    location: state.location
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction, viewProfile, getPhotosOfUser }, dispatch);
+  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser, getLocation }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
