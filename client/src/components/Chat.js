@@ -1,55 +1,58 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import newMessage from '../actions/msgAction';
+import io from 'socket.io-client';
+let socket = io('http://localhost:3000');
+import { newMessage } from '../actions/msgAction';
 
 class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
-      messages: ''
+      input: ''
     };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this._handleMessageEvent = this._handleMessageEvent.bind(this);
   }
 
-  // componentDidMount() {
-  //   this._handleMessageEvent();
-  // }
+  componentDidMount() {
+    this._handleMessageEvent();
+  }
 
   _handleMessageEvent() {
-    socket.on('chat message', (inboundMessage) => {
-      this.props.newMessage({
-        user: 'test_user',
-        message: 'inboundMessage'
-      });
+    let that = this;
+    socket.on('messages', (inboundMessage) => {
+      console.log('inboundMessage ', inboundMessage);
+      that.props.newMessage(inboundMessage);
     });
+    socket.emit('fetchMessages');
   }
 
   handleOnChange(e) {
     this.setState({ input: e.target.value });
   }
 
-  handleOnSubmit(e) {
+  handleOnSubmit(e, callback) {
     e.preventDefault();
-    socket.emit('chat message', { message: this.state.input });
-
+    socket.emit('sendMessages', { text: this.state.input });
     this.setState({ input: '' });
   }
 
   render() {
-    // const messages = this.props.messages.map((message, i) => {
-    //   return (
-    //     <span key={i} >{ message }</span>
-    //   );
-    // });
+    const { messages } = this.props;
     return (
-      <div style={{ marginTop: '30px' }}>
-        {/* { messages } */}
-        HI im chat component
+      <div className="messageBox">
+        <h3>Messages:</h3>
+        { messages.map((message, i) => {
+          return (
+            <p key={i}>{ message.text }</p>
+          );
+        })}
+        <form onSubmit={this.handleOnSubmit.bind(this)}>
+          <input type="text" value={this.state.input} onChange={this.handleOnChange.bind(this)}/>
+          <button type="submit" onClick={this.handleOnSubmit.bind(this)}>Submit</button>
+        </form>
       </div>
     );
   }

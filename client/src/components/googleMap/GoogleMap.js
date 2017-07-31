@@ -43,6 +43,11 @@ class GoogleMap extends Component {
       );
     });
 
+    const styles = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+
     if (!isFetched) {
       return (
         <div>
@@ -51,8 +56,8 @@ class GoogleMap extends Component {
       );
     } else {
       return (
-        <div className="google-map">
-          <GoogleMapReact center={currPosition.center} zoom={currPosition.zoom} >
+        <div className="google-map container-fluid">
+          <GoogleMapReact style={ styles } center={currPosition.center} zoom={currPosition.zoom}>
             { photoCard }
           </GoogleMapReact>
         </div>

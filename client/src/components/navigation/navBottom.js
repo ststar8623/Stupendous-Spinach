@@ -14,6 +14,7 @@ class NavigationBar extends Component {
           <Camera />
           <Link to="/"><span className={ nearbyOpacity } aria-hidden="true"></span></Link>
           <Link to="/googleMap"><span className={ mapOpacity } aria-hidden="true"></span></Link>
+          <Link to="/chat"><span className="glyphicon glyphicon-envelope"></span></Link>
         </div>
       </nav>
     );

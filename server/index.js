@@ -4,6 +4,7 @@ const db = require('../db');
 const config = require('config')['knex'];
 const config2 = require('config')['passport'];
 const PORT = process.env.PORT || 3000;
+const fs = require('fs');
 
 //environment is set in the package.json scripts
 console.log('the current environment is: ', app.get('env'));
@@ -14,16 +15,20 @@ const server = app.listen(PORT, () => {
 
 const io = require('socket.io').listen(server);
 
+let messages = [{text: 'hi'}, {text: 'hi'}, {text: 'hi'}]
+var sendMessages = (socket) => {
+  socket.emit('messages', messages);
+};
+
 io.on('connection', function(socket) {
   console.log('a user has connected');
-  socket.on('chat message', message => {
-    socket.broadcast.emit('chat message', message);
+
+  socket.on('fetchMessages', () => {
+    sendMessages(socket);
   });
-  socket.on('subscribe', channel => {
-    console.log('a user subscribed to channel: ', channel);
-    socket.join(channel);
-  });
-  socket.on('unsubscribe', channel => {
-    socket.leave(channel);
+
+  socket.on('sendMessages', (message) => {
+    messages.push(message);
+    io.emit('messages', messages);
   });
 });
