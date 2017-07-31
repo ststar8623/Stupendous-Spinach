@@ -146,7 +146,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser,setUserId }, dispatch);
+  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser, setUserId }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
