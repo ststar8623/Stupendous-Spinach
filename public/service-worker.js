@@ -1,21 +1,14 @@
 // const idbKeyVal = require('idb-keyval');
 
-// ********Uncomment this for local*********
-const urlEnv = 'localhost:3000';
+const shellCacheName = 'flashbackPWA-shell-v02';
 
-// ********Comment this out for local*******
-// const urlEnv = 'https://ss-flashback-staging.herokuapp.com';
+const userDataCacheName = 'flashbackPWA-user-data-v02';
 
-const shellCacheName = 'flashbackPWA-shell-v01';
-
-const userDataCacheName = 'flashbackPWA-user-data-v01';
-const userDataUrl = urlEnv + '/api/nearbyPhotos';
-
-const photoCacheName = 'flashbackPWA-photos-v01';
+const photoCacheName = 'flashbackPWA-photos-v02';
 const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/';
 
 var shellFilesToCache = [
-  '/dist/bundle.js', // ******* Comment this out for local, uncomment the one in urlsToIgnore below
+  // '/dist/bundle.js', // ******* Comment this out for local, uncomment the one in urlsToIgnore below
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
@@ -48,6 +41,7 @@ var shellFilesToCache = [
   urlEnv + '/likes', */
 ];
 
+/*
 var urlsToIgnore = shellFilesToCache.concat([
   '/dist/bundle.js', // Uncomment this for local
   '/auth/facebook',
@@ -63,7 +57,7 @@ var urlsToIgnore = shellFilesToCache.concat([
   urlEnv + '/api/mapPhotos/',
   urlEnv + '/nearby'
 ]);
-
+*/
 
 // Install SW and cache shell files
 self.addEventListener('install', (e) => {
@@ -95,7 +89,7 @@ self.addEventListener('fetch', (e) => {
   if (e.request.url.indexOf(photoApiUrl) > -1) {
     e.respondWith(cloudinaryImageResponse(e.request));
 
-  } else if (e.request.url.indexOf(`${urlEnv}/api/nearbyPhotos`) > -1 /*&& e.request.method === 'GET'*/) {
+  } else if (e.request.url.indexOf('/api/nearbyPhotos') > -1 /*&& e.request.method === 'GET'*/) {
     // console.log('[ServiceWorker] entering flashback API', '\n', e.request.url, e.request);
     e.respondWith(flashbackApiResponse(e.request));
   
