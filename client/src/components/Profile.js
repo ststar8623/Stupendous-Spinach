@@ -7,6 +7,7 @@ import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router';
+import Carousel from './Carousel';
 
 class Profile extends Component {
   constructor(props) {
@@ -17,9 +18,11 @@ class Profile extends Component {
       display: null,
       following: 151,
       followers: 67,
-      posts: 25
+      posts: 25,
+      isFetched: false,
+      mapView: true,
+      index: null
     };
-    //this.props.params.userId
     this.props.viewProfile(this.props.params.userId, (profile)=> {
       this.setState({
         url: profile.profile.photo,
@@ -41,27 +44,35 @@ class Profile extends Component {
     this.props.urlAction('nearby');
   }
   selectedPhotoOnMap(i) {
-    console.log('clicked--->', i);
+    this.setState ({
+      index: i
+    });
+    this.changeMapViewStat(false);
+  }
 
+  changeMapViewStat(state) {
+    this.setState ({
+      mapView: state
+    });
   }
 
   render() {
-    // <img src={photo.url} className='test'/>
+    //change this location
     let currPosition = {
       center: {lat: 37.7837141, lng: -122.4090657},
       zoom: 11
     };
     var photos = this.props.mapPhoto.onePhotoFromRadius;
 
-    console.log('map photos', this.props.mapPhoto);
     if (photos) {
       var latitudeObj = {};
+      var isFetched = true;
       var photosDiv = photos.map((photo, i)=>{
         let latitude = photo.latitude;
         latitudeObj[latitude] ? latitudeObj[latitude] = latitude : '';
         return (
           <div key={i} lat={ photo.latitude } lng={ photo.longitude } >
-            <img src={photo.url} className='test' onClick={this.selectedPhotoOnMap.bind(this, i)} />
+            <img src={photo.url} className='profileMapPhoto' onClick={this.selectedPhotoOnMap.bind(this, i) } />
           </div>
         );
       });
@@ -101,9 +112,13 @@ class Profile extends Component {
               </div>
 
               <div className='profileMap'>
-                <GoogleMapReact center={currPosition.center} zoom={13} >
-                  {photosDiv}
-                </GoogleMapReact>
+                {this.state.mapView ? 
+                  <GoogleMapReact center={currPosition.center} zoom={13} >
+                    {photosDiv}
+                  </GoogleMapReact>
+                  : <Carousel mapView={this.changeMapViewStat.bind(this)} photos={photos} index={this.state.index} /> 
+                }
+                
               </div>
             </div>
           
