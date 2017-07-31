@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { currentPhotoAction, currentIsFetched } from '../actions/imageAction';
-import { incrementComment, decrementComment, viewProfile, getPhotosOfUser } from '../actions/likeAction';
+import { viewProfile, getPhotosOfUser, profileIsFetched } from '../actions/profileAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
@@ -10,54 +10,35 @@ import GoogleMapReact from 'google-map-react';
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      url: null,
-      isMyProfile: null,
-      display: null,
-      following: 151,
-      followers: 67,
-      posts: 25
-    };
-    //this.props.params.userId
-    this.props.viewProfile(this.props.params.userId, (profile)=> {
-      this.setState({
-        url: profile.profile.photo,
-        isMyProfile: profile.isOwnProfile,
-        display: profile.profile.display,
-        followers: profile.profile.follower_count,
-        following: profile.profile.following_count
-      });
-    });
   }
 
   componentWillMount() {
     this.props.urlAction('profile');
     let logedUser = parseInt(document.getElementById('userID').innerHTML);
-    this.props.getPhotosOfUser(logedUser);
+    this.props.getPhotosOfUser(this.props.params.userId);
+    this.props.viewProfile(this.props.params.userId);
   }
 
   componentWillUnmount() {
     this.props.urlAction('nearby');
+    this.props.profileIsFetched(false);
   }
+  
   selectedPhotoOnMap(i) {
     console.log('clicked--->', i);
-
   }
 
   render() {
-    // <img src={photo.url} className='test'/>
     let currPosition = {
-      center: {lat: 37.7837141, lng: -122.4090657},
-      zoom: 11
+      center: {
+        lat: this.props.location.latitude, 
+        lng: this.props.location.longitude
+      },
+      zoom: 13
     };
-    var photos = this.props.mapPhoto.onePhotoFromRadius;
-
-    console.log('map photos', this.props.mapPhoto);
-    if (photos) {
-      var latitudeObj = {};
-      var photosDiv = photos.map((photo, i)=>{
-        let latitude = photo.latitude;
-        latitudeObj[latitude] ? latitudeObj[latitude] = latitude : '';
+    let { profilePhotos, profileInfo, profileIsFetched } = this.props.profile;
+    if (profilePhotos) {
+      var photosDiv = profilePhotos.map((photo, i)=>{
         return (
           <div key={i} lat={ photo.latitude } lng={ photo.longitude } >
             <img src={photo.url} className='test' onClick={this.selectedPhotoOnMap.bind(this, i)} />
@@ -69,37 +50,39 @@ class Profile extends Component {
     return (
       <div>
         { 
-          this.state.url ? 
+          profileIsFetched ? 
             <div>
               <div className='profile-profile'>
                 <div className='round'>
-                  <img className='profilePic' src={ this.state.url } /> 
+                  <img className='profilePic' src={ profileInfo.profile.photo } /> 
                 </div>
                 <div className='text-center'>
-                  <p> {this.state.display} </p>
-                  { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
+                  <p> {profileInfo.profile.display} </p>
+                  { profileInfo.isOwnProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
+                  { profileInfo.isOwnProfile ? '' : <Link to='/chat'><p className="btn btn-primary btn-xs"> Message </p></Link>
+                  }
                 </div>
               </div>
               
               <div className='followDataContainer'>
                 <div className='col-xs-4'> 
-                  <div className='num text-center'> {this.state.followers}</div>
+                  <div className='num text-center'> {profileInfo.profile.follower_count}</div>
                   <div className='letters text-center'> followers </div>
                 </div>
 
                 <div className='col-xs-4'> 
-                  <div className='num text-center'> {this.state.following}</div>
+                  <div className='num text-center'> {profileInfo.profile.following_count}</div>
                   <div className='letters text-center'> following </div>
                 </div>
 
                 <div className='col-xs-4'> 
-                  <div className='num text-center'> {this.state.posts}</div>
+                  <div className='num text-center'> {profileInfo.profile.post_count}</div>
                   <div className='letters text-center'> posts </div>
                 </div>
               </div>
 
               <div className='profileMap'>
-                <GoogleMapReact center={currPosition.center} zoom={13} >
+                <GoogleMapReact center={currPosition.center} zoom={currPosition.zoom} >
                   {photosDiv}
                 </GoogleMapReact>
               </div>
@@ -114,16 +97,14 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    photoArray: state.photoArray,
-    currentPhoto: state.currentPhoto.current,
-    isFetched: state.currentPhoto.isFetched,
     url: state.url,
-    mapPhoto: state.mapPhoto
+    location: state.location,
+    profile: state.profile
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction, viewProfile, getPhotosOfUser }, dispatch);
+  return bindActionCreators({ urlAction, viewProfile, getPhotosOfUser, profileIsFetched }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

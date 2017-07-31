@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import io from 'socket.io-client';
-let socket = io('http://localhost:3000');
-import { newMessage } from '../actions/msgAction';
+import { newMessage } from '../../actions/msgAction';
+import { urlAction } from '../../actions/urlAction';
 
 class Chat extends Component {
   constructor(props) {
@@ -11,22 +11,26 @@ class Chat extends Component {
     this.state = {
       input: ''
     };
+    this.socket = io('/');
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this._handleMessageEvent = this._handleMessageEvent.bind(this);
   }
 
   componentDidMount() {
+    this.props.urlAction('chat');
+    let logedUser = parseInt(document.getElementById('userID').innerHTML);
+    this.socket.emit('join', logedUser);
     this._handleMessageEvent();
   }
 
   _handleMessageEvent() {
     let that = this;
-    socket.on('messages', (inboundMessage) => {
+    this.socket.on('messages', (inboundMessage) => {
       console.log('inboundMessage ', inboundMessage);
       that.props.newMessage(inboundMessage);
     });
-    socket.emit('fetchMessages');
+    this.socket.emit('fetchMessages');
   }
 
   handleOnChange(e) {
@@ -35,16 +39,16 @@ class Chat extends Component {
 
   handleOnSubmit(e, callback) {
     e.preventDefault();
-    socket.emit('sendMessages', { text: this.state.input });
+    this.socket.emit('sendMessages', { text: this.state.input });
     this.setState({ input: '' });
   }
 
   render() {
-    const { messages } = this.props;
+    const { messageArray } = this.props.messages;
     return (
       <div className="messageBox">
         <h3>Messages:</h3>
-        { messages.map((message, i) => {
+        { messageArray.map((message, i) => {
           return (
             <p key={i}>{ message.text }</p>
           );
@@ -65,7 +69,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ newMessage }, dispatch);
+  return bindActionCreators({ newMessage, urlAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);
