@@ -15,7 +15,7 @@ const server = app.listen(PORT, () => {
 
 const io = require('socket.io').listen(server);
 
-let messages = [{text: 'hi'}, {text: 'hi'}, {text: 'hi'}]
+let messages = [{text: 'hi'}, {text: 'this is socket io'}, {text: 'how can i help u'}];
 var sendMessages = (socket) => {
   socket.emit('messages', messages);
 };
