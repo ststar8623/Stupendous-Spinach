@@ -1,43 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import io from 'socket.io-client';
 import { newMessage } from '../../actions/msgAction';
 import { urlAction } from '../../actions/urlAction';
+import io from 'socket.io-client';
 
 class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: ''
+      input: '',
+      sendUser: null,
+      receiveUser: null
     };
-    this.socket = io('/');
+    this.socket = io.connect(`${location.protocol}`);
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
-    this._handleMessageEvent = this._handleMessageEvent.bind(this);
+    this.handleMessageEvent = this.handleMessageEvent.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.urlAction('chat');
-    // let logedUser = parseInt(document.getElementById('userID').innerHTML);
-    // this.socket.emit('join', logedUser);
-    this._handleMessageEvent();
+    let logedUser = parseInt(document.getElementById('userID').innerHTML);
+    this.setState({
+      sendUser: logedUser,
+      receiveUser: this.props.profile.profileId
+    });
+    this.handleMessageEvent();
   }
 
-  _handleMessageEvent() {
+  handleMessageEvent() {
     let that = this;
     this.socket.on('messages', (inboundMessage) => {
-      console.log('inboundMessage ', inboundMessage);
       that.props.newMessage(inboundMessage);
     });
-    this.socket.emit('fetchMessages');
+    this.socket.emit('fetchMessages', this.state.receiveUser);
   }
 
   handleOnChange(e) {
     this.setState({ input: e.target.value });
   }
 
-  handleOnSubmit(e, callback) {
+  handleOnSubmit(e) {
     e.preventDefault();
     this.socket.emit('sendMessages', { text: this.state.input });
     this.setState({ input: '' });
@@ -64,7 +68,8 @@ class Chat extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    messages: state.messages
+    messages: state.messages,
+    profile: state.profile
   };
 };
 

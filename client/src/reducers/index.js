@@ -8,7 +8,8 @@ import currentPhoto from './currentPhoto';
 import url from './url';
 import mapPhoto from './mapPhoto';
 import messages from './messages';
+import profile from './profile';
 
-const rootReducer = combineReducers({ upload, currentPhoto, location, photoArray, url, mapPhoto, messages, routing: routerReducer });
+const rootReducer = combineReducers({ upload, currentPhoto, location, photoArray, url, mapPhoto, messages, profile, routing: routerReducer });
 
 export default rootReducer;

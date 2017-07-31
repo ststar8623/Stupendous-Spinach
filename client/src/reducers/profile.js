@@ -1,6 +1,7 @@
 export default function profile(state = {
   profilePhotos: null,
   profileInfo: null,
+  profileId: null,
   profileIsFetched: false
 }, action) {
   switch (action.type) {
@@ -14,6 +15,11 @@ export default function profile(state = {
       ...state,
       profileInfo: action.payload,
       profileIsFetched: true
+    }
+  case 'SET_USER_ID':
+    return {
+      ...state,
+      profileId: action.payload
     }
   case 'PROFILE_ISFETCHED':
     return {

@@ -7,6 +7,7 @@ import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router';
+import { setUserId } from '../actions/profileAction';
 
 class Profile extends Component {
   constructor(props) {
@@ -28,12 +29,14 @@ class Profile extends Component {
         followers: profile.profile.follower_count,
         following: profile.profile.following_count
       });
+      this.props.setUserId(profile.profile.id);
     });
   }
 
   componentWillMount() {
     this.props.urlAction('profile');
     let logedUser = parseInt(document.getElementById('userID').innerHTML);
+    console.log(logedUser);
     this.props.getPhotosOfUser(logedUser);
   }
 
@@ -125,7 +128,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction, viewProfile, getPhotosOfUser }, dispatch);
+  return bindActionCreators({ setUserId, currentPhotoAction, incrementComment, decrementComment, currentIsFetched, urlAction, viewProfile, getPhotosOfUser }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
