@@ -62,7 +62,6 @@ router.get('/nearbyPhotos/:latitude/:longitude/:max', (req, res) => {
 router.get('/profilePhotos/:profileID', (req, res) => {
   PhotosController.getProfilePhotos(req.params.profileID)
     .then((data)=> {
-      console.log(data);
       res.status(200).send(data);
     });
 
@@ -208,7 +207,6 @@ router.post('/cluster', (req, res) => {
   const array = req.body.data;
 
   axios.post('https://powerful-oasis-62289.herokuapp.com/cluster', { data: array }).then(res => {
-    console.log('result from server ', res.data);
   }).error(err => console.log('err ', err));
 
 });

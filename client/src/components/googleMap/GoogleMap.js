@@ -45,7 +45,7 @@ class GoogleMap extends Component {
 
     const styles = {
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight - 100
     };
 
     if (!isFetched) {

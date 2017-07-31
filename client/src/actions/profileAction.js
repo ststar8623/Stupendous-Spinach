@@ -33,6 +33,13 @@ export const viewProfile = (userId, callback) => {
   };
 };
 
+export const setUserId = (userId) => {
+  return {
+    type: 'SET_USER_ID',
+    payload: userId
+  };
+};
+
 export const profileIsFetched = (boolean) => {
   return {
     type: 'PROFILE_ISFETCHED',
