@@ -74,8 +74,8 @@ class PreviewAndShare extends Component {
     } else {
       return (
         <div className="preview-share-comp">
-          <div className="img-rounded">
-            <img src={this.props.url.preview} height={200} width={300} className='img-thumbnail'/>
+          <div className="preview-div">
+            <img src={this.props.url.preview} className='preview-image'/>
           </div>
           <ul className="preview-share-ul">
             <li><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} /><span>Share with everyone</span></li>

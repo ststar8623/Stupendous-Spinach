@@ -8,13 +8,14 @@ class NavigationBar extends Component {
     const { url } = this.props;
     const nearbyOpacity = url === 'nearby' ? 'glyphicon glyphicon-record' : 'glyphicon glyphicon-record button-opacity';
     const mapOpacity = url === 'googleMap' ? 'glyphicon glyphicon-map-marker' : 'glyphicon glyphicon-map-marker button-opacity';
+    const chatOpacity = url === 'rooms' ? 'glyphicon glyphicon-envelope' : 'glyphicon glyphicon-envelope button-opacity';
     return (
       <nav className="navbar navbar-default navbar-fixed-bottom">
         <div className="container navbar-container">
           <Camera />
           <Link to="/"><span className={ nearbyOpacity } aria-hidden="true"></span></Link>
           <Link to="/googleMap"><span className={ mapOpacity } aria-hidden="true"></span></Link>
-          <Link to="/chat"><span className="glyphicon glyphicon-envelope"></span></Link>
+          <Link to="/rooms"><span className={ chatOpacity }></span></Link>
         </div>
       </nav>
     );

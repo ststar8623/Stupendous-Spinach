@@ -6,6 +6,7 @@ import { incrementComment, decrementComment, viewProfile, getPhotosOfUser } from
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
+import { Link } from 'react-router';
 
 class Profile extends Component {
   constructor(props) {
@@ -78,6 +79,7 @@ class Profile extends Component {
                 <div className='text-center'>
                   <p> {this.state.display} </p>
                   { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
+                  { this.state.isMyProfile ? '' : <Link to="/chat"><p className="btn btn-primary btn-xs">Message</p></Link>}
                 </div>
               </div>
               

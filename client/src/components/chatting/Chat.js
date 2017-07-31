@@ -19,8 +19,8 @@ class Chat extends Component {
 
   componentDidMount() {
     this.props.urlAction('chat');
-    let logedUser = parseInt(document.getElementById('userID').innerHTML);
-    this.socket.emit('join', logedUser);
+    // let logedUser = parseInt(document.getElementById('userID').innerHTML);
+    // this.socket.emit('join', logedUser);
     this._handleMessageEvent();
   }
 
@@ -46,7 +46,7 @@ class Chat extends Component {
   render() {
     const { messageArray } = this.props.messages;
     return (
-      <div className="messageBox">
+      <div className="comments-component">
         <h3>Messages:</h3>
         { messageArray.map((message, i) => {
           return (
