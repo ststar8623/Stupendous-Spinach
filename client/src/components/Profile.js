@@ -62,10 +62,8 @@ class Profile extends Component {
   }
 
   render() {
-    //change this location
-    // console.log('my props',this.props.getLocation());
     let currPosition = {
-      center: {lat: 37.7837141, lng: -122.4090657},
+      center: {lat: this.props.location.latitude, lng: this.props.location.longtitude},
       zoom: 11
     };
     var photos = this.props.mapPhoto.onePhotoFromRadius;
@@ -120,7 +118,7 @@ class Profile extends Component {
 
               <div className='profileMap'>
                 {this.state.mapView ? 
-                  <GoogleMapReact center={currPosition.center} zoom={13} >
+                  <GoogleMapReact center={currPosition.center} zoom={currPosition.zoom} >
                     {photosDiv}
                   </GoogleMapReact>
                   : <Carousel mapView={this.changeMapViewStat.bind(this)} photos={photos} index={this.state.index} /> 
@@ -142,7 +140,8 @@ const mapStateToProps = (state) => {
     currentPhoto: state.currentPhoto.current,
     isFetched: state.currentPhoto.isFetched,
     url: state.url,
-    mapPhoto: state.mapPhoto
+    mapPhoto: state.mapPhoto,
+    location: state.location
   };
 };
 
