@@ -8,8 +8,7 @@ import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router';
 import Carousel from './Carousel';
-import { getLocation } from '../actions/geoAction';
-
+import { setUserId } from '../actions/profileAction';
 
 class Profile extends Component {
   constructor(props) {
@@ -37,6 +36,7 @@ class Profile extends Component {
       }, ()=>{
         this.props.getPhotosOfUser(this.state.userId);
       });
+      this.props.setUserId(profile.profile.id);
     });
   }
 

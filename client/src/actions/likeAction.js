@@ -65,7 +65,6 @@ export const getPhotosOfUser = (userId, callback) => {
   let data = new Promise((resolve, reject) => {
     return axios.get(`/api/profilePhotos/${userId}`)
       .then(res => {
-        // console.log('response from the user', res.data);
         resolve(res.data);
       })
       .catch(err => {
