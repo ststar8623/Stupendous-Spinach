@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Promise from 'bluebird';
 // increment likes
 export const increment = (id, index) => {
   let data = new Promise((resolve, reject) => {

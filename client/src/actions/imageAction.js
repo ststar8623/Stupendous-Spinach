@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Promise from 'bluebird';
 
 export const imageAction = (options) => {
   let data = new Promise((resolve, reject) => {

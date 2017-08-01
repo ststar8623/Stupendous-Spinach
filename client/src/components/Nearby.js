@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import LazyLoad from 'react-lazyload';
-import Promise from 'bluebird';
 import axios from 'axios';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading/Loading';
