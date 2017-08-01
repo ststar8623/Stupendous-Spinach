@@ -5,7 +5,7 @@
     "node": "6.11.1"
   },
   "scripts": {
-    "heroku-postbuild": "webpack -p --config ./webpack.deployed.config.babel.js --progress",
+    "heroku-postbuild": "webpack --optimize-minimize -p --config ./webpack.config.babel.js --progress",
     "dev-start": "NODE_ENV=development nodemon server",
     "start": "NODE_ENV=staging node server/index.js",
     "jest": "jest",
