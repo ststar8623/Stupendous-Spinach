@@ -9,7 +9,7 @@ import NavigationBarTop from './navigation/navTop';
 
 class Main extends Component {
   render() {
-    const displayBottomNav = this.props.url === 'comments' || this.props.url === 'share' || this.props.url === 'googleMap' ? '' : <NavigationBarBottom />;
+    const displayBottomNav = this.props.url === 'comments' || this.props.url === 'share' || this.props.url === 'googleMap' || this.props.url === 'chat' ? '' : <NavigationBarBottom />;
 
     return (
       <div className="container-fluid">

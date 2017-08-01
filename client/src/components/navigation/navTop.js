@@ -25,7 +25,7 @@ class NavigationBarTop extends Component {
     const url = this.props.url;
     const refreshOrBackButton = url === 'nearby' ? 'icon-button glyphicon glyphicon-refresh' : 'icon-button glyphicon glyphicon-arrow-left';
     const refreshOrBackFunction = url === 'nearby' ? this.refreshButton.bind(this) : this.goBackButton.bind(this);
-    const flashBackOrComments = url === 'comments' ? 'Comments' : url === 'share' ? 'Share Photo' : url === 'googleMap' ? 'Map' : 'flashBack';
+    const flashBackOrComments = url === 'comments' ? 'Comments' : url === 'share' ? 'Share Photo' : url === 'googleMap' ? 'Map' ? url === 'chat' : 'Messages' : 'flashBack';
     return (
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid navbar-container">

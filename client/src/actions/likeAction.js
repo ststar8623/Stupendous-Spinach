@@ -88,7 +88,6 @@ export const viewProfile = (userId, callback) => {
         console.log(err); 
       });
   });
-
   return {
     type: 'VIEW_PROFILE',
     userId

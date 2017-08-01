@@ -414,6 +414,34 @@ a:hover {
 }
 /*------------------------------*/
 
+/* CHAT COMPONENT  */
+
+.chat-component {
+  /* margin: 50px 0; */
+}
+
+.chatting-Ul {
+  list-style-type: none;
+  display: inline-grid;
+  width: 100%;
+  padding: 0 25px;
+  margin: 50px 0;
+}
+
+/* .chatting-li {
+  border-bottom: 1px solid grey;
+} */
+
+.chatting-li-left {
+  float: left;
+}
+
+.chatting-li-right {
+  float: right;
+}
+
+/*------------------------------*/
+
 .carousel{
   width: 100%;
   height: 50vh;
@@ -505,13 +533,6 @@ a:hover {
 
 .image {
   position: absolute;
-}
-
-/* MEDIA QUERY  */
-@media only screen and (mid-width: 959px) {
-  .photoCard-container {
-    padding: 0 3%;
-  }
 }
 
 .scale-leave.scale-leave-active {

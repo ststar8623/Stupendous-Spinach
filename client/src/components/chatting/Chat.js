@@ -9,56 +9,83 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
-      sendUser: null,
-      receiveUser: null
+      text: '',
+      send_id: null,
+      receive_id: null
     };
-    this.socket = io.connect(`${location.protocol}`);
+    this.socket = io.connect('http://localhost:3000');
     this.handleMessageEvent = this.handleMessageEvent.bind(this);
   }
 
   componentWillMount() {
     this.props.urlAction('chat');
-    let logedUser = parseInt(document.getElementById('userID').innerHTML);
+    let userId = parseInt(document.getElementById('userID').innerHTML);
     this.setState({
-      sendUser: logedUser,
-      receiveUser: this.props.profile.profileId
+      send_id: userId,
+      receive_id: this.props.profile.profileId
+    }, () => {
+      this.socket.emit('fetchMessages', this.state);
     });
     this.handleMessageEvent();
   }
 
   handleMessageEvent() {
-    let that = this;
-    let room = this.state.sendUser + '' + this.state.receiveUser;
     this.socket.on('messages', (inboundMessage) => {
-      that.props.newMessage(inboundMessage);
+      console.log('inboundMessage ', inboundMessage);
+      this.props.newMessage(inboundMessage);
     });
-    this.socket.emit('fetchMessages', this.state.receiveUser);
   }
 
   handleOnChange(e) {
-    this.setState({ input: e.target.value });
+    this.setState({ text: e.target.value });
   }
 
   handleOnSubmit(e) {
     e.preventDefault();
-    this.socket.emit('sendMessages', { text: this.state.input });
-    this.setState({ input: '' });
+    this.socket.emit('sendMessages', this.state);
+    this.setState({ text: '' });
   }
 
   render() {
     const { messageArray } = this.props.messages;
+    const messages = messageArray.map((message, i) => {
+      const receivedUser = message.receive_id === this.props.profile.profileId;
+      if (receivedUser) {
+        return (
+          <li className="chatting-li" key={i}>
+            <div className='chatting-li-right'>
+              <span className="comment-combined">
+                {message.text} &nbsp;
+                <strong>{ this.props.profile.sendUserInfo.first }</strong>
+              </span>
+              <img src={ this.props.profile.sendUserInfo.photo } className="comments-icon" />
+            </div>
+          </li>
+        );
+      } else {
+        return (
+          <li className="chatting-li" key={i}>
+            <div className='chatting-li-left'>
+              <img src={ this.props.profile.profileUrl } className="comments-icon" />
+              <span className="comment-combined">
+                <strong>{ this.props.profile.profileInfo }</strong> &nbsp;
+                {message.text}
+              </span>
+            </div>
+          </li>
+        );
+      }
+    });
     return (
-      <div className="comments-component">
-        <h3>Messages:</h3>
-        { messageArray.map((message, i) => {
-          return (
-            <p key={i}>{ message.text }</p>
-          );
-        })}
-        <form onSubmit={this.handleOnSubmit.bind(this)}>
-          <input type="text" value={this.state.input} onChange={this.handleOnChange.bind(this)}/>
-          <button type="submit" onClick={this.handleOnSubmit.bind(this)}>Submit</button>
+      <div className="chat-component">
+        <div>
+          <ul className="chatting-Ul">
+            { messages }
+          </ul>
+        </div>
+        <form onSubmit={this.handleOnSubmit.bind(this)} className="comments-form">
+          <input placeholder="What SUP!..." type="text" value={this.state.text} onChange={this.handleOnChange.bind(this)} className="comments-input"/>
+          <span className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleOnSubmit.bind(this)}></span>
         </form>
       </div>
     );

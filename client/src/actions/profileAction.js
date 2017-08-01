@@ -46,3 +46,30 @@ export const profileIsFetched = (boolean) => {
     payload: boolean
   };
 };
+
+export const setUserProfile = (url, first) => {
+  return {
+    type: 'SET_USER_PROFILE_PIC',
+    payload: {
+      url,
+      first
+    }
+  };
+};
+
+export const setSendUserProfile = (userId) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.get(`/api/profilepage/${userId}`)
+      .then(res => {
+        resolve(res.data.profile);
+      })
+      .catch(err => {
+        console.log(err); 
+      });
+  });
+
+  return {
+    type: 'SET_SEND_PROFILE',
+    payload: data
+  };
+};
