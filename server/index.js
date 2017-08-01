@@ -25,12 +25,15 @@ const io = require('socket.io').listen(server);
 let messages = {};
 let sendUser, receiveUser;
 io.sockets.on('connection', function(socket) {
+
   console.log('a user has connected');
 
   socket.on('fetchMessages', (obj) => {
     // go to database
     let { send_id, receive_id } = obj;
-    let combineId = `${send_id}` + `${receive_id}`;
+
+    let combineId = send_id < receive_id ? `${send_id}` + `${receive_id}` : `${receive_id}` + `${send_id}`;
+
     controllers.Chats.fetchMessages(obj)
       .then(data => {
         messages[combineId] = data;
@@ -45,7 +48,9 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('sendMessages', (obj) => {
     let { send_id, receive_id } = obj;
-    let combineId = `${send_id}` + `${receive_id}`;
+
+    let combineId = send_id < receive_id ? `${send_id}` + `${receive_id}` : `${receive_id}` + `${send_id}`;
+    
     controllers.Chats.saveMessages(obj);
     // messages.push(obj);
     // io.emit('messages', obj);
