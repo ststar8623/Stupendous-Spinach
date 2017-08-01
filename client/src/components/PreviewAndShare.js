@@ -16,10 +16,6 @@ class PreviewAndShare extends Component {
       captionText: '',
       uploading: false
     };
-  
-    this.handleCaptionSubmit = this.handleCaptionSubmit.bind(this);
-    this.handleCaptionChange = this.handleCaptionChange.bind(this);
-    this.handleShareChange = this.handleShareChange.bind(this);
   }
 
   componentWillMount() {
@@ -81,10 +77,22 @@ class PreviewAndShare extends Component {
             <li><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} /><span>Share with everyone</span></li>
             <li><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} /><span>Share with friends only</span></li>
           </ul>
-          <form className="comments-form" onSubmit={this.handleCaptionSubmit}>
+          <form role="form" onSubmit={this.handleCaptionSubmit.bind(this)}className="comments-form">
+            <div className="row">
+              <div className="col-xs-12">
+                <div className="input-group input-group-lg">
+                  <input type="text" className="form-control input-lg" placeholder="Write a caption..." value={this.state.text} onChange={this.handleCaptionChange.bind(this)}/>
+                  <span className="input-group-btn">
+                    <button className="btn btn-default btn-lg" type="submit" onClick={this.handleCaptionSubmit.bind(this)}>Send</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </form>
+          {/* <form className="comments-form" onSubmit={this.handleCaptionSubmit}>
             <input className="comments-input" type="text" placeholder="Add a caption..." onChange={this.handleCaptionChange} />
             <span className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleCaptionSubmit} ></span>
-          </form>
+          </form> */}
         </div>
       );
     }

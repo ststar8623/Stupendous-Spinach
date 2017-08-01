@@ -88,7 +88,7 @@ class Profile extends Component {
       <div>
         { 
           this.state.url ? 
-            <div>
+            <div className="profile-component">
               <div className='profile-profile'>
                 <div className='round'>
                   <img className='profilePic' src={ this.state.url } /> 

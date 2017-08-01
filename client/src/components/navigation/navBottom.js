@@ -11,11 +11,13 @@ class NavigationBar extends Component {
     const chatOpacity = url === 'rooms' ? 'glyphicon glyphicon-envelope' : 'glyphicon glyphicon-envelope button-opacity';
     return (
       <nav className="navbar navbar-default navbar-fixed-bottom">
-        <div className="container navbar-container">
-          <Camera />
-          <Link to="/"><span className={ nearbyOpacity } aria-hidden="true"></span></Link>
-          <Link to="/googleMap"><span className={ mapOpacity } aria-hidden="true"></span></Link>
-          <Link to="/rooms"><span className={ chatOpacity }></span></Link>
+        <div className="container-fluid">
+          <div className="navbar-header justify-content">
+            <Camera />
+            <Link to="/"><span className={ nearbyOpacity } aria-hidden="true"></span></Link>
+            <Link to="/googleMap"><span className={ mapOpacity } aria-hidden="true"></span></Link>
+            <Link to="/rooms"><span className={ chatOpacity }></span></Link>
+          </div>
         </div>
       </nav>
     );

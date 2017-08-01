@@ -14,6 +14,7 @@ class Chat extends Component {
       receive_id: null
     };
     this.socket = io.connect(window.location.hostname);
+    // this.socket = io.connect('localhost:3000');
     this.handleMessageEvent = this.handleMessageEvent.bind(this);
   }
 
@@ -83,10 +84,22 @@ class Chat extends Component {
             { messages }
           </ul>
         </div>
-        <form onSubmit={this.handleOnSubmit.bind(this)} className="comments-form">
+        <form role="form" onSubmit={this.handleOnSubmit.bind(this)}className="comments-form">
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="input-group input-group-lg">
+                <input type="text" className="form-control input-lg" placeholder="Write a message..." value={this.state.text} onChange={this.handleOnChange.bind(this)}/>
+                <span className="input-group-btn">
+                  <button className="btn btn-default btn-lg" type="submit" onClick={this.handleOnSubmit.bind(this)}>Send</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+        {/* <form onSubmit={this.handleOnSubmit.bind(this)} className="comments-form">
           <input placeholder="What SUP!..." type="text" value={this.state.text} onChange={this.handleOnChange.bind(this)} className="comments-input"/>
           <span className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleOnSubmit.bind(this)}></span>
-        </form>
+        </form> */}
       </div>
     );
   }
