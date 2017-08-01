@@ -176,10 +176,6 @@ a:hover {
   margin: 10px 0;
 }
 
-.floatRight {
-  float: right;
-}
-
 .comments-profile {
   font-size: 14px;
   margin: 0 15px 0 5px;
@@ -421,7 +417,27 @@ a:hover {
 /* CHAT COMPONENT  */
 
 .chat-component {
+  /* margin: 50px 0; */
+}
+
+.chatting-Ul {
+  list-style-type: none;
+  display: inline-grid;
+  width: 100%;
+  padding: 0 25px;
   margin: 50px 0;
+}
+
+/* .chatting-li {
+  border-bottom: 1px solid grey;
+} */
+
+.chatting-li-left {
+  float: left;
+}
+
+.chatting-li-right {
+  float: right;
 }
 
 /*------------------------------*/

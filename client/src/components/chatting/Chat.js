@@ -10,8 +10,8 @@ class Chat extends Component {
     super(props);
     this.state = {
       text: '',
-      sendId: null,
-      receiveId: null
+      send_id: null,
+      receive_id: null
     };
     this.socket = io.connect('http://localhost:3000');
     this.handleMessageEvent = this.handleMessageEvent.bind(this);
@@ -21,8 +21,8 @@ class Chat extends Component {
     this.props.urlAction('chat');
     let userId = parseInt(document.getElementById('userID').innerHTML);
     this.setState({
-      sendId: userId,
-      receiveId: this.props.profile.profileId
+      send_id: userId,
+      receive_id: this.props.profile.profileId
     }, () => {
       this.socket.emit('fetchMessages', this.state);
     });
@@ -49,24 +49,37 @@ class Chat extends Component {
   render() {
     const { messageArray } = this.props.messages;
     const messages = messageArray.map((message, i) => {
-      const receivedUser = message.receive_id === this.props.profileId;
-
-      return (
-        <li className={receivedUser ? 'comments-li floatRight' : 'comments-li'} key={i}>
-          <div>
-            <img src={receivedUser ? message.receive_photo : message.send_photo} className="comments-icon" />
-            <span className="comment-combined">
-              <strong>{receivedUser ? message.receive_first : message.send_first}</strong> &nbsp;
-              {message.text}
-            </span>
-          </div>
-        </li>
-      );
+      const receivedUser = message.receive_id === this.props.profile.profileId;
+      if (receivedUser) {
+        return (
+          <li className="chatting-li" key={i}>
+            <div className='chatting-li-right'>
+              <span className="comment-combined">
+                {message.text} &nbsp;
+                <strong>{ this.props.profile.sendUserInfo.first }</strong>
+              </span>
+              <img src={ this.props.profile.sendUserInfo.photo } className="comments-icon" />
+            </div>
+          </li>
+        );
+      } else {
+        return (
+          <li className="chatting-li" key={i}>
+            <div className='chatting-li-left'>
+              <img src={ this.props.profile.profileUrl } className="comments-icon" />
+              <span className="comment-combined">
+                <strong>{ this.props.profile.profileInfo }</strong> &nbsp;
+                {message.text}
+              </span>
+            </div>
+          </li>
+        );
+      }
     });
     return (
       <div className="chat-component">
         <div>
-          <ul className="comments-Ul">
+          <ul className="chatting-Ul">
             { messages }
           </ul>
         </div>
@@ -82,7 +95,7 @@ class Chat extends Component {
 const mapStateToProps = (state) => {
   return {
     messages: state.messages,
-    receiveUser: state.profile.profileUrl
+    profile: state.profile
   };
 };
 

@@ -2,16 +2,16 @@ const models = require('../../db/models');
 const utils = require('./lib/utils.js');
 const knex = require('../../db/knex.js');
 
-module.exports.saveMessages = ({ text, sendId, receiveId }) => {
-  return models.Chats.ChatsQueries.saveMessages(text, sendId, receiveId)
+module.exports.saveMessages = ({ text, send_id, receive_id }) => {
+  return models.Chats.ChatsQueries.saveMessages(text, send_id, receive_id)
     .then(data => {
       console.log('Message saved');
     });
 };
 
-module.exports.fetchMessages = ({ sendId, receiveId }) => {
+module.exports.fetchMessages = ({ send_id, receive_id }) => {
 
-  return models.Chats.ChatsQueries.fetchMessages(sendId, receiveId)
+  return models.Chats.ChatsQueries.fetchMessages(send_id, receive_id)
     .then((data) => {
       return data.rows;
     });

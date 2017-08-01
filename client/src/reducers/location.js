@@ -5,6 +5,7 @@ const location = (state = {
   // console.log(action);
   switch (action.type) {
   case 'GET_LOCATION':
+    console.log('action ', action.payload);
     return {
       ...state, 
       latitude: action.payload.coords.latitude,

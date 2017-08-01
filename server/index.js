@@ -32,7 +32,6 @@ io.sockets.on('connection', function(socket) {
     console.log('this. state ', obj);
     controllers.Chats.fetchMessages(obj)
       .then(data => {
-        // sendUser = data.
         messages = data;
         // io.emit('messages', messages);
       })
