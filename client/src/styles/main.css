@@ -176,6 +176,10 @@ a:hover {
   margin: 10px 0;
 }
 
+.floatRight {
+  float: right;
+}
+
 .comments-profile {
   font-size: 14px;
   margin: 0 15px 0 5px;
@@ -414,6 +418,14 @@ a:hover {
 }
 /*------------------------------*/
 
+/* CHAT COMPONENT  */
+
+.chat-component {
+  margin: 50px 0;
+}
+
+/*------------------------------*/
+
 .carousel{
   width: 100%;
   height: 50vh;
@@ -505,13 +517,6 @@ a:hover {
 
 .image {
   position: absolute;
-}
-
-/* MEDIA QUERY  */
-@media only screen and (mid-width: 959px) {
-  .photoCard-container {
-    padding: 0 3%;
-  }
 }
 
 .scale-leave.scale-leave-active {

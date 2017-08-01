@@ -2,6 +2,7 @@ export default function profile(state = {
   profilePhotos: null,
   profileInfo: null,
   profileId: null,
+  profileUrl: null,
   profileIsFetched: false
 }, action) {
   switch (action.type) {
@@ -25,6 +26,11 @@ export default function profile(state = {
     return {
       ...state,
       profileIsFetched: false
+    }
+  case 'SET_USER_PROFILE_PIC':
+    return {
+      ...state,
+      profileUrl: action.payload
     }
   default:
     return state;

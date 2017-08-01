@@ -9,56 +9,70 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
-      sendUser: null,
-      receiveUser: null
+      text: '',
+      sendId: null,
+      receiveId: null
     };
-    this.socket = io.connect(`${location.protocol}`);
+    this.socket = io.connect('http://localhost:3000');
     this.handleMessageEvent = this.handleMessageEvent.bind(this);
   }
 
   componentWillMount() {
     this.props.urlAction('chat');
-    let logedUser = parseInt(document.getElementById('userID').innerHTML);
+    let userId = parseInt(document.getElementById('userID').innerHTML);
     this.setState({
-      sendUser: logedUser,
-      receiveUser: this.props.profile.profileId
+      sendId: userId,
+      receiveId: this.props.profile.profileId
+    }, () => {
+      this.socket.emit('fetchMessages', this.state);
     });
     this.handleMessageEvent();
   }
 
   handleMessageEvent() {
-    let that = this;
-    let room = this.state.sendUser + '' + this.state.receiveUser;
     this.socket.on('messages', (inboundMessage) => {
-      that.props.newMessage(inboundMessage);
+      console.log('inboundMessage ', inboundMessage);
+      this.props.newMessage(inboundMessage);
     });
-    this.socket.emit('fetchMessages', this.state.receiveUser);
   }
 
   handleOnChange(e) {
-    this.setState({ input: e.target.value });
+    this.setState({ text: e.target.value });
   }
 
   handleOnSubmit(e) {
     e.preventDefault();
-    this.socket.emit('sendMessages', { text: this.state.input });
-    this.setState({ input: '' });
+    this.socket.emit('sendMessages', this.state);
+    this.setState({ text: '' });
   }
 
   render() {
     const { messageArray } = this.props.messages;
+    const messages = messageArray.map((message, i) => {
+      const receivedUser = message.receive_id === this.props.profileId;
+
+      return (
+        <li className={receivedUser ? 'comments-li floatRight' : 'comments-li'} key={i}>
+          <div>
+            <img src={receivedUser ? message.receive_photo : message.send_photo} className="comments-icon" />
+            <span className="comment-combined">
+              <strong>{receivedUser ? message.receive_first : message.send_first}</strong> &nbsp;
+              {message.text}
+            </span>
+          </div>
+        </li>
+      );
+    });
     return (
-      <div className="comments-component">
-        <h3>Messages:</h3>
-        { messageArray.map((message, i) => {
-          return (
-            <p key={i}>{ message.text }</p>
-          );
-        })}
-        <form onSubmit={this.handleOnSubmit.bind(this)}>
-          <input type="text" value={this.state.input} onChange={this.handleOnChange.bind(this)}/>
-          <button type="submit" onClick={this.handleOnSubmit.bind(this)}>Submit</button>
+      <div className="chat-component">
+        <div>
+          <ul className="comments-Ul">
+            { messages }
+          </ul>
+        </div>
+        <form onSubmit={this.handleOnSubmit.bind(this)} className="comments-form">
+          <input placeholder="What SUP!..." type="text" value={this.state.text} onChange={this.handleOnChange.bind(this)} className="comments-input"/>
+          <span className="comments-button glyphicon glyphicon-ok" type="submit" onClick={this.handleOnSubmit.bind(this)}></span>
         </form>
       </div>
     );
@@ -68,7 +82,7 @@ class Chat extends Component {
 const mapStateToProps = (state) => {
   return {
     messages: state.messages,
-    profile: state.profile
+    receiveUser: state.profile.profileUrl
   };
 };
 

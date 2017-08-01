@@ -46,3 +46,10 @@ export const profileIsFetched = (boolean) => {
     payload: boolean
   };
 };
+
+export const setUserProfilePic = (url) => {
+  return {
+    type: 'SET_USER_PROFILE_PIC',
+    payload: url
+  };
+};

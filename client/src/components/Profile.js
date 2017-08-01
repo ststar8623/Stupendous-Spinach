@@ -8,7 +8,7 @@ import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router';
 import Carousel from './Carousel';
-import { setUserId } from '../actions/profileAction';
+import { setUserId, setUserProfilePic } from '../actions/profileAction';
 
 class Profile extends Component {
   constructor(props) {
@@ -34,6 +34,7 @@ class Profile extends Component {
         following: profile.profile.following_count,
         userId: profile.profile.id
       }, ()=>{
+        this.props.setUserProfilePic(this.state.url);
         this.props.getPhotosOfUser(this.state.userId);
       });
       this.props.setUserId(profile.profile.id);
@@ -136,17 +137,13 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    photoArray: state.photoArray,
-    currentPhoto: state.currentPhoto.current,
-    isFetched: state.currentPhoto.isFetched,
     url: state.url,
     mapPhoto: state.mapPhoto,
-    location: state.location
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser, setUserId }, dispatch);
+  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser,setUserId, setUserProfilePic }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -6,7 +6,3 @@ export const newMessage = (data) => {
     payload: data
   };
 };
-
-export const createMessage = (data) => {
-
-};

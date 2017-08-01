@@ -5,3 +5,4 @@ module.exports.Comment = require('./comments');
 module.exports.Like = require('./likes');
 module.exports.Friend = require('./friends');
 module.exports.Follower = require('./followers');
+module.exports.Chats = require('./chats');
