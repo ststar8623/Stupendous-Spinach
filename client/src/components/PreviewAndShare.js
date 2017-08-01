@@ -73,10 +73,14 @@ class PreviewAndShare extends Component {
           <div className="preview-div">
             <img src={this.props.url.preview} className='preview-image'/>
           </div>
-          <ul className="preview-share-ul">
-            <li><input type="radio" name="share-selection" value="everyone" onChange={this.handleShareChange} checked={this.state.shareSelection === 'everyone'} /><span>Share with everyone</span></li>
-            <li><input type="radio" name="share-selection" value="friends" onChange={this.handleShareChange} checked={this.state.shareSelection === 'friends'} /><span>Share with friends only</span></li>
-          </ul>
+          <div className="btn-group" data-toggle="buttons">
+            <label className="btn btn-primary">
+              <input type="radio" value="everyone" id="everyone" checked={this.state.shareSelection === 'everyone'} onChange={this.handleShareChange.bind(this)}autocomplete="off"/>Share with everyone
+            </label>
+            <label className="btn btn-primary">
+              <input type="radio" value="friends" id="friends" checked={this.state.shareSelection === 'friends'} onChange={this.handleShareChange.bind(this)}autocomplete="off"/>Share with friends
+            </label>
+          </div>
           <form role="form" onSubmit={this.handleCaptionSubmit.bind(this)}className="comments-form">
             <div className="row">
               <div className="col-xs-12">

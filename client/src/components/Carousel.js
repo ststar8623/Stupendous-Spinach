@@ -1,17 +1,11 @@
-
 import React, { Component } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-// Change the slide transition type.
 var transition = 'scale';
-// try translate, scale, blur, rotate
-
 var appearTransition = true;
-
 
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
-    
     this.state = {
       counter: props.index
     };    

@@ -17,6 +17,10 @@ a:hover {
   min-height: 40px;
 }
 
+.container > .navbar-header {
+  margin: 0;
+}
+
 .glyphicon {
   font-size: 1.8em;
 }
@@ -24,6 +28,7 @@ a:hover {
 .floatCenter {
   text-align: center;
   margin: 0;
+  width: 100%;
 }
 
 .floatRight {
@@ -225,6 +230,10 @@ a:hover {
   margin-top: 13px;
 }
 
+.btn-primary {
+  margin: 0 3px;
+}
+
 /* ----------------------------------- */
 
 /* PROFILE INSIDE PHOTOCARD SECTION */
@@ -239,6 +248,7 @@ a:hover {
   width: 100%;
   height: 550px;
 }
+
 .preview-div {
   margin-top: 50px;
   text-align: center;
@@ -247,29 +257,20 @@ a:hover {
 }
  
  .preview-image {
-  max-height: 400px;
+  max-height: 500px;
   max-width: 100%;
 }  
 
-.preview-share-ul {
-  list-style-type: none;
-  margin-top: 10px;
-/*  padding: 0;
-*/  font-size: .8em;
-  padding-top: 10px;
-  padding-left: 20px;
+.btn-group {
+  position: fixed;
+  bottom: 45px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
-.preview-share-ul li {
-  margin-left: 10px;
-}
-
-.preview-share-ul span {
-  margin-left: 10px;
-}
-
-.btn-primary {
-  margin: 0 3px;
+.btn-group label {
+  width: 50%;
 }
 
 /* ----------------------------------- */

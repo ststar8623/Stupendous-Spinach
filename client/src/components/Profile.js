@@ -124,7 +124,6 @@ class Profile extends Component {
                   </GoogleMapReact>
                   : <Carousel mapView={this.changeMapViewStat.bind(this)} photos={photos} index={this.state.index} /> 
                 }
-                
               </div>
             </div>
           
