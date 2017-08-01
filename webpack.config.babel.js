@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const config = {
   devtool: '#eval-source-map',
@@ -9,7 +10,8 @@ const config = {
     filename: 'bundle.js'
   },
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new BundleAnalyzerPlugin()
     // new webpack.DefinePlugin({
     //   'process.env': {
     //     NODE_ENV: JSON.stringify('development')
