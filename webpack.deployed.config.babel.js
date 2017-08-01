@@ -10,12 +10,12 @@ const config = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    // new webpack.DefinePlugin({
-    //   'process.env': {
-    //     NODE_ENV: JSON.stringify('development')
-    //   }
-    // }),
-    // new webpack.optimize.UglifyJsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('staging')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
   ],
   module: {
     loaders: [
