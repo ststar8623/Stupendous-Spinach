@@ -1,7 +1,3 @@
-.title {
-  font-family: 'Kaushan Script', cursive;
-}
-
 a {
   color: black;
   text-decoration: none !important;
@@ -12,21 +8,41 @@ a:hover {
 }
 
 /* NAVIGATION TOP AND BOTTOM SECTION */
-.navbar-container {  padding: 0;
+.flashback-title {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 2em;
+}
+
+.navbar-default {
+  min-height: 40px;
+}
+
+.glyphicon {
+  font-size: 1.8em;
+}
+
+.floatCenter {
+  text-align: center;
+  margin: 0;
+}
+
+.floatRight {
+  float: right;
+  margin: 7px 10px 0 0;
+  width: 100%;
+}
+
+.floatLeft {
+  float: left;
+  margin: 7px 0 0 10px;
+}
+
+.justify-content {
   display: flex;
   justify-content: space-around;
-  border-bottom: 1px solid lightgrey;
-  border-top: 1px solid lightgrey;
-}
-
-.navbar {
-  border-color: white;
-  min-height: 0;
-}
-
-.icon-button {
-  font-size: 22px;
-  margin-top: 3%; 
+  margin-top: 5px;
+  padding: 0;
+  width: 100%;
 }
 
 .button-opacity {
@@ -35,12 +51,14 @@ a:hover {
 /* ----------------------------------- */
 
 /* NEARBY COMPONENT */
-.photoCard-container {
-  margin: 10% -1%;
-  overflow: auto;
-  display: flex;
-  justify-content: space-around;
-  
+.nearbyComponent {
+  margin: 50px 0;
+  width: 100%;
+}
+
+.img-rounded {
+  font-size: 16px;
+  padding: 0;
 }
 
 .h4-heading {
@@ -51,10 +69,6 @@ a:hover {
 /* ----------------------------------- */
 
 /* NEARBY PHOTOCARD COMPONENT */
-.img-rounded {
-  font-size: 16px;
-}
-
 .img-thumbnail {
   padding: 0px;
 }
@@ -192,32 +206,11 @@ a:hover {
 .comments-form {
   position: fixed;
   bottom: 0;
-  width: 100%;
-  border-top: 1px solid grey;
-  padding: 0px;
-  margin: 0px;
 }
 
-.comments-input {
-  width: 90%;
-  float: left;
-  border: none;
-  padding: 10px;
-  font-size: 20px;
-}
-
-.comments-input:focus {
+.input-lg:focus {
   outline: none;
 }
-
-.comments-button {
-  display: inline-block;
-  font-size: 0.7em;
-  background-color: white;
-  width: 10%;
-  padding: 13px;
-}
-
 
 .comments-icon {
   border-radius: 50%;
@@ -273,6 +266,10 @@ a:hover {
 
 .preview-share-ul span {
   margin-left: 10px;
+}
+
+.btn-primary {
+  margin: 0 3px;
 }
 
 /* ----------------------------------- */
@@ -343,6 +340,10 @@ a:hover {
 /* ----------------------------------- */
 
 /* PROFILE SECTION */
+.profile-component {
+  font-size: 2em;
+}
+
 .profile-profile {
   font-size: 14px; 
   margin: 20% 0 10%; 
