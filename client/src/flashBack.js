@@ -26,8 +26,6 @@ store.dispatch(() => {
   firstLoad;
 });
 
-console.log(store);
-
 const router = (
   <Provider store={store}>
     <Router history={history}>
