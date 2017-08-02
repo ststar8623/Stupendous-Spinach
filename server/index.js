@@ -14,48 +14,33 @@ const server = app.listen(PORT, () => {
 
 const io = require('socket.io').listen(server);
 
-// module.exports = io;
-// let sockets = {};
-
-// let messages = [{text: 'hi'}, {text: 'this is socket io'}, {text: 'how can i help u'}];
-// var sendMessages = (socket) => {
-//   socket.emit('messages', messages);
-// };
-
-let messages = {};
-let sendUser, receiveUser;
+let users = {};
+let messages = [];
 io.sockets.on('connection', function(socket) {
-
   console.log('a user has connected');
 
-  socket.on('fetchMessages', (obj) => {
-    // go to database
-    let { send_id, receive_id } = obj;
+  socket.on('join room', (data) => {
+    socket.join(data);
+    console.log('joined room ' + data);
+  });
 
-    let combineId = send_id < receive_id ? `${send_id}` + `${receive_id}` : `${receive_id}` + `${send_id}`;
+  socket.on('fetchMessages', (obj) => {
+    let { user_id, receive_id } = obj;
 
     controllers.Chats.fetchMessages(obj)
       .then(data => {
-        messages[combineId] = data;
-        // io.emit('messages', messages);
+        messages = data;
       })
       .then(() => {
-        io.emit('messages', messages[combineId]);
+        io.emit('messages', messages);
       });
-    // get all message between users
-    // and send it back to client
   });
 
   socket.on('sendMessages', (obj) => {
-    let { send_id, receive_id } = obj;
-
-    let combineId = send_id < receive_id ? `${send_id}` + `${receive_id}` : `${receive_id}` + `${send_id}`;
-    
+    let { user_id, receive_id } = obj;
     controllers.Chats.saveMessages(obj);
-    // messages.push(obj);
-    // io.emit('messages', obj);
-    messages[combineId].push(obj);
-    io.emit('messages', messages[combineId]);
+    messages.push(obj);
+
+    io.emit('messages', messages);
   });
 });
-

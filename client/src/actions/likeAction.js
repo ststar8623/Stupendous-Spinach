@@ -48,6 +48,7 @@ export const decrementComment = (index, commentId, callback) => {
       .then(res => {
         console.log('Successfully decrement comments');
         callback();
+        resolve(res.data);
       })
       .catch(err => {
         console.log(err); 
