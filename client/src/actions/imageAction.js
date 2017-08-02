@@ -62,6 +62,39 @@ export const selectOnePhotoFromRadius = (photo) => {
   };
 };
 
+export const getPhotosOfUser = (userId, callback) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.get(`/api/profilePhotos/${userId}`)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        console.log(err); 
+      });
+  });
+
+  return {
+    type: 'ALL_PHOTO_FROM_USER',
+    payload: data
+  };
+};
+
+export const viewProfile = (userId, callback) => {
+  let data = new Promise((resolve, reject) => {
+    return axios.get(`/api/profilepage/${userId}`)
+      .then(res => {
+        callback(res.data);
+      })
+      .catch(err => {
+        console.log(err); 
+      });
+  });
+  return {
+    type: 'VIEW_PROFILE',
+    userId
+  };
+};
+
 export const imageIsFetched = (boolean) => {
   return {
     type: 'IMAGE_ISFETCHED',
@@ -79,6 +112,13 @@ export const currentIsFetched = (boolean) => {
 export const mapPhotoIsFetched = (boolean) => {
   return {
     type: 'MAP_PHOTO_ISFETCHED',
+    payload: boolean
+  };
+};
+
+export const oneUserPhotoIsFetched = (boolean) => {
+  return {
+    type: 'ONE_USER_PHOTO_ISFETCHED',
     payload: boolean
   };
 };

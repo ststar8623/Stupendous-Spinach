@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Promise from 'bluebird';
+import { asyncComponent } from './components/AsyncComponent';
 
 // import components
 import Main from './components/Main';
@@ -13,6 +13,11 @@ import GoogleMapPhotoCard from './components/googleMap/GoogleMapPhotoCard';
 import Profile from './components/Profile';
 import Chat from './components/chatting/Chat';
 import Rooms from './components/chatting/Rooms';
+
+// import async components
+// const AsyncHome = asyncComponent(() => {
+//   return imp('./components/Main')
+// });
 
 // import react router
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';

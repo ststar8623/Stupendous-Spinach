@@ -60,36 +60,3 @@ export const decrementComment = (index, commentId, callback) => {
     index
   };
 };
-
-export const getPhotosOfUser = (userId, callback) => {
-  let data = new Promise((resolve, reject) => {
-    return axios.get(`/api/profilePhotos/${userId}`)
-      .then(res => {
-        resolve(res.data);
-      })
-      .catch(err => {
-        console.log(err); 
-      });
-  });
-
-  return {
-    type: 'ONE_PHOTO_FROM_RADIUS',
-    payload: data
-  };
-};
-
-export const viewProfile = (userId, callback) => {
-  let data = new Promise((resolve, reject) => {
-    return axios.get(`/api/profilepage/${userId}`)
-      .then(res => {
-        callback(res.data);
-      })
-      .catch(err => {
-        console.log(err); 
-      });
-  });
-  return {
-    type: 'VIEW_PROFILE',
-    userId
-  };
-};

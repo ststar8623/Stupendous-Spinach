@@ -76,6 +76,7 @@ a:hover {
 /* NEARBY PHOTOCARD COMPONENT */
 .img-thumbnail {
   padding: 0px;
+  border-radius: 0 25px;
 }
 
 .fb-icon {
@@ -300,8 +301,6 @@ a:hover {
 
 .mapPhotoCard-container {
   margin: 13% 0 0;
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
 }
 
 .photoCard-div {
@@ -347,9 +346,14 @@ a:hover {
   font-size: 2em;
 }
 
+.mapPhotoCard-profile-container {
+  margin: 100px 0;
+  padding: 0;
+}
+
 .profile-profile {
   font-size: 14px; 
-  margin: 70px 0 20px; 
+  margin: 70px 0 0; 
 }
 
 .round {

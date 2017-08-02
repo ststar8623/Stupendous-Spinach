@@ -1,9 +1,11 @@
 export default function mapPhoto(state = {
   allPhotoFromRadius: [],
+  allPhotoFromUser: [],
   somePhotoFromRadius: [],
-  onePhotoFromRadius: null,
+  onePhotoFromRadius: [],
   currentSelectedIndex: null,
-  isFetched: false
+  isFetched: false,
+  oneUserPhotoIsFetched: false
 }, action) {
   switch (action.type) {
   case 'FETCH_PHOTO_FROM_RADIUS':
@@ -26,6 +28,17 @@ export default function mapPhoto(state = {
     return {
       ...state,
       isFetched: true
+    }
+  case 'ONE_USER_PHOTO_ISFETCHED':
+    return {
+      ...state,
+      oneUserPhotoIsFetched: action.payload
+    }
+  case 'ALL_PHOTO_FROM_USER':
+    return {
+      ...state,
+      allPhotoFromUser: action.payload,
+      oneUserPhotoIsFetched: true
     }
   default:
     return state;
