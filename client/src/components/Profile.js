@@ -98,22 +98,21 @@ class Profile extends Component {
                   { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
                   { this.state.isMyProfile ? '' : <Link to="/chat"><p className="btn btn-primary btn-xs">Message</p></Link>}
                 </div>
-              </div>
-              
-              <div className='followDataContainer'>
-                <div className='col-xs-4'> 
-                  <div className='num text-center'> {this.state.followers}</div>
-                  <div className='letters text-center'> followers </div>
-                </div>
+                <div className='followDataContainer'>
+                  <div className='col-xs-4'> 
+                    <div className='num text-center'> {this.state.followers}</div>
+                    <div className='letters text-center'> followers </div>
+                  </div>
 
-                <div className='col-xs-4'> 
-                  <div className='num text-center'> {this.state.following}</div>
-                  <div className='letters text-center'> following </div>
-                </div>
+                  <div className='col-xs-4'> 
+                    <div className='num text-center'> {this.state.following}</div>
+                    <div className='letters text-center'> following </div>
+                  </div>
 
-                <div className='col-xs-4'> 
-                  <div className='num text-center'> {this.state.posts}</div>
-                  <div className='letters text-center'> posts </div>
+                  <div className='col-xs-4'> 
+                    <div className='num text-center'> {this.state.posts}</div>
+                    <div className='letters text-center'> posts </div>
+                  </div>
                 </div>
               </div>
 

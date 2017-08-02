@@ -16,7 +16,7 @@ class NavigationBar extends Component {
             <Camera />
             <Link to="/"><span className={ nearbyOpacity } aria-hidden="true"></span></Link>
             <Link to="/googleMap"><span className={ mapOpacity } aria-hidden="true"></span></Link>
-            <Link to="/rooms"><span className={ chatOpacity }></span></Link>
+            {/* <Link to="/rooms"><span className={ chatOpacity }></span></Link> */}
           </div>
         </div>
       </nav>

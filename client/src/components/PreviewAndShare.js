@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 
+
+
 class PreviewAndShare extends Component {
   constructor() {
     super();
@@ -73,14 +75,14 @@ class PreviewAndShare extends Component {
           <div className="preview-div">
             <img src={this.props.url.preview} className='preview-image'/>
           </div>
-          <div className="btn-group" data-toggle="buttons">
+          {/* <div className="btn-group" data-toggle="buttons">
             <label className="btn btn-primary">
               <input type="radio" value="everyone" id="everyone" checked={this.state.shareSelection === 'everyone'} onChange={this.handleShareChange.bind(this)}autocomplete="off"/>Share with everyone
             </label>
             <label className="btn btn-primary">
               <input type="radio" value="friends" id="friends" checked={this.state.shareSelection === 'friends'} onChange={this.handleShareChange.bind(this)}autocomplete="off"/>Share with friends
             </label>
-          </div>
+          </div> */}
           <form role="form" onSubmit={this.handleCaptionSubmit.bind(this)}className="comments-form">
             <div className="row">
               <div className="col-xs-12">

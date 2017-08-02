@@ -14,11 +14,11 @@ a:hover {
 }
 
 .navbar-default {
-  min-height: 40px;
+  min-height: 50px;
 }
 
 .container > .navbar-header {
-  margin: 0;
+  margin: 5px 0;
 }
 
 .glyphicon {
@@ -27,7 +27,7 @@ a:hover {
 
 .floatCenter {
   text-align: center;
-  margin: 0;
+  margin: 5px 0;
   width: 100%;
 }
 
@@ -45,7 +45,7 @@ a:hover {
 .justify-content {
   display: flex;
   justify-content: space-around;
-  margin-top: 5px;
+  margin-top: 10px;
   padding: 0;
   width: 100%;
 }
@@ -89,6 +89,7 @@ a:hover {
 /* LIKE CAPTION COMMENT DIV FROM PHOTOCARD SECTION */
 .likeCaptionComment {
   padding: 15px 15px 30px;
+  background: white;
 }
 /* ----------------------------------- */
 
@@ -250,7 +251,7 @@ a:hover {
 }
 
 .preview-div {
-  margin-top: 50px;
+  margin-top: 70px;
   text-align: center;
   height: 400px;
   width: auto;
@@ -347,7 +348,7 @@ a:hover {
 
 .profile-profile {
   font-size: 14px; 
-  margin: 20% 0 10%; 
+  margin: 100px 0 20px; 
 }
 
 .round {
@@ -380,11 +381,8 @@ a:hover {
 }
 
 .followDataContainer {
-  width: 100%;
-  height: auto;
-  margin: 10px auto; 
-  clear: both;
-  font-size: .6em;
+  margin-top: 20px;
+  font-size: 18px;
 }
 
 .col-xs-4{
@@ -394,6 +392,8 @@ a:hover {
 .letters {
   color: grey;
   font-weight: lighter;
+  border-bottom: 1px solid lightgreen;
+  padding-bottom: 5px;
 }
 
 .num {
@@ -402,10 +402,9 @@ a:hover {
 }
 
 .profileMap {
-  height: 450px;
+  height: 350px;
   width: 100%;
- /* margin: 20% auto;*/
-  margin-top: 30%;
+  margin: 20% auto;
   margin-bottom: 0px;
 }
 
@@ -417,11 +416,6 @@ a:hover {
 /*------------------------------*/
 
 /* CHAT COMPONENT  */
-
-.chat-component {
-  /* margin: 50px 0; */
-}
-
 .chatting-Ul {
   list-style-type: none;
   display: inline-grid;
@@ -429,10 +423,6 @@ a:hover {
   padding: 0 25px;
   margin: 50px 0;
 }
-
-/* .chatting-li {
-  border-bottom: 1px solid grey;
-} */
 
 .chatting-li-left {
   float: left;
