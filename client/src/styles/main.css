@@ -287,6 +287,7 @@ a:hover {
   background-color: #8B74FC;
   color: white;
   font-size: 1.5em;
+  border-radius: 25px;
 }
 
 .show-image-div {
@@ -348,7 +349,7 @@ a:hover {
 
 .profile-profile {
   font-size: 14px; 
-  margin: 100px 0 20px; 
+  margin: 70px 0 20px; 
 }
 
 .round {

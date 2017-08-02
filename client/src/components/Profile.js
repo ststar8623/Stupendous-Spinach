@@ -51,14 +51,8 @@ class Profile extends Component {
   }
   selectedPhotoOnMap(i) {
     this.setState ({
-      index: i
-    });
-    this.changeMapViewStat(false);
-  }
-
-  changeMapViewStat(state) {
-    this.setState ({
-      mapView: state
+      index: i,
+      mapView: !this.state.mapView
     });
   }
 
@@ -85,50 +79,46 @@ class Profile extends Component {
     }
 
     return (
-      <div>
-        { 
-          this.state.url ? 
-            <div className="profile-component">
-              <div className='profile-profile'>
-                <div className='round'>
-                  <img className='profilePic' src={ this.state.url } /> 
-                </div>
-                <div className='text-center'>
-                  <p> {this.state.display} </p>
-                  { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
-                  { this.state.isMyProfile ? '' : <Link to="/chat"><p className="btn btn-primary btn-xs">Message</p></Link>}
-                </div>
-                <div className='followDataContainer'>
-                  <div className='col-xs-4'> 
-                    <div className='num text-center'> {this.state.followers}</div>
-                    <div className='letters text-center'> followers </div>
-                  </div>
-
-                  <div className='col-xs-4'> 
-                    <div className='num text-center'> {this.state.following}</div>
-                    <div className='letters text-center'> following </div>
-                  </div>
-
-                  <div className='col-xs-4'> 
-                    <div className='num text-center'> {this.state.posts}</div>
-                    <div className='letters text-center'> posts </div>
-                  </div>
-                </div>
+      this.state.url ? 
+        <div className="profile-component">
+          <div className='profile-profile'>
+            <div className='round'>
+              <img className='profilePic' src={ this.state.url } /> 
+            </div>
+            <div className='text-center'>
+              <p> {this.state.display} </p>
+              { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
+              { this.state.isMyProfile ? '' : <Link to="/chat"><p className="btn btn-primary btn-xs">Message</p></Link>}
+            </div>
+            <div className='followDataContainer'>
+              <div className='col-xs-4'> 
+                <div className='num text-center'> {this.state.followers}</div>
+                <div className='letters text-center'> followers </div>
               </div>
 
-              <div className='profileMap'>
-                {this.state.mapView ? 
-                  <GoogleMapReact center={currPosition.center} zoom={currPosition.zoom} >
-                    {photosDiv}
-                  </GoogleMapReact>
-                  : <Carousel mapView={this.changeMapViewStat.bind(this)} photos={photos} index={this.state.index} /> 
-                }
+              <div className='col-xs-4'> 
+                <div className='num text-center'> {this.state.following}</div>
+                <div className='letters text-center'> following </div>
+              </div>
+
+              <div className='col-xs-4'> 
+                <div className='num text-center'> {this.state.posts}</div>
+                <div className='letters text-center'> posts </div>
               </div>
             </div>
-          
-            : <Loading />
-        }
-      </div>
+          </div>
+
+          <div className='profileMap'>
+            {/* {this.state.mapView ? 
+              <GoogleMapReact center={currPosition.center} zoom={currPosition.zoom} >
+                {photosDiv} 
+              </GoogleMapReact>
+              : <Carousel mapView={this.changeMapViewStat.bind(this)} photos={photos} index={this.state.index} /> 
+            } */}
+            {photosDiv}
+          </div>
+        </div>
+        : <Loading />
     );
   }
 }
