@@ -5,12 +5,12 @@
     "node": "6.11.1"
   },
   "scripts": {
-    "heroku-postbuild": "webpack --optimize-minimize -p --config ./webpack.config.babel.js --progress",
+    "heroku-postbuild": "webpack --config ./webpack.deploy.config.babel.js",
     "dev-start": "NODE_ENV=development nodemon server",
     "start": "NODE_ENV=staging node server/index.js",
     "jest": "jest",
     "test": "NODE_ENV=test grunt test",
-    "build": "webpack --watch"
+    "build": "webpack --watch --config ./webpack.config.babel.js"
   },
   "author": "Hack Reactor",
   "license": "MIT",
@@ -98,6 +98,7 @@
     "supertest": "^3.0.0",
     "underscore": "^1.8.3",
     "webpack": "^2.3.2",
+    "webpack-bundle-analyzer": "^2.8.3",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-dev-server": "^2.4.2",
     "webpack-hot-middleware": "^2.18.2"

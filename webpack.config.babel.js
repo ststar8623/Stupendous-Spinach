@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const config = {
   devtool: '#eval-source-map',
@@ -10,12 +11,27 @@ const config = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin()
+    // new BundleAnalyzerPlugin(),
     // new webpack.DefinePlugin({
     //   'process.env': {
-    //     NODE_ENV: JSON.stringify('development')
+    //     // NODE_ENV: JSON.stringify('development')
+    //     NODE_ENV: JSON.stringify('production')
     //   }
     // }),
-    // new webpack.optimize.UglifyJsPlugin()
+    // new webpack.optimize.UglifyJsPlugin({
+    //   comments: false,
+    //   compress: {
+    //     unused: true,
+    //     dead_code: true, // big one--strip code that will never execute
+    //     warnings: false, // good for prod apps so users can't peek behind curtain
+    //     drop_debugger: true,
+    //     conditionals: true,
+    //     evaluate: true,
+    //     drop_console: true, // strips console statements
+    //     sequences: true,
+    //     booleans: true,
+    //   }
+    // })
   ],
   module: {
     loaders: [
