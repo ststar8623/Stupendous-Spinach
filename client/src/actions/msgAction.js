@@ -6,3 +6,10 @@ export const newMessage = (data) => {
     payload: data
   };
 };
+
+export const resetMessage = (data) => {
+  return {
+    type: 'RESET_MESSAGE',
+    payload: data
+  };
+};

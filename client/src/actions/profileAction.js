@@ -78,13 +78,12 @@ export const setMyId = () => {
   let data = new Promise((resolve, reject) => {
     return axios.get('/api/whatIsMyID')
       .then((res) => {
-        resolve(res.data.yourID);
+        resolve(res.data.profile);
       })
       .catch(err => {
         console.log(err);
       });
   });
-  console.log(data);
   return {
     type: 'SET_MY_ID',
     payload: data
