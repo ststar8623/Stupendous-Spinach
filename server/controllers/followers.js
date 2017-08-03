@@ -5,13 +5,12 @@ module.exports.addFollower = (userID, followerID) => {
 
   return models.Follower.FollowersQueries.checkIfFollowed(userID, followerID)
   .then((data) => {
-    console.log('data from check if followed', data.rows);
     
     return data.rows.length > 0;
 
   })
   .then((data) => {
-    if (data) {
+    if (!data) {
       return models.Follower.FollowersQueries.addFollower(userID, followerID)
         .then((data) => {
           return models.Follower.FollowersQueries.incrementFollowerCount(userID);

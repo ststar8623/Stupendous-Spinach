@@ -15,14 +15,14 @@ class FollowersQueries {
 
   incrementFollowerCount(userID) {
 
-    let query = `update profiles set follower_count = (follower_count + 1) where id = ${userID}`;
+    let query = `update profiles set following_count = (following_count + 1) where id = ${userID}`;
     
     return knex.raw(query);
   }
 
   incrementFollowingCount(followerID) {
 
-    let query = `update profiles set following_count = (following_count + 1) where id = ${followerID}`;
+    let query = `update profiles set  follower_count = (follower_count + 1) where id = ${followerID}`;
 
     return knex.raw(query);
 

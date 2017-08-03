@@ -26,9 +26,10 @@ class Profile extends Component {
       mapView: true,
       index: null,
       userId: null,
-      followed: false
+      followed: null
     };
     this.props.viewProfile(this.props.params.userId, (profile)=> {
+      console.log('profile ', profile);
       this.setState({
         url: profile.profile.photo,
         isMyProfile: profile.isOwnProfile,
@@ -37,7 +38,7 @@ class Profile extends Component {
         following: profile.profile.following_count,
         userId: profile.profile.id,
         posts: profile.profile.post_count,
-        // followed: profile.profile.isFollowed
+        followed: profile.isFollowed
       }, ()=>{
         this.props.setUserProfile(this.state.url, this.state.display);
         this.props.getPhotosOfUser(this.state.userId);
@@ -72,10 +73,7 @@ class Profile extends Component {
       followers: this.state.followers + 1,
       followed: true
     });
-    axios.put(`/api/addFollower/${this.state.userId}`)
-      .then(() => {
-        console.log(`User has followed ${this.state.display}`);
-      });
+    axios.put(`/api/addFollower/${this.state.userId}`);
   }
 
   unfollowing() {
@@ -83,6 +81,7 @@ class Profile extends Component {
       followers: this.state.followers - 1,
       followed: false
     });
+    axios.put(`/api/removeFollower/${this.state.userId}`);
   }
 
   render() {
@@ -112,7 +111,7 @@ class Profile extends Component {
         </GoogleMapReact> 
       </div>
     ) : '';
-    const followed = this.state.followed ? "btn btn-default btn-xs" : "btn btn-default btn-xs active";
+    const followed = this.state.followed ? "btn btn-primary btn-xs active" : "btn btn-primary btn-xs";
     const followedOrNot = this.state.followed ? this.unfollowing.bind(this) : this.following.bind(this);
     const followingOrNot = this.state.followed ? "Followed" : "Follow";
     return (
