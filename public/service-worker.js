@@ -43,7 +43,7 @@ self.addEventListener('install', (e) => {
 
 
 self.addEventListener('activate', (e) => {
-  console.log('[ServiceWorker] Activated');
+  // console.log('[ServiceWorker] Activated');
   e.waitUntil(caches.keys().then((keyList) => {
     return Promise.all(keyList.map((key) => {
       if (key !== shellCacheName && key !== userDataCacheName && key !== photoCacheName) {
