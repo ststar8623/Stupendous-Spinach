@@ -194,7 +194,6 @@ router.put('/addFollower/:followerID', (req, res) => {
     .catch((error) => {
       res.status(400).send(error);
     });
-
 });
 
 router.put('/removeFollower/:followerID', (req, res) => {

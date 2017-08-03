@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction } from '../actions/imageAction';
@@ -24,9 +25,11 @@ class Profile extends Component {
       isFetched: false,
       mapView: true,
       index: null,
-      userId: null
+      userId: null,
+      followed: null
     };
     this.props.viewProfile(this.props.params.userId, (profile)=> {
+      console.log('profile ', profile);
       this.setState({
         url: profile.profile.photo,
         isMyProfile: profile.isOwnProfile,
@@ -34,7 +37,8 @@ class Profile extends Component {
         followers: profile.profile.follower_count,
         following: profile.profile.following_count,
         userId: profile.profile.id,
-        posts: profile.profile.post_count
+        posts: profile.profile.post_count,
+        followed: profile.isFollowed
       }, ()=>{
         this.props.setUserProfile(this.state.url, this.state.display);
         this.props.getPhotosOfUser(this.state.userId);
@@ -64,6 +68,22 @@ class Profile extends Component {
     this.props.selectPhotoFromProfile(photo);
   }
 
+  following() {
+    this.setState({
+      followers: this.state.followers + 1,
+      followed: true
+    });
+    axios.put(`/api/addFollower/${this.state.userId}`);
+  }
+
+  unfollowing() {
+    this.setState({
+      followers: this.state.followers - 1,
+      followed: false
+    });
+    axios.put(`/api/removeFollower/${this.state.userId}`);
+  }
+
   render() {
     const { allPhotoFromUser, oneUserPhotoIsFetched, oneUserPhoto } = this.props.mapPhoto;
     const photos = allPhotoFromUser.map((photo, i) => {
@@ -91,7 +111,9 @@ class Profile extends Component {
         </GoogleMapReact> 
       </div>
     ) : '';
-
+    const followed = this.state.followed ? "btn btn-primary btn-xs active" : "btn btn-primary btn-xs";
+    const followedOrNot = this.state.followed ? this.unfollowing.bind(this) : this.following.bind(this);
+    const followingOrNot = this.state.followed ? "Followed" : "Follow";
     return (
       oneUserPhotoIsFetched ? 
         <div className="profile-component">
@@ -101,7 +123,7 @@ class Profile extends Component {
             </div>
             <div className='text-center'>
               <p> {this.state.display} </p>
-              { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
+              { this.state.isMyProfile ? '' : <p className={followed} onClick={ followedOrNot }>{followingOrNot}</p> }
               { this.state.isMyProfile ? '' : <Link to="/chat"><p className="btn btn-primary btn-xs">Message</p></Link>}
             </div>
             <div className='followDataContainer'>

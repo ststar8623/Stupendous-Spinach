@@ -17,6 +17,16 @@ a:hover {
   min-height: 50px;
 }
 
+.navbar-fixed-top {
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.navbar-fixed-bottom {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
 .container > .navbar-header {
   margin: 5px 0;
 }
@@ -431,6 +441,11 @@ a:hover {
   height: 60px;
   width: 60px;
   border-radius: 50%;
+}
+
+.active {
+  background: white !important;
+  color: black !important;
 }
 /*------------------------------*/
 
