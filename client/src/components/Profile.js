@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction } from '../actions/imageAction';
-import { viewProfile, getPhotosOfUser, oneUserPhotoIsFetched } from '../actions/imageAction';
+import { viewProfile, getPhotosOfUser, oneUserPhotoIsFetched, selectPhotoFromProfile } from '../actions/imageAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
@@ -50,6 +50,7 @@ class Profile extends Component {
     this.props.urlAction('nearby');
     this.props.oneUserPhotoIsFetched(false);
   }
+
   selectedPhotoOnMap(i) {
     this.setState ({
       index: i,
@@ -57,23 +58,31 @@ class Profile extends Component {
     });
   }
 
-  render() {
-    let currPosition = {
-      center: {lat: this.props.location.latitude, lng: this.props.location.longitude},
-      zoom: 13
-    };
-    let { allPhotoFromUser } = this.props.mapPhoto;
+  showGoogleMap(photo) {
+    this.props.selectPhotoFromProfile(photo);
+  }
 
-    let photos = allPhotoFromUser.map((photo, i) => {
+  render() {
+    const { allPhotoFromUser, oneUserPhotoIsFetched, oneUserPhoto } = this.props.mapPhoto;
+
+    const photos = allPhotoFromUser.map((photo, i) => {
       return (
         <LazyLoad height={50} key={i} className="photoCard-div col-xs-12 col-md-6 col-lg-3">
-          <img className="mapPhotoCard" src={ photo.url }/>
+          <img className="mapPhotoCard" src={ photo.url } onClick={ this.showGoogleMap.bind(this, photo) }/>
         </LazyLoad>
       );
     });
 
+    const enLargeMap = oneUserPhoto ? (
+      <div style={{ height: '300px', width: '100%' }}>
+        <GoogleMapReact style={{ height: '300px', width: '100%' }} center={{ lat: oneUserPhoto.latitude, lng: oneUserPhoto.longitude }} zoom={13}>
+          <div lat={oneUserPhoto.latitude} lng={oneUserPhoto.longitude}></div>
+        </GoogleMapReact> 
+      </div>
+    ) : '';
+
     return (
-      this.props.mapPhoto.oneUserPhotoIsFetched ? 
+      oneUserPhotoIsFetched ? 
         <div className="profile-component">
           <div className='profile-profile'>
             <div className='round'>
@@ -101,6 +110,7 @@ class Profile extends Component {
               </div>
             </div>
           </div>
+          { enLargeMap }
           <div className="container">
             <div className="row">
               <div className="mapPhotoCard-profile-container col-xs-12">
@@ -122,7 +132,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser, setUserId, setUserProfile, oneUserPhotoIsFetched }, dispatch);
+  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser, setUserId, setUserProfile, oneUserPhotoIsFetched, selectPhotoFromProfile }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

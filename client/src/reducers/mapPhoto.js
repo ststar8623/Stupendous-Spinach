@@ -2,8 +2,9 @@ export default function mapPhoto(state = {
   allPhotoFromRadius: [],
   allPhotoFromUser: [],
   somePhotoFromRadius: [],
-  onePhotoFromRadius: [],
+  onePhotoFromRadius: null,
   currentSelectedIndex: null,
+  oneUserPhoto: null,
   isFetched: false,
   oneUserPhotoIsFetched: false
 }, action) {
@@ -39,6 +40,11 @@ export default function mapPhoto(state = {
       ...state,
       allPhotoFromUser: action.payload,
       oneUserPhotoIsFetched: true
+    }
+  case 'SELECT_PHOTO_FROM_PROFILE':
+    return {
+      ...state,
+      oneUserPhoto: action.payload
     }
   default:
     return state;

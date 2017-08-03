@@ -95,6 +95,13 @@ export const viewProfile = (userId, callback) => {
   };
 };
 
+export const selectPhotoFromProfile = (photo) => {
+  return {
+    type: 'SELECT_PHOTO_FROM_PROFILE',
+    payload: photo
+  };
+};
+
 export const imageIsFetched = (boolean) => {
   return {
     type: 'IMAGE_ISFETCHED',
