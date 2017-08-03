@@ -219,4 +219,14 @@ router.post('/cluster', (req, res) => {
 
 });
 
+router.get('/whatIsMyID', (req, res) => {
+
+  let userID = req.user ? req.user.id : 2;
+
+  res.status.send(userID);
+  
+});
+
+
+
 module.exports = router;
