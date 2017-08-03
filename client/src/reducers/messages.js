@@ -7,6 +7,11 @@ export default function messages(state = {
       ...state,
       messageArray: action.payload
     }
+  case 'RESET_MESSAGE':
+    return {
+      ...state,
+      messageArray: action.payload
+    }
   default:
     return state;
   }

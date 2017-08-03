@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { newMessage } from '../../actions/msgAction';
+import { newMessage, resetMessage } from '../../actions/msgAction';
 import { urlAction } from '../../actions/urlAction';
 import io from 'socket.io-client';
 
@@ -20,14 +20,17 @@ class Chat extends Component {
 
   componentWillMount() {
     this.props.urlAction('chat');
-    let userId = parseInt(document.getElementById('userID').innerHTML);
     this.setState({
-      send_id: userId,
+      send_id: this.props.profile.myId.id,
       receive_id: this.props.profile.profileId
     }, () => {
       this.socket.emit('fetchMessages', this.state);
     });
     this.handleMessageEvent();
+  }
+
+  componentWillUnmount() {
+    this.props.resetMessage([]);
   }
 
   handleMessageEvent() {
@@ -57,9 +60,9 @@ class Chat extends Component {
             <div className='chatting-li-right'>
               <span className="comment-combined">
                 {message.text} &nbsp;
-                <strong>{ this.props.profile.sendUserInfo.first }</strong>
+                <strong>{ this.props.profile.myId.first }</strong>
               </span>
-              <img src={ this.props.profile.sendUserInfo.photo } className="comments-icon" />
+              <img src={ this.props.profile.myId.photo } className="comments-icon" />
             </div>
           </li>
         );
@@ -113,7 +116,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ newMessage, urlAction }, dispatch);
+  return bindActionCreators({ newMessage, urlAction, resetMessage }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

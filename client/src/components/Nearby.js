@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import LazyLoad from 'react-lazyload';
-import axios from 'axios';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading/Loading';
 import { urlAction } from '../actions/urlAction';
 import { getLocation } from '../actions/geoAction';
 import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
+import { setMyId } from '../actions/profileAction';
 
 require('!style-loader!css-loader!sass-loader!../styles/main.scss');
 require('!style-loader!css-loader!sass-loader!../styles/main.css');
@@ -20,6 +21,7 @@ class Nearby extends Component {
 
   componentWillMount() {
     this.props.urlAction('nearby');
+    // axios.get('/api/whatIsMyID').then((id) => this.props.setMyId(id));
   }
 
   componentWillUpdate(nextProps) {
@@ -73,7 +75,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ urlAction, getLocation, imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched }, dispatch);
+  return bindActionCreators({ urlAction, getLocation, imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched, setMyId }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nearby);

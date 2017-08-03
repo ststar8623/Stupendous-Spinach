@@ -81,7 +81,6 @@ module.exports.getProfile = (profileID, requestID) => {
     .then((data) => {
       data.rows.length > 0 ? returnObj.isFollowed = true : returnObj.isFollowed = false;
 
-      console.log(returnObj);
 
       return returnObj;
     });

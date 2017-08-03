@@ -29,7 +29,6 @@ class Profile extends Component {
       followed: null
     };
     this.props.viewProfile(this.props.params.userId, (profile)=> {
-      console.log('profile ', profile);
       this.setState({
         url: profile.profile.photo,
         isMyProfile: profile.isOwnProfile,

@@ -73,3 +73,19 @@ export const setSendUserProfile = (userId) => {
     payload: data
   };
 };
+
+export const setMyId = () => {
+  let data = new Promise((resolve, reject) => {
+    return axios.get('/api/whatIsMyID')
+      .then((res) => {
+        resolve(res.data.profile);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+  return {
+    type: 'SET_MY_ID',
+    payload: data
+  };
+};

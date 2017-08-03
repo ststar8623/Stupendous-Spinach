@@ -7,17 +7,12 @@ import { imageIsFetched } from '../../actions/imageAction';
 // import { firstLoad } from '../../helpers/firstLoad';
 
 class NavigationBarTop extends Component {
-  componentWillMount() {
-    this.state = {
-      userID: `/user/${parseInt(document.getElementById('userID').innerHTML)}`
-    };
-  }
   refreshButton() {
     this.props.imageIsFetched(false);
   }
 
   goBackButton() {
-    const backToWhere = this.props.url === 'googleMapPhotoCard' ? '/googleMap' : this.props.url === 'chat' ? `/user/${this.props.userId}` : '/';
+    const backToWhere = this.props.url === 'googleMapPhotoCard' ? '/googleMap' : this.props.url === 'chat' ? `/user/${this.props.profile.profileId}` : '/';
     browserHistory.push(backToWhere); 
   }
 
@@ -32,7 +27,7 @@ class NavigationBarTop extends Component {
           <div className="navbar-header floatCenter">
             <span className={ refreshOrBackButton } aria-hidden="true" onClick={ refreshOrBackFunction }></span>
             <span className="flashback-title">{ flashBackOrComments }</span>
-            <Link to={this.state.userID}><span className="glyphicon fa fa-user floatRight" aria-hidden="true"></span></Link>
+            <Link to={ `/user/${this.props.profile.myId}` }><span className="glyphicon fa fa-user floatRight" aria-hidden="true"></span></Link>
           </div>
         </div>
       </nav>
@@ -44,7 +39,7 @@ const mapStateToProps = (state) => {
   return {
     url: state.url,
     name: state,
-    userId: state.profile.profileId
+    profile: state.profile
   };
 };
 

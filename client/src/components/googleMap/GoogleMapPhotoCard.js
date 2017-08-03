@@ -5,10 +5,17 @@ import { bindActionCreators } from 'redux';
 import { selectOnePhotoFromRadius } from '../../actions/imageAction';
 import NearbyPhotoCard from '../NearbyPhotoCard';
 import LazyLoad from 'react-lazyload';
+import { browserHistory } from 'react-router';
 
 class GoogleMapPhotoCard extends Component {
   componentWillMount() {
     this.props.urlAction('googleMapPhotoCard');
+  }
+
+  componentDidMount() {
+    if (!this.props.mapPhoto.somePhotoFromRadius.length) {
+      browserHistory.push('/');
+    }
   }
 
   enLargePhoto(photo) {
