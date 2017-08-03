@@ -56,7 +56,7 @@ class GoogleMap extends Component {
     } else {
       return (
         <div className="google-map">
-          <GoogleMapReact style={ styles } center={currPosition.center} zoom={currPosition.zoom}>
+          <GoogleMapReact style={ styles } center={currPosition.center} zoom={currPosition.zoom} bootstrapURLKeys={{key: "AIzaSyCPULz1AWos4C7ic-jiHr32cVru2A4_D9A"}}>
             { photoCard }
           </GoogleMapReact>
         </div>

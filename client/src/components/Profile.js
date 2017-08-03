@@ -49,6 +49,7 @@ class Profile extends Component {
   componentWillUnmount() {
     this.props.urlAction('nearby');
     this.props.oneUserPhotoIsFetched(false);
+    this.props.selectPhotoFromProfile(null);
   }
 
   selectedPhotoOnMap(i) {
@@ -64,7 +65,6 @@ class Profile extends Component {
 
   render() {
     const { allPhotoFromUser, oneUserPhotoIsFetched, oneUserPhoto } = this.props.mapPhoto;
-
     const photos = allPhotoFromUser.map((photo, i) => {
       return (
         <LazyLoad height={50} key={i} className="photoCard-div col-xs-12 col-md-6 col-lg-3">
@@ -72,11 +72,21 @@ class Profile extends Component {
         </LazyLoad>
       );
     });
+    let currPosition;
 
+    if (oneUserPhoto) {
+      currPosition = {
+        center: {
+          lat: 37.7836526 || oneUserPhoto.latitude, 
+          lng: -122.4089972 || oneUserPhoto.longitude
+        },
+        zoom: 13
+      };
+    }
     const enLargeMap = oneUserPhoto ? (
-      <div style={{ height: '300px', width: '100%' }}>
-        <GoogleMapReact style={{ height: '300px', width: '100%' }} center={{ lat: oneUserPhoto.latitude, lng: oneUserPhoto.longitude }} zoom={13}>
-          <div lat={oneUserPhoto.latitude} lng={oneUserPhoto.longitude}></div>
+      <div className="google-map-div">
+        <GoogleMapReact bootstrapURLKeys={{key: "AIzaSyCPULz1AWos4C7ic-jiHr32cVru2A4_D9A"}} center={currPosition.center} zoom={14} onClick={this.showGoogleMap.bind(this, null)} className="google-map-profile">
+          <div lat={oneUserPhoto.latitude} lng={oneUserPhoto.longitude}><span className="fa fa-map-marker map-marker"></span></div>
         </GoogleMapReact> 
       </div>
     ) : '';
@@ -110,10 +120,10 @@ class Profile extends Component {
               </div>
             </div>
           </div>
-          { enLargeMap }
           <div className="container">
             <div className="row">
               <div className="mapPhotoCard-profile-container col-xs-12">
+                { enLargeMap }
                 { photos }
               </div>
             </div>
