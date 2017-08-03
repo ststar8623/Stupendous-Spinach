@@ -1,5 +1,3 @@
-// const idbKeyVal = require('idb-keyval');
-
 const shellCacheName = 'flashbackPWA-shell-v02';
 
 const userDataCacheName = 'flashbackPWA-user-data-v02';
@@ -8,7 +6,7 @@ const photoCacheName = 'flashbackPWA-photos-v02';
 const photoApiUrl = 'https://res.cloudinary.com/spinach-flashback/image/upload/';
 
 var shellFilesToCache = [
-  // '/dist/bundle.js', // ******* Comment this out for local, uncomment the one in urlsToIgnore below
+  '/dist/bundle.js',
   '/assets/fb-logo.png',
   '/assets/google-logo.png',
   '/assets/twitter-logo.png',
@@ -24,40 +22,15 @@ var shellFilesToCache = [
   'https://fonts.gstatic.com/s/kaushanscript/v5/qx1LSqts-NtiKcLw4N03IJsM3FTMmj2kTPH3yX99Yaw.woff2',
   'https://netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts/fontawesome-webfont.woff?v=4.0.3',
   'https://fonts.googleapis.com/css?family=Plaster',
-  'https://fonts.googleapis.com/css?family=Kaushan+Script'
-  // 'https://react.semantic-ui.com/assets/images/avatar/small/jenny.jpg'
-
-/* potential
-  // 'https://maps.google.com/maps-api-v3/api/js/29/13/common.js',
-  // 'https://maps.google.com/maps-api-v3/api/js/29/13/util.js',
-  // 'https://maps.google.com/maps-api-v3/api/js/29/13/stats.js',
-  Other styling
-  urlEnv + '/profile',
-  urlEnv + '/profile#_=_',
-  urlEnv + '/',
-  urlEnv + '/login',
-  urlEnv + '/nearby',
-  urlEnv + '/camera',
-  urlEnv + '/likes', */
+  'https://fonts.googleapis.com/css?family=Kaushan+Script',
+  'https://static.xx.fbcdn.net/rsrc.php/v3iuD54/yV/l/en_US/K4wmpPJ62E5.js',
+  'https://static.xx.fbcdn.net/rsrc.php/v3isCH4/yW/l/en_US/eEiSiDcVD_V.js',
+  'https://static.xx.fbcdn.net/rsrc.php/v3/yb/r/dLqYmV_pViI.js',
+  'https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/6XKRaiDlas5.js',
+  'https://static.xx.fbcdn.net/rsrc.php/v3/yu/l/0,cross/kaG2u3miLoi.css',
+  'https://static.xx.fbcdn.net/rsrc.php/v3/yy/l/0,cross/IE8UuftA-Db.css'
 ];
 
-/*
-var urlsToIgnore = shellFilesToCache.concat([
-  '/dist/bundle.js', // Uncomment this for local
-  '/auth/facebook',
-  '/Authentication',
-  'Authenticate',
-  urlEnv + '/login',
-  'https://maps.google.com/maps-api-v3/api/js/29/13/common.js',
-  'https://maps.google.com/maps-api-v3/api/js/29/13/util.js',
-  'https://maps.google.com/maps-api-v3/api/js/29/13/stats.js',
-  'https://maps.google.com/maps/api',
-  'https://csi.gstatic.com/',
-  'https://scontent.xx.fbcdn.net',
-  urlEnv + '/api/mapPhotos/',
-  urlEnv + '/nearby'
-]);
-*/
 
 // Install SW and cache shell files
 self.addEventListener('install', (e) => {
@@ -172,21 +145,3 @@ const cachedShellResponse = function(request) {
     console.error('[ServiceWorker] ERROR shell response', error, '\n', request.url, request);
   });
 };
-
-// navigator.storageQuota.queryInfo('temporary').then(function(info) {
-//   console.log(info.quota); // Result: <quota in bytes>
-//   console.log(info.usage); // Result: <used data in bytes>
-// });
-
-// if (urlsToIgnore.every(urlBit => (e.request.url.indexOf(urlBit) === -1))) {
-
-// } else if (!e.request.headers.has('Authorization')) {
-
-// else {
-//   // console.log('[Service Worker] ignored URL: ', e.request.url);
-//   e.respondWith(
-//     caches.match(e.request).then((response) => {
-//       return response || fetch(e.request);
-//     })
-//   );
-// }
