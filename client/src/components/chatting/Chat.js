@@ -20,9 +20,8 @@ class Chat extends Component {
 
   componentWillMount() {
     this.props.urlAction('chat');
-    let userId = parseInt(document.getElementById('userID').innerHTML);
     this.setState({
-      send_id: userId,
+      send_id: this.props.profile.myId,
       receive_id: this.props.profile.profileId
     }, () => {
       this.socket.emit('fetchMessages', this.state);

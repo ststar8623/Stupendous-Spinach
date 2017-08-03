@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import LazyLoad from 'react-lazyload';
-import axios from 'axios';
 import NearbyPhotoCard from './NearbyPhotoCard';
 import Loading from './Loading/Loading';
 import { urlAction } from '../actions/urlAction';
@@ -21,7 +21,7 @@ class Nearby extends Component {
 
   componentWillMount() {
     this.props.urlAction('nearby');
-    axios.get('/api/whatIsMyID').then((id) => this.props.setMyId(id));
+    // axios.get('/api/whatIsMyID').then((id) => this.props.setMyId(id));
   }
 
   componentWillUpdate(nextProps) {

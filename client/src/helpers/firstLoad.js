@@ -2,7 +2,7 @@
 import store from '../store';
 import { getLocation } from '../actions/geoAction';
 import { imageAction, imageIsFetched, fetchPhotoFromRadius, mapPhotoIsFetched } from '../actions/imageAction';
-import { setSendUserProfile } from '../actions/profileAction';
+import { setSendUserProfile, setMyId } from '../actions/profileAction';
 
 export default store.dispatch((dispatch) => {
   return new Promise((resolve, reject) => {
@@ -12,7 +12,7 @@ export default store.dispatch((dispatch) => {
   }).then(() => {
     return dispatch(fetchPhotoFromRadius(50, { location: store.getState().location }));
   }).then(() => {
-    return dispatch(setSendUserProfile(parseInt(document.getElementById('userID').innerHTML)));
+    return dispatch(setMyId());
   }).then((data) => {
     return dispatch(imageIsFetched(true));
   }).then(() => {

@@ -9,7 +9,7 @@ import { imageIsFetched } from '../../actions/imageAction';
 class NavigationBarTop extends Component {
   componentWillMount() {
     this.state = {
-      userID: `/user/${parseInt(document.getElementById('userID').innerHTML)}`
+      userID: `/user/${this.props.myId}`
     };
   }
   refreshButton() {
@@ -44,7 +44,8 @@ const mapStateToProps = (state) => {
   return {
     url: state.url,
     name: state,
-    userId: state.profile.profileId
+    userId: state.profile.profileId,
+    myId: state.profile.myId
   };
 };
 
