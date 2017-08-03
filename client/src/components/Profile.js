@@ -33,7 +33,8 @@ class Profile extends Component {
         display: profile.profile.display,
         followers: profile.profile.follower_count,
         following: profile.profile.following_count,
-        userId: profile.profile.id
+        userId: profile.profile.id,
+        posts: profile.profile.post_count
       }, ()=>{
         this.props.setUserProfile(this.state.url, this.state.display);
         this.props.getPhotosOfUser(this.state.userId);
