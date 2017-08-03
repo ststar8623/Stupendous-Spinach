@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { currentPhotoAction } from '../actions/imageAction';
-import { viewProfile, getPhotosOfUser } from '../actions/likeAction';
+import { viewProfile, getPhotosOfUser, oneUserPhotoIsFetched, selectPhotoFromProfile } from '../actions/imageAction';
 import { urlAction } from '../actions/urlAction';
 import Loading from './Loading/Loading';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router';
 import Carousel from './Carousel';
 import { setUserId, setUserProfile } from '../actions/profileAction';
+import LazyLoad from 'react-lazyload';
 
 class Profile extends Component {
   constructor(props) {
@@ -47,88 +48,88 @@ class Profile extends Component {
 
   componentWillUnmount() {
     this.props.urlAction('nearby');
-
+    this.props.oneUserPhotoIsFetched(false);
+    this.props.selectPhotoFromProfile(null);
   }
+
   selectedPhotoOnMap(i) {
     this.setState ({
-      index: i
+      index: i,
+      mapView: !this.state.mapView
     });
-    this.changeMapViewStat(false);
   }
 
-  changeMapViewStat(state) {
-    this.setState ({
-      mapView: state
-    });
+  showGoogleMap(photo) {
+    this.props.selectPhotoFromProfile(photo);
   }
 
   render() {
-    let currPosition = {
-      center: {lat: this.props.location.latitude, lng: this.props.location.longitude},
-      zoom: 13
-    };
-    var photos = this.props.mapPhoto.onePhotoFromRadius;
+    const { allPhotoFromUser, oneUserPhotoIsFetched, oneUserPhoto } = this.props.mapPhoto;
+    const photos = allPhotoFromUser.map((photo, i) => {
+      return (
+        <LazyLoad height={50} key={i} className="photoCard-div col-xs-12 col-md-6 col-lg-3">
+          <img className="mapPhotoCard" src={ photo.url } onClick={ this.showGoogleMap.bind(this, photo) }/>
+        </LazyLoad>
+      );
+    });
+    let currPosition;
 
-    if (photos) {
-
-      var latitudeObj = {};
-      var isFetched = true;
-      var photosDiv = photos.map((photo, i)=>{
-        let latitude = photo.latitude;
-        latitudeObj[latitude] ? latitudeObj[latitude] = latitude : '';
-        return (
-          <div key={i} lat={ photo.latitude } lng={ photo.longitude } >
-            <img src={photo.url} className='profileMapPhoto' onClick={this.selectedPhotoOnMap.bind(this, i) } />
-          </div>
-        );
-      });
+    if (oneUserPhoto) {
+      currPosition = {
+        center: {
+          lat: 37.7836526 || oneUserPhoto.latitude, 
+          lng: -122.4089972 || oneUserPhoto.longitude
+        },
+        zoom: 13
+      };
     }
+    const enLargeMap = oneUserPhoto ? (
+      <div className="google-map-div">
+        <GoogleMapReact bootstrapURLKeys={{key: "AIzaSyCPULz1AWos4C7ic-jiHr32cVru2A4_D9A"}} center={currPosition.center} zoom={14} onClick={this.showGoogleMap.bind(this, null)} className="google-map-profile">
+          <div lat={oneUserPhoto.latitude} lng={oneUserPhoto.longitude}><span className="fa fa-map-marker map-marker"></span></div>
+        </GoogleMapReact> 
+      </div>
+    ) : '';
 
     return (
-      <div>
-        { 
-          this.state.url ? 
-            <div className="profile-component">
-              <div className='profile-profile'>
-                <div className='round'>
-                  <img className='profilePic' src={ this.state.url } /> 
-                </div>
-                <div className='text-center'>
-                  <p> {this.state.display} </p>
-                  { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
-                  { this.state.isMyProfile ? '' : <Link to="/chat"><p className="btn btn-primary btn-xs">Message</p></Link>}
-                </div>
-                <div className='followDataContainer'>
-                  <div className='col-xs-4'> 
-                    <div className='num text-center'> {this.state.followers}</div>
-                    <div className='letters text-center'> followers </div>
-                  </div>
-
-                  <div className='col-xs-4'> 
-                    <div className='num text-center'> {this.state.following}</div>
-                    <div className='letters text-center'> following </div>
-                  </div>
-
-                  <div className='col-xs-4'> 
-                    <div className='num text-center'> {this.state.posts}</div>
-                    <div className='letters text-center'> posts </div>
-                  </div>
-                </div>
+      oneUserPhotoIsFetched ? 
+        <div className="profile-component">
+          <div className='profile-profile'>
+            <div className='round'>
+              <img className='profilePic' src={ this.state.url } /> 
+            </div>
+            <div className='text-center'>
+              <p> {this.state.display} </p>
+              { this.state.isMyProfile ? '' : <p className="btn btn-primary btn-xs">Follow</p> }
+              { this.state.isMyProfile ? '' : <Link to="/chat"><p className="btn btn-primary btn-xs">Message</p></Link>}
+            </div>
+            <div className='followDataContainer'>
+              <div className='col-xs-4'> 
+                <div className='num text-center'> {this.state.followers}</div>
+                <div className='letters text-center'> followers </div>
               </div>
 
-              <div className='profileMap'>
-                {this.state.mapView ? 
-                  <GoogleMapReact center={currPosition.center} zoom={currPosition.zoom} >
-                    {photosDiv}
-                  </GoogleMapReact>
-                  : <Carousel mapView={this.changeMapViewStat.bind(this)} photos={photos} index={this.state.index} /> 
-                }
+              <div className='col-xs-4'> 
+                <div className='num text-center'> {this.state.following}</div>
+                <div className='letters text-center'> following </div>
+              </div>
+
+              <div className='col-xs-4'> 
+                <div className='num text-center'> {this.state.posts}</div>
+                <div className='letters text-center'> posts </div>
               </div>
             </div>
-          
-            : <Loading />
-        }
-      </div>
+          </div>
+          <div className="container">
+            <div className="row">
+              <div className="mapPhotoCard-profile-container col-xs-12">
+                { enLargeMap }
+                { photos }
+              </div>
+            </div>
+          </div>
+        </div>
+        : <Loading />
     );
   }
 }
@@ -141,7 +142,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser,setUserId, setUserProfile }, dispatch);
+  return bindActionCreators({ currentPhotoAction, urlAction, viewProfile, getPhotosOfUser, setUserId, setUserProfile, oneUserPhotoIsFetched, selectPhotoFromProfile }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

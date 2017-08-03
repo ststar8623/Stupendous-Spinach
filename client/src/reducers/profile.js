@@ -4,7 +4,8 @@ export default function profile(state = {
   profileId: null,
   profileUrl: null,
   sendUserInfo: null,
-  profileIsFetched: false
+  profileIsFetched: false,
+  currentProfilePhoto: []
 }, action) {
   switch (action.type) {
   case 'PROFILE_PHOTO':
@@ -38,6 +39,11 @@ export default function profile(state = {
     return {
       ...state,
       sendUserInfo: action.payload
+    }
+  case 'SELECT_PHOTO_FROM_PROFILE':
+    return {
+      ...state,
+      currentProfilePhoto: action.payload
     }
   default:
     return state;

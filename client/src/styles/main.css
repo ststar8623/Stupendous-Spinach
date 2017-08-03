@@ -76,6 +76,7 @@ a:hover {
 /* NEARBY PHOTOCARD COMPONENT */
 .img-thumbnail {
   padding: 0px;
+  border-radius: 0 25px;
 }
 
 .fb-icon {
@@ -277,8 +278,22 @@ a:hover {
 /* ----------------------------------- */
 
 /* GOOGLE MAP SECTION */
-.google-map {
-  margin: 50px 0;
+.google-map-div {
+  position: fixed;
+  width: 100%;
+  height: 300px;
+  text-align: center;
+}
+
+.google-map-profile {
+  width: 100%;
+  height: 300px;
+}
+
+.map-marker {
+  font-size: 50px;
+  color: red;
+  margin: -40px;
 }
 
 .google-thumbnail {
@@ -287,6 +302,7 @@ a:hover {
   background-color: #8B74FC;
   color: white;
   font-size: 1.5em;
+  border-radius: 25px;
 }
 
 .show-image-div {
@@ -299,8 +315,6 @@ a:hover {
 
 .mapPhotoCard-container {
   margin: 13% 0 0;
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
 }
 
 .photoCard-div {
@@ -346,9 +360,14 @@ a:hover {
   font-size: 2em;
 }
 
+.mapPhotoCard-profile-container {
+  margin: 100px 0;
+  padding: 0;
+}
+
 .profile-profile {
   font-size: 14px; 
-  margin: 100px 0 20px; 
+  margin: 70px 0 0; 
 }
 
 .round {

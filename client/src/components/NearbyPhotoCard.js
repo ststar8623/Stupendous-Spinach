@@ -41,7 +41,7 @@ class NearbyPhotoCard extends Component {
     const commentCounts = !comment_count ? 'No' : comment_count;
     const zeroOrMoreComment = comment_count <= 1 ? 'comment' : 'comments';
 
-    let timeLapse = null;
+    let timeLapse = '';
 
     if (age.days) {
       timeLapse = age.days + ' days';
