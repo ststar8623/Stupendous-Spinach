@@ -223,8 +223,8 @@ router.get('/whatIsMyID', (req, res) => {
 
   let userID = req.user ? req.user.id : 2;
 
-  res.status.send(userID);
-  
+  res.status(200).send({yourID: userID});
+
 });
 
 
