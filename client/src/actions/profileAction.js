@@ -73,3 +73,10 @@ export const setSendUserProfile = (userId) => {
     payload: data
   };
 };
+
+export const setMyId = (id) => {
+  return {
+    type: 'SET_MY_ID',
+    payload: id
+  };
+};
