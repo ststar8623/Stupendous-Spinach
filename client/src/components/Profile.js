@@ -124,7 +124,7 @@ class Profile extends Component {
           <div className="container">
             <div className="row">
               <div className="mapPhotoCard-profile-container col-xs-12">
-                { enLargeMap }
+                {/* { enLargeMap } */}
                 { photos }
               </div>
             </div>
