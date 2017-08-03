@@ -75,6 +75,14 @@ module.exports.getProfile = (profileID, requestID) => {
     })
     .then((data) => {
       returnObj.photos = data.rows;
+      
+      return models.Follower.FollowersQueries.checkIfFollowed(requestID, profileID);
+    })
+    .then((data) => {
+      data.rows.length > 0 ? returnObj.isFollowed = true : returnObj.isFollowed = false;
+
+      console.log(returnObj);
+
       return returnObj;
     });
     

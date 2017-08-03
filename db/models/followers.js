@@ -32,6 +32,19 @@ class FollowersQueries {
 
   }
 
+  checkIfFollowed(userID, followerID) {
+
+    let query = `select * from friends where user_id = ${userID} and follower_id = ${followerID}`;
+
+    return knex.raw(query);
+  }
+
+  removeFollower(userID, followerID) {
+    let query = `delete from friends where user_id = ${userID} and follower_id=${followerID}`;
+
+    return knex.raw(query);
+  }
+
 
 
 }

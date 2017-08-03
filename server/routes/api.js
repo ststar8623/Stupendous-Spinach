@@ -197,8 +197,17 @@ router.put('/addFollower/:followerID', (req, res) => {
 
 });
 
-router.get('/getFollowers', (req, res) => {
+router.put('/removeFollower/:followerID', (req, res) => {
 
+  let userID = req.user ? req.user.id : 2;
+
+  FollowersController.removeFollower(userID, req.params.followerID)
+    .then((data) => {
+      res.status(200).send('Remove successful');
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
 
 });
 
