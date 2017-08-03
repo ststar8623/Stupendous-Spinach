@@ -29,7 +29,7 @@ const config = {
     //     evaluate: true,
     //     drop_console: true, // strips console statements
     //     sequences: true,
-    //     booleans: true,
+    //     booleans: true
     //   }
     // })
   ],

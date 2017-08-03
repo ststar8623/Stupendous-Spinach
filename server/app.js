@@ -3,11 +3,13 @@ const express = require('express');
 const path = require('path');
 const middleware = require('./middleware');
 const routes = require('./routes');
+const compression = require('compression');
 
 const app = express();
 
 // const http = require('http').createServer(app);
 // const io = require('socket.io').listen(http);
+app.use(compression());
 app.use(middleware.morgan('dev'));
 app.use(middleware.cookieParser());
 app.use(middleware.bodyParser.urlencoded({extended: false}));
