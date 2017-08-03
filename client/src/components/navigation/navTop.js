@@ -17,7 +17,7 @@ class NavigationBarTop extends Component {
   }
 
   goBackButton() {
-    const backToWhere = this.props.url === 'googleMapPhotoCard' ? '/googleMap' : '/';
+    const backToWhere = this.props.url === 'googleMapPhotoCard' ? '/googleMap' : this.props.url === 'chat' ? `/user/${this.props.userId}` : '/';
     browserHistory.push(backToWhere); 
   }
 
@@ -43,7 +43,8 @@ class NavigationBarTop extends Component {
 const mapStateToProps = (state) => {
   return {
     url: state.url,
-    name: state
+    name: state,
+    userId: state.profile.profileId
   };
 };
 
