@@ -27,7 +27,7 @@ class NavigationBarTop extends Component {
           <div className="navbar-header floatCenter">
             <span className={ refreshOrBackButton } aria-hidden="true" onClick={ refreshOrBackFunction }></span>
             <span className="flashback-title">{ flashBackOrComments }</span>
-            <Link to={ `/user/${this.props.profile.myId}` }><span className="glyphicon fa fa-user floatRight" aria-hidden="true"></span></Link>
+            <Link to={ `/user/${this.props.profile.myId.id}` }><span className="glyphicon fa fa-user floatRight" aria-hidden="true"></span></Link>
           </div>
         </div>
       </nav>
